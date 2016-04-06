@@ -1,0 +1,45 @@
+<wsdl:definitions name="OrderIDOMProviderService" targetNamespace="ikea.com/system/iip/OrderIDOMProviderService/1.0/" xmlns:provimplidomord="ikea.com/system/iip/OrderIDOMProviderService/1.0/" xmlns:ordinp="http://www.sterlingcommerce.com/documentation/YFS/createOrder/input" xmlns:iipresmsg="ikea.com/system/iip/IIPResponseMessage/1.0/" xmlns:iipfaultmsg="ikea.com/system/iip/IIPFaultMessage/1.0/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:svcdoc="http://xmlns.oracle.com/Services/Documentation/V1">
+	<wsdl:types>
+		<xsd:schema>
+			<xsd:import namespace="http://www.sterlingcommerce.com/documentation/YFS/createOrder/input" schemaLocation="../../../DataModels/ApplicationObjects/IDOM/YFS_createOrder_input.xsd"/>
+			<xsd:import namespace="ikea.com/system/iip/IIPResponseMessage/1.0/" schemaLocation="../../../DataModels/Infrastructure/ErrorHandling/V1/IIPResponseMessage.xsd"/>
+			<xsd:import namespace="ikea.com/system/iip/IIPFaultMessage/1.0/" schemaLocation="../../../DataModels/Infrastructure/ErrorHandling/V1/IIPFaultMessage.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="CreateOrderReqMsg">
+		<wsdl:part name="Order" element="ordinp:Order"/>
+	</wsdl:message>
+	<wsdl:message name="CreateOrderRespMsg">
+		<wsdl:part name="OrderResponse" element="iipresmsg:IIPResponseMessage"/>
+	</wsdl:message>
+	<wsdl:message name="CreateOrderFaultMsg">
+		<wsdl:part name="Fault" element="iipfaultmsg:IIPFaultMessage"/>
+	</wsdl:message>
+	<wsdl:portType name="OrderIDOMProviderService">
+		<wsdl:operation name="CreateOrder">
+			<wsdl:input message="provimplidomord:CreateOrderReqMsg"/>
+			<wsdl:output message="provimplidomord:CreateOrderRespMsg"/>
+			<wsdl:fault name="fault" message="provimplidomord:CreateOrderFaultMsg"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="OrderIDOMProviderServiceBinding" type="provimplidomord:OrderIDOMProviderService">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="CreateOrder">
+			<soap:operation soapAction="CreateOrder" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="fault">
+				<soap:fault name="fault" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="OrderIDOMProviderService">
+		<wsdl:port name="OrderIDOMProviderServicePort" binding="provimplidomord:OrderIDOMProviderServiceBinding">
+			<soap:address location="http://localhost:7001"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

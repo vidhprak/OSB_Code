@@ -1,0 +1,571 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema elementFormDefault="qualified"
+	attributeFormDefault="unqualified" targetNamespace="http://www.siebel.com/xml/SwiOrganizationIO"
+	xmlns:xsdLocal3="http://www.siebel.com/xml/SwiOrganizationIO"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:annotation>
+		<xsd:documentation>Copyright (C) 2001-2004 Siebel Systems, Inc. All
+			rights reserved. Siebel XSD Generation</xsd:documentation>
+	</xsd:annotation>
+	<xsd:element name="ListOfSwiOrganizationIO" type="xsdLocal3:ListOfSwiOrganizationIO" />
+	<xsd:complexType name="ListOfSwiOrganizationIOTopElmt">
+		<xsd:sequence>
+			<xsd:element name="ListOfSwiOrganizationIO" maxOccurs="1"
+				minOccurs="1" type="xsdLocal3:ListOfSwiOrganizationIO" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ListOfSwiOrganizationIO">
+		<xsd:sequence>
+			<xsd:element name="Account" maxOccurs="unbounded"
+				minOccurs="1" type="xsdLocal3:Account" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Account">
+		<xsd:sequence>
+			<xsd:element name="Id" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="PartyUId" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="Name" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="NamePhonetic" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="Type" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="Status" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="CustomerNumber" maxOccurs="1"
+				minOccurs="0" type="xsd:string" />
+			<xsd:element name="VATNumber" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="CompanyNumber" maxOccurs="1"
+				minOccurs="0" type="xsd:string" />
+			<xsd:element name="CountryCode" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="LanguageCode" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="ImageURL" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="BusinessCategoryCode" maxOccurs="1"
+				minOccurs="0" type="xsd:string" />
+			<xsd:element name="BusinessTradeCode" maxOccurs="1"
+				minOccurs="0" type="xsd:string" />
+			<xsd:element name="GeoMarketingCode" maxOccurs="1"
+				minOccurs="0" type="xsd:string" />
+			<xsd:element name="InitialBUCode" maxOccurs="1"
+				minOccurs="0" type="xsd:string" />
+			<xsd:element name="InitialBUType" maxOccurs="1"
+				minOccurs="0" type="xsd:string" />
+			<xsd:element name="PrefferedBUCode" maxOccurs="1"
+				minOccurs="0" type="xsd:string" />
+			<xsd:element name="PrefferedBUType" maxOccurs="1"
+				minOccurs="0" type="xsd:string" />
+			<xsd:element name="PrefferedBUCountryCode" maxOccurs="1"
+				minOccurs="0" type="xsd:string" />
+			<xsd:element name="PreferredShoppingChannel" maxOccurs="1"
+				minOccurs="0" type="xsd:string" />
+			<xsd:element name="ParentAccountId" maxOccurs="1"
+				minOccurs="0" type="xsd:string" />
+			<xsd:element name="ParentAccountNumber" maxOccurs="1"
+				minOccurs="0" type="xsd:string" />
+			<xsd:element name="Created" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="Updated" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="ListOfAddress" maxOccurs="1"
+				minOccurs="0" type="xsdLocal3:ListOfAddress" />
+			<xsd:element name="ListOfAccountCategory" maxOccurs="1"
+				minOccurs="0" type="xsdLocal3:ListOfAccountCategory" />
+			<xsd:element name="ListOfContactMethod" maxOccurs="1"
+				minOccurs="0" type="xsdLocal3:ListOfContactMethod" />
+			<xsd:element name="ListOfIntegrityCode" maxOccurs="1"
+				minOccurs="0" type="xsdLocal3:ListOfIntegrityCode" />
+			<xsd:element name="ListOfLoyaltyMember" maxOccurs="1"
+				minOccurs="0" type="xsdLocal3:ListOfLoyaltyMember" />
+			<xsd:element name="ListOfAccountOrganization" maxOccurs="1"
+				minOccurs="0" type="xsdLocal3:ListOfAccountOrganization" />
+			<xsd:element name="ListOfContact" maxOccurs="1"
+				minOccurs="0" type="xsdLocal3:ListOfContact" />
+		</xsd:sequence>
+		<xsd:attribute name="operation" type="xsd:string" />
+		<xsd:attribute name="searchspec" type="xsd:string" />
+	</xsd:complexType>
+	<xsd:complexType name="ListOfAddress">
+		<xsd:sequence>
+			<xsd:element name="Address" maxOccurs="unbounded"
+				minOccurs="0" type="xsdLocal3:Address" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Address">
+		<xsd:sequence>
+			<xsd:element name="Id" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="StreetAddress" maxOccurs="1"
+				minOccurs="0" type="xsd:string" />
+			<xsd:element name="City" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="PostalCode" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="PostalCodePrefix" maxOccurs="1"
+				minOccurs="0" type="xsd:string" />
+			<xsd:element name="PostalCodeType" maxOccurs="1"
+				minOccurs="0" type="xsd:string" />
+			<xsd:element name="Country" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="County" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="Province" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="State" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="HouseNumber" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="ApartmentNumber" maxOccurs="1"
+				minOccurs="0" type="xsd:string" />
+			<xsd:element name="FloorNo" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="Ward" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="CareOfName" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="AttentionName" maxOccurs="1"
+				minOccurs="0" type="xsd:string" />
+			<xsd:element name="StreetAddress1" maxOccurs="1"
+				minOccurs="0" type="xsd:string" />
+			<xsd:element name="StreetAddress2" maxOccurs="1"
+				minOccurs="0" type="xsd:string" />
+			<xsd:element name="StreetAddress3" maxOccurs="1"
+				minOccurs="0" type="xsd:string" />
+			<xsd:element name="StreetAddress4" maxOccurs="1"
+				minOccurs="0" type="xsd:string" />
+			<xsd:element name="StreetAddress5" maxOccurs="1"
+				minOccurs="0" type="xsd:string" />
+			<xsd:element name="StreetAddress6" maxOccurs="1"
+				minOccurs="0" type="xsd:string" />
+			<xsd:element name="StreetAddress7" maxOccurs="1"
+				minOccurs="0" type="xsd:string" />
+			<xsd:element name="Title" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="FirstName" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="LastName" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="MiddleName" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="NameSuffix" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="Company" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="Created" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="Updated" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="ListOfPreferredContactAddress"
+				maxOccurs="1" minOccurs="0" type="xsdLocal3:ListOfPreferredContactAddress" />
+		</xsd:sequence>
+		<xsd:attribute name="IsPrimaryMVG" type="xsd:string" />
+		<xsd:attribute name="searchspec" type="xsd:string" />
+	</xsd:complexType>
+	<xsd:complexType name="ListOfAccountCategory">
+		<xsd:sequence>
+			<xsd:element name="AccountCategory" maxOccurs="unbounded"
+				minOccurs="0" type="xsdLocal3:AccountCategory" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="AccountCategory">
+		<xsd:sequence>
+			<xsd:element name="Id" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="Category" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="CategoryValue" maxOccurs="1"
+				minOccurs="0" type="xsd:string" />
+			<xsd:element name="Created" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="Updated" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+		</xsd:sequence>
+		<xsd:attribute name="searchspec" type="xsd:string" />
+	</xsd:complexType>
+	<xsd:complexType name="ListOfContactMethod">
+		<xsd:sequence>
+			<xsd:element name="ContactMethod" maxOccurs="unbounded"
+				minOccurs="1" type="xsdLocal3:ContactMethod" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ContactMethod">
+		<xsd:sequence>
+			<xsd:element name="Id" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="Type" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="Value" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="Extension" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="AreaCode" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="CountryCode" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="Created" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="Updated" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="ListOfPreferredContactMethod"
+				maxOccurs="1" minOccurs="0" type="xsdLocal3:ListOfPreferredContactMethod" />
+		</xsd:sequence>
+		<xsd:attribute name="IsPrimaryMVG" type="xsd:string" />
+		<xsd:attribute name="searchspec" type="xsd:string" />
+	</xsd:complexType>
+	<xsd:complexType name="ListOfIntegrityCode">
+		<xsd:sequence>
+			<xsd:element name="IntegrityCode" maxOccurs="unbounded"
+				minOccurs="1" type="xsdLocal3:IntegrityCode" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="IntegrityCode">
+		<xsd:sequence>
+			<xsd:element name="Id" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="IntegrityType" maxOccurs="1"
+				minOccurs="0" type="xsd:string" />
+			<xsd:element name="ConsentCode" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="Created" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="Updated" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+		</xsd:sequence>
+		<xsd:attribute name="searchspec" type="xsd:string" />
+	</xsd:complexType>
+	<xsd:complexType name="ListOfLoyaltyMember">
+		<xsd:sequence>
+			<xsd:element name="LoyaltyMember" maxOccurs="unbounded"
+				minOccurs="0" type="xsdLocal3:LoyaltyMember" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="LoyaltyMember">
+		<xsd:sequence>
+			<xsd:element name="Id" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="ProgramCode" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="Status" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="Created" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="Updated" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="ListOfMembershipCard" maxOccurs="1"
+				minOccurs="0" type="xsdLocal3:ListOfMembershipCard" />
+		</xsd:sequence>
+		<xsd:attribute name="searchspec" type="xsd:string" />
+	</xsd:complexType>
+	<xsd:complexType name="ListOfAccountOrganization">
+		<xsd:sequence>
+			<xsd:element name="AccountOrganization" maxOccurs="unbounded"
+				minOccurs="1" type="xsdLocal3:AccountOrganization" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="AccountOrganization">
+		<xsd:sequence>
+			<xsd:element name="Organization" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="Type" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="OrganizationId" maxOccurs="1"
+				minOccurs="0" type="xsd:string" />
+		</xsd:sequence>
+		<xsd:attribute name="IsPrimaryMVG" type="xsd:string" />
+		<xsd:attribute name="searchspec" type="xsd:string" />
+	</xsd:complexType>
+	<xsd:complexType name="ListOfContact">
+		<xsd:sequence>
+			<xsd:element name="Contact" maxOccurs="1" minOccurs="1"
+				type="xsdLocal3:Contact" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Contact">
+		<xsd:sequence>
+			<xsd:element name="AccountPartyUId" maxOccurs="1"
+				minOccurs="0" type="xsd:string" />
+			<xsd:element name="PartyUId" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="Id" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="FirstName" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="MiddleName" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="LastName" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="Title" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="BusinessTitle" maxOccurs="1"
+				minOccurs="0" type="xsd:string" />
+			<xsd:element name="Suffix" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="GenderCode" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="FirstNamePhonetic" maxOccurs="1"
+				minOccurs="0" type="xsd:string" />
+			<xsd:element name="MiddleNamePhonetic" maxOccurs="1"
+				minOccurs="0" type="xsd:string" />
+			<xsd:element name="LastNamePhonetic" maxOccurs="1"
+				minOccurs="0" type="xsd:string" />
+			<xsd:element name="BirthDate" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="MaritalStatus" maxOccurs="1"
+				minOccurs="0" type="xsd:string" />
+			<xsd:element name="NoOfChildren" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="SocialSecurityNumber" maxOccurs="1"
+				minOccurs="0" type="xsd:string" />
+			<xsd:element name="ContactLanguageCode" maxOccurs="1"
+				minOccurs="0" type="xsd:string" />
+			<xsd:element name="Education" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="IncomeLevelCode" maxOccurs="1"
+				minOccurs="0" type="xsd:string" />
+			<xsd:element name="ProtectedIdentity" maxOccurs="1"
+				minOccurs="0" type="xsd:string" />
+			<xsd:element name="Created" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="Updated" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="ListOfPersonalAddress" maxOccurs="1"
+				minOccurs="0" type="xsdLocal3:ListOfPersonalAddress" />
+			<xsd:element name="ListOfChild" maxOccurs="1" minOccurs="0"
+				type="xsdLocal3:ListOfChild" />
+			<xsd:element name="ListOfContactOrganization" maxOccurs="1"
+				minOccurs="0" type="xsdLocal3:ListOfContactOrganization" />
+			<xsd:element name="ListOfContactResidence" maxOccurs="1"
+				minOccurs="0" type="xsdLocal3:ListOfContactResidence" />
+		</xsd:sequence>
+		<xsd:attribute name="IsPrimaryMVG" type="xsd:string" />
+		<xsd:attribute name="searchspec" type="xsd:string" />
+	</xsd:complexType>
+	<xsd:complexType name="ListOfPreferredContactAddress">
+		<xsd:sequence>
+			<xsd:element name="PreferredContactAddress" maxOccurs="unbounded"
+				minOccurs="0" type="xsdLocal3:PreferredContactAddress" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="PreferredContactAddress">
+		<xsd:sequence>
+			<xsd:element name="Id" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="ContextType" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="Priority" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="Created" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="Updated" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+		</xsd:sequence>
+		<xsd:attribute name="IsPrimaryMVG" type="xsd:string" />
+		<xsd:attribute name="searchspec" type="xsd:string" />
+	</xsd:complexType>
+	<xsd:complexType name="ListOfPreferredContactMethod">
+		<xsd:sequence>
+			<xsd:element name="PreferredContactMethod" maxOccurs="unbounded"
+				minOccurs="0" type="xsdLocal3:PreferredContactMethod" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="PreferredContactMethod">
+		<xsd:sequence>
+			<xsd:element name="Id" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="ContextType" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="Priority" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="Created" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="Updated" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+		</xsd:sequence>
+		<xsd:attribute name="IsPrimaryMVG" type="xsd:string" />
+		<xsd:attribute name="searchspec" type="xsd:string" />
+	</xsd:complexType>
+	<xsd:complexType name="ListOfMembershipCard">
+		<xsd:sequence>
+			<xsd:element name="MembershipCard" maxOccurs="unbounded"
+				minOccurs="1" type="xsdLocal3:MembershipCard" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="MembershipCard">
+		<xsd:sequence>
+			<xsd:element name="Id" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="CardNumber" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="CardType" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="CardIssuer" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="CardCreator" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="Created" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="Updated" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+		</xsd:sequence>
+		<xsd:attribute name="searchspec" type="xsd:string" />
+	</xsd:complexType>
+	<xsd:complexType name="ListOfPersonalAddress">
+		<xsd:sequence>
+			<xsd:element name="PersonalAddress" maxOccurs="unbounded"
+				minOccurs="0" type="xsdLocal3:PersonalAddress" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="PersonalAddress">
+		<xsd:sequence>
+			<xsd:element name="Id" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="StreetAddress" maxOccurs="1"
+				minOccurs="0" type="xsd:string" />
+			<xsd:element name="City" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="PostalCode" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="PostalCodePrefix" maxOccurs="1"
+				minOccurs="0" type="xsd:string" />
+			<xsd:element name="PostalCodeType" maxOccurs="1"
+				minOccurs="0" type="xsd:string" />
+			<xsd:element name="Country" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="County" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="Province" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="State" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="HouseNumber" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="ApartmentNumber" maxOccurs="1"
+				minOccurs="0" type="xsd:string" />
+			<xsd:element name="FloorNo" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="Ward" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="CareOfName" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="AttentionName" maxOccurs="1"
+				minOccurs="0" type="xsd:string" />
+			<xsd:element name="StreetAddress1" maxOccurs="1"
+				minOccurs="0" type="xsd:string" />
+			<xsd:element name="StreetAddress2" maxOccurs="1"
+				minOccurs="0" type="xsd:string" />
+			<xsd:element name="StreetAddress3" maxOccurs="1"
+				minOccurs="0" type="xsd:string" />
+			<xsd:element name="StreetAddress4" maxOccurs="1"
+				minOccurs="0" type="xsd:string" />
+			<xsd:element name="StreetAddress5" maxOccurs="1"
+				minOccurs="0" type="xsd:string" />
+			<xsd:element name="StreetAddress6" maxOccurs="1"
+				minOccurs="0" type="xsd:string" />
+			<xsd:element name="StreetAddress7" maxOccurs="1"
+				minOccurs="0" type="xsd:string" />
+			<xsd:element name="FirstName" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="LastName" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="MiddleName" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="Title" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="NameSuffix" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="Company" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="Created" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="Updated" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+		</xsd:sequence>
+		<xsd:attribute name="IsPrimaryMVG" type="xsd:string" />
+		<xsd:attribute name="searchspec" type="xsd:string" />
+	</xsd:complexType>
+	<xsd:complexType name="ListOfChild">
+		<xsd:sequence>
+			<xsd:element name="Child" maxOccurs="unbounded"
+				minOccurs="0" type="xsdLocal3:Child" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Child">
+		<xsd:sequence>
+			<xsd:element name="Id" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="FirstName" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="LastName" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="Gender" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="BirthDate" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="BirthYear" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="ValidNameIndicator" maxOccurs="1"
+				minOccurs="0" type="xsd:string" />
+			<xsd:element name="Created" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="Updated" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+		</xsd:sequence>
+		<xsd:attribute name="searchspec" type="xsd:string" />
+	</xsd:complexType>
+	<xsd:complexType name="ListOfContactOrganization">
+		<xsd:sequence>
+			<xsd:element name="ContactOrganization" maxOccurs="unbounded"
+				minOccurs="0" type="xsdLocal3:ContactOrganization" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ContactOrganization">
+		<xsd:sequence>
+			<xsd:element name="Organization" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="Type" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="OrganizationId" maxOccurs="1"
+				minOccurs="0" type="xsd:string" />
+		</xsd:sequence>
+		<xsd:attribute name="IsPrimaryMVG" type="xsd:string" />
+	</xsd:complexType>
+	<xsd:complexType name="ListOfContactResidence">
+		<xsd:sequence>
+			<xsd:element name="ContactResidence" maxOccurs="unbounded"
+				minOccurs="0" type="xsdLocal3:ContactResidence" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ContactResidence">
+		<xsd:sequence>
+			<xsd:element name="Id" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="ResidenceCountryCode" maxOccurs="1"
+				minOccurs="0" type="xsd:string" />
+			<xsd:element name="LivingSpace" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="HolidayHomeOwnership" maxOccurs="1"
+				minOccurs="0" type="xsd:string" />
+			<xsd:element name="HomeOwnership" maxOccurs="1"
+				minOccurs="0" type="xsd:string" />
+			<xsd:element name="LivingSpaceUnits" maxOccurs="1"
+				minOccurs="0" type="xsd:string" />
+			<xsd:element name="NumberRooms" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="CoExistenceInfo" maxOccurs="1"
+				minOccurs="0" type="xsd:string" />
+			<xsd:element name="HomeTypeCode" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="Created" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="Updated" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+		</xsd:sequence>
+		<xsd:attribute name="IsPrimaryMVG" type="xsd:string" />
+		<xsd:attribute name="searchspec" type="xsd:string" />
+	</xsd:complexType>
+</xsd:schema>

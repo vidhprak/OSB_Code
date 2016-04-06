@@ -1,0 +1,3254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2011 rel. 2 sp1 (http://www.altova.com) by Ulf Björkman (IKEA IT AB) -->
+<!--
+Description: Create or maintain customer information related to a CRM customers.
+
+2005-01-12 ULFJ  Created
+2005-11-27 ULFJ  New VoRejectedCrmMaintCustomerList in output DATA structure
+2005-12-05 ULFJ   Changed issues related to IRW Family: length -> maxLength for all attributes, and more...
+2005-12-05 ULFJ  Added list of errors, changed APPERROR to VoApplError
+2005-12-12 AGSL   Made changes in order to overcome Ambiguous Content Model issues.
+2005-12-13 AGSL Made VoApplError a list element
+2005-12-20 AGSL  Made small corrections
+2006-01-25 ULFJ Changed VoCrmCustomerMarketingIntegrity to VoCrmCustomerIntegrity
+2006-01-25 ULFJ Changed VoCrmCustomerMarketingIntegrityList to VoCrmCustomerIntegrityList  
+2006-01-26 AGSL Changed the DATA/SYSERRORLIST group to a <xs:sequence>, was previously a <xs:choice>
+2006-01-26 AGSL Changed the VoRejectedCrmMaintCustomerList element to "minOccurs = 0". 
+2006-01-30 AGSL Fixed a minor bug in the definition of an ObjectState element
+2006-02-02 AGSL Fixed comments and added forgotten change comments
+2006-02-02 AGSL Incorporated changes from input schema 
+2006-02-02 AGSL Added VoNonparseableData element for Base-64 encoded corrupt profile data. 
+2006-02-03 AGSL Incorporated changes from input schema
+2006-03-03 AGSL Added NOTSET value for CoExistenceInfo
+2006-03-03 AGSL Removed restriction for InterestAreaCode
+2006-03-16 AGSL Added missing country codes
+2006-03-20 AGSL Made ObjectState non-mandatory
+2006-05-16 AGSL Changed card number to be at least 10 characters
+2006-12-11 NHRO Added FirstNameTranscribed and LastNameTranscribed elements.
+2007-10-11 LPAV added minOccurs="0" for Address1 element - temp fix for ODBFR
+2009-12-18 ULFJ  Changed ProvinceCode from 20->40, Added japanese address elements: Prefecture, Ward, ApartmentBuilding.
+2009-12-18 ULFJ  ***NOTE! The "original" version of this file is maintained as part of SIM C&S Architecture CEM model (ikea.cusmgmt.bs.input.BsMaintainCrmCustomer_v1.5.xsd)
+2012-06-07 ULFJ Changed elements in VoCrmMaintCustomer to Optional: PreferredBuType, PreferredBuCode, PreferredBuCountry, InitialBuType, InitialBuCode, 
+2013-10-28 CLGRE1 Added the BusinessCustomerBaseComplexType to be used in the file export of IRW business profiles.
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:attr="ikea.cusmgmt.attribute" xmlns="ikea.cusmgmt.bs.output" targetNamespace="ikea.cusmgmt.bs.output" elementFormDefault="unqualified" attributeFormDefault="unqualified">
+	<xs:element name="BsMaintainCrmCustomer">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="DATA">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="SystemSourceId" type="attr.SystemSourceId">
+								<xs:annotation>
+									<xs:documentation>Reference to a software system instance sending the CRM customer information.</xs:documentation>
+									<xs:documentation source="attr.SystemSourceId">Reference to a software system instance.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="SystemTargetId" type="attr.SystemTargetId" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Reference to software system(s) that is the destination of the CRM customer information. Optional, can also be handled by configuration of the transport mechanism.</xs:documentation>
+									<xs:documentation source="attr.SystemTargetId">system id</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="TransactionId" type="attr.TransactionId" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Internal transaction id. Used by sending system to manage asynch return information.</xs:documentation>
+									<xs:documentation source="attr.TransactionId">Transaction id. Usage example: matching asynch communication response</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="CreateDateTime" type="attr.CreateDateTime">
+								<xs:annotation>
+									<xs:documentation source="attr.CreateDateTime">Original creation date time.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<!-- AGSL changed rejected customer list element definition to use minOccurs=0 2006-01-26 -->
+							<xs:element name="VoRejectedCrmMaintCustomerList" type="VoRejectedCrmMaintCustomerList" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>List of CRM customers that has been rejected</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<!-- /xs:all Replaced by AGSL -->
+						</xs:sequence>
+						<!-- xs:all Replaced by AGSL -->
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="SYSERRORLIST">
+					<xs:annotation>
+						<xs:documentation>Lst of System Errors</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="SYSERROR" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>A System Error irelates to tnsportation or technical issues, not to business data content.</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="ERRORCODE" type="xs:integer"/>
+										<xs:element name="ERRORMSG" type="xs:string"/>
+										<!-- /xs:all Replace by AGSL -->
+									</xs:sequence>
+									<!-- xs:all Replace by AGSL -->
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<!-- xs:choice Removed by AGSL and replaced with a sequence 2006-01-26 -->
+		</xs:complexType>
+	</xs:element>
+		<xs:complexType name="BusinessCustomerBaseComplexType">
+		<xs:annotation>
+			<xs:documentation source="UserDescShort"/>
+			<xs:appinfo source="CemAppinfoContentDataEntity">
+				<CemAppinfoContentDataEntity>
+					<DescriptionData>
+						<BusinessShort/>
+						<BusinessLong/>
+						<Development/>
+					</DescriptionData>
+					<CemRefData>
+						<CemRefName>BusinessCustomerBase</CemRefName>
+						<CemRefType>DataEntity</CemRefType>
+						<CemRefVersion>1.0.0</CemRefVersion>
+					</CemRefData>
+					<AliasNameData>
+						<AliasNameTech>
+							<Type>SQL</Type>
+							<Name>VO_BUSINESS_CUSTOMER_BASE</Name>
+						</AliasNameTech>
+					</AliasNameData>
+				</CemAppinfoContentDataEntity>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="BusinessName" type="BusinessNameSimpleType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Business name</xs:documentation>
+					<xs:appinfo source="CemAppinfoContentDataEntityAttribute">
+						<CemAppinfoContentDataEntityAttribute>
+							<DescriptionData>
+								<BusinessShort>Business name</BusinessShort>
+								<BusinessLong/>
+								<Development/>
+							</DescriptionData>
+							<CemRefData>
+								<CemRefName>BusinessName</CemRefName>
+								<CemRefType>DataEntityAttribute</CemRefType>
+								<CemRefVersion>1.0.0</CemRefVersion>
+							</CemRefData>
+							<AliasNameData>
+								<AliasNameTech>
+									<Type>SQL</Type>
+									<Name>BUSINESS_NAME</Name>
+								</AliasNameTech>
+							</AliasNameData>
+						</CemAppinfoContentDataEntityAttribute>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BusinessNamePhonetic" type="BusinessNamePhoneticSimpleType" minOccurs="0"/>
+			<xs:element name="BusinessType" type="BusinessTypeSimpleType" minOccurs="0"/>
+			<xs:element name="BusinessRegId" type="BusinessRegIdSimpleType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Business administrative, official registration id</xs:documentation>
+					<xs:appinfo source="CemAppinfoContentDataEntityAttribute">
+						<CemAppinfoContentDataEntityAttribute>
+							<DescriptionData>
+								<BusinessShort>Business administrative, official registration id</BusinessShort>
+								<BusinessLong/>
+								<Development/>
+							</DescriptionData>
+							<CemRefData>
+								<CemRefName>BusinessRegId</CemRefName>
+								<CemRefType>DataEntityAttribute</CemRefType>
+								<CemRefVersion>1.0.0</CemRefVersion>
+							</CemRefData>
+							<AliasNameData>
+								<AliasNameTech>
+									<Type>SQL</Type>
+									<Name>BUSINESS_REG_ID</Name>
+								</AliasNameTech>
+							</AliasNameData>
+						</CemAppinfoContentDataEntityAttribute>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BusinessTradeCode" type="BusinessTradeCodeSimpleType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Business trade code, from marketing Db</xs:documentation>
+					<xs:appinfo source="CemAppinfoContentDataEntityAttribute">
+						<CemAppinfoContentDataEntityAttribute>
+							<DescriptionData>
+								<BusinessShort>Business trade code, from marketing Db</BusinessShort>
+								<BusinessLong/>
+								<Development/>
+							</DescriptionData>
+							<CemRefData>
+								<CemRefName>BusinessTradeCode</CemRefName>
+								<CemRefType>DataEntityAttribute</CemRefType>
+								<CemRefVersion>1.0.0</CemRefVersion>
+							</CemRefData>
+							<AliasNameData>
+								<AliasNameTech>
+									<Type>SQL</Type>
+									<Name>BUSINESS_TRADE_CODE</Name>
+								</AliasNameTech>
+							</AliasNameData>
+						</CemAppinfoContentDataEntityAttribute>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BussinesVatCode" type="VatCodeSimpleType" minOccurs="0"/>
+			<xs:element name="BusinessCategoryCode" type="BusinessCategoryCodeSimpleType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Business category code, from marketing DB</xs:documentation>
+					<xs:appinfo source="CemAppinfoContentDataEntityAttribute">
+						<CemAppinfoContentDataEntityAttribute>
+							<DescriptionData>
+								<BusinessShort>Business category code, from marketing DB</BusinessShort>
+								<BusinessLong/>
+								<Development/>
+							</DescriptionData>
+							<CemRefData>
+								<CemRefName>BusinessCategoryCode</CemRefName>
+								<CemRefType>DataEntityAttribute</CemRefType>
+								<CemRefVersion>1.0.0</CemRefVersion>
+							</CemRefData>
+							<AliasNameData>
+								<AliasNameTech>
+									<Type>SQL</Type>
+									<Name>BUSINESS_CATEGORY_CODE</Name>
+								</AliasNameTech>
+							</AliasNameData>
+						</CemAppinfoContentDataEntityAttribute>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VoRejectedCrmMaintCustomer">
+		<xs:annotation>
+			<xs:documentation>Structure containing rejected information on a rejected CRM customer.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="VoApplErrorList" type="VoApplErrorList">
+				<xs:annotation>
+					<xs:documentation>Contains error information on why the CRM customer was rejected.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<!-- /xs:all Replace by AGSL -->
+			<xs:choice>
+				<xs:element name="VoCrmMaintCustomer" type="VoCrmMaintCustomer">
+					<xs:annotation>
+						<xs:documentation>Details on rejected CRM customer. This structure should be used if the data is parseable (using XSD) but contains other business-related errors</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="VoNonparseableData">
+					<xs:annotation>
+						<xs:documentation>Corrupt or non-parseable customer profile data could be put here coded in BASE-64 format</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+		</xs:sequence>
+		<!-- xs:all Replace by AGSL -->
+	</xs:complexType>
+	<xs:complexType name="VoRejectedCrmMaintCustomerList">
+		<xs:sequence>
+			<xs:element name="VoRejectedCrmMaintCustomer" type="VoRejectedCrmMaintCustomer" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Information on a rejected CRM customer</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VoApplErrorList">
+		<xs:sequence>
+			<xs:element name="VoApplError" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>An Application Error relates to issues with business information content.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ErrorCode">
+							<xs:annotation>
+								<xs:documentation>Error number or other error identity.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="ErrorMessage">
+							<xs:annotation>
+								<xs:documentation>Error message</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="ErrorTranslationId" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Language translation id.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="VoApplErrorAttrList" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Detailed information relating to a specific application error.</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="VoApplErrorAttr" maxOccurs="unbounded">
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="AttributeName"/>
+												<xs:element name="AttributeData"/>
+												<!-- /xs:all Replace by AGSL -->
+											</xs:sequence>
+											<!-- xs:all Replace by AGSL -->
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<!-- /xs:all Replace by AGSL -->
+					</xs:sequence>
+					<!-- xs:all Replace by AGSL -->
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VoCrmMaintCustomer">
+		<xs:annotation>
+			<xs:documentation>The overall structure containing the data for an individual CRM customer.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="InitialBuType" type="attr.BuType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Part of info that indicates where customer came in contact with IKEA,. A Business Unit Type is a code indicating type of organizational unit, e.g. STO for store.</xs:documentation>
+					<xs:documentation source="attr.BuType">Business Unit Type. Code indicating type of organizational unit, e.g. STO for store.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="InitialBuCode" type="attr.BuCode" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Part of info that indicates where customer came in contact with IKEA,. A Business Unit Code is a number that is part of unique identifier for an IKEA organisation.</xs:documentation>
+					<xs:documentation source="attr.BuCode">Business Unit Code. Number that is part of unique identifier for an IKEA organisation.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PreferredBuType" type="attr.BuType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Part of info that indicates the customer's preferred store. Business Unit Type indicating type of organizational unit, e.g. STO for store.</xs:documentation>
+					<xs:documentation source="attr.BuType">Business Unit Type. Code indicating type of organizational unit, e.g. STO for store.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PreferredBuCode" type="attr.BuCode" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.BuCode">Business Unit Code. Number that is part of unique identifier for an IKEA organisation.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PreferredBuCountryCode" type="attr.CountryCode" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The country code for the preferred store code. The ISO country code of a country.</xs:documentation>
+					<xs:documentation source="attr.CountryCode">The ISO country code of a country.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NoOfChildren" type="attr.NoOfChildren" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.NoOfChildren">Number of children</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EducationLevelCode" type="attr.EducationLevelCode" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.EducationLevelCode">Customer education level code.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MaritalStatusCode" type="attr.MaritalStatusCode" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.MaritalStatusCode">Marital status code: married, divorced etc.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IncomeLevelCode" type="attr.IncomeLevelCode" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.IncomeLevelCode">Code indicating customer income level.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GeographicalMarketingCode" type="attr.GeographicalMarketingCode" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.GeographicalMarketingCode">Geographical marketing code.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SocialSecurityNo" type="attr.SocialSecurityNo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.SocialSecurityNo">Social security number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CreateDateTime" type="attr.CreateDateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.CreateDateTime">Original creation date time.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UpdateDateTime" type="attr.UpdateDateTime">
+				<xs:annotation>
+					<xs:documentation source="attr.UpdateDateTime">Time stamp for latest update</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CrmCustomerNo" type="attr.LocalIdNo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.LocalIdNo">Used for server side data storage optimization. Unique key number of Value Object that is independent of other data .</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<!-- <xs:element name="ObjectState"> Removed by AGSL 2006-01-30 and replaced with next line.-->
+			<!-- <xs:element name="ObjectState" type="attr.ObjectState"> Changed by AGSL 20060320 -->
+			<xs:element name="ObjectState" type="attr.ObjectState" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.ObjectState">Object state of Value Object.  Used for optimizing client to server communication.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VersionNo" type="attr.VersionNo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.VersionNo">Version Number of Value Object. Part of optimistic locking pattern for client-server communication.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VoCustomerRef" type="VoCustomerRef" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Contains a reference to the global IKEA customer identity.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VoCrmIdRefList" type="VoCrmIdRefList" minOccurs="0"/>
+			<xs:element name="VoEmployeeInfo" type="VoEmployeeInfo" minOccurs="0"/>
+			<xs:element name="VoPrivateMaintCustomer" type="VoPrivateMaintCustomer">
+				<xs:annotation>
+					<xs:documentation>General private customer information, e.g. addresses, contact methods, payment methods, roles.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VoResidenceInfo" type="VoResidenceInfo" minOccurs="0"/>
+			<xs:element name="VoLoyaltyProgram" type="VoLoyaltyProgram" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Information specific to the Family loyalty program.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VoCrmCustomerChildList" minOccurs="0">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="VoCrmCustomerChildList">
+							<xs:anyAttribute/>
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="VoCrmInterestAreaGroupList" type="VoCrmInterestAreaGroupList" minOccurs="0"/>
+			<xs:element name="VoCrmCustomerIntegrity" type="VoCrmCustomerIntegrity" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Information on what marketing contact the customer disallow.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<!-- /xs:all Replaced by AGSL -->
+		</xs:sequence>
+		<!-- xs:all Replaced by AGSL -->
+	</xs:complexType>
+	<xs:complexType name="VoCrmMaintCustomerList">
+		<xs:sequence>
+			<xs:element name="VoCrmMaintCustomer" type="VoCrmMaintCustomer" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Information on a single CRM customer.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VoCustomerRef">
+		<xs:annotation>
+			<xs:documentation>Reference to the global IKEA customer id.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="SourceId" type="attr.IkeaCustomerSourceId">
+				<xs:annotation>
+					<xs:documentation source="attr.IkeaCustomerSourceId">IKEA id of system that generated the related customer id</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CustomerId" type="attr.CustomerId">
+				<xs:annotation>
+					<xs:documentation source="attr.CustomerId">Unique id of customer.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<!-- /xs:all Replaced by AGSL -->
+		</xs:sequence>
+		<!-- xs:all Replaced by AGSL -->
+	</xs:complexType>
+	<xs:complexType name="VoCustomerRefList">
+		<xs:sequence>
+			<xs:element name="VoCustomerRef" type="VoCustomerRef" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VoCrmInterestAreaGroup">
+		<xs:annotation>
+			<xs:documentation>Generic structure handling grouping of customer interest areas .</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="InterestAreaGoupNo" type="attr.LocalIdNo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.LocalIdNo">Used for server side data storage optimization. Unique key number of Value Object that is independent of other data .</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="InterestAreaGroupType">
+				<xs:annotation>
+					<xs:documentation source="attr.InterestAreaGroupType">Group for interest area, e.g. IKEA Range, Recreation, …</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="attr.InterestAreaGroupType">
+						<xs:maxLength value="15"/>
+						<xs:minLength value="2"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="UpdateDateTime" type="attr.UpdateDateTime" nillable="true" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.UpdateDateTime">Time stamp for latest update</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ObjectState" type="attr.ObjectState" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.ObjectState">
+          </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VersionNo" type="attr.VersionNo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.VersionNo">Version Number of Value Object. Part of optimistic locking pattern for client-server communication.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VoCrmInterestAreaList" type="VoCrmInterestAreaList"/>
+			<!-- /xs:all Replaced by AGSL -->
+			<xs:element name="VoBusinessCustomerBase" type="BusinessCustomerBaseComplexType" minOccurs="0"/>
+		</xs:sequence>
+		<!-- xs:all Replaced by AGSL -->
+	</xs:complexType>
+	<xs:complexType name="VoCrmInterestAreaGroupList">
+		<xs:sequence>
+			<xs:element name="VoCrmInterestAreaGroup" type="VoCrmInterestAreaGroup" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Groups a number of related interest areas.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VoCrmInterestArea">
+		<xs:annotation>
+			<xs:documentation>Customer interest area</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="InterestAreaCode" type="attr.InterestAreaCode">
+				<xs:annotation>
+					<xs:documentation source="attr.InterestAreaCode">A code representing a certain customer interest area.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="InterestAreaNo" type="attr.InterestAreaNo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.InterestAreaNo">Internal programming id</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UpdateDateTime" type="attr.UpdateDateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.UpdateDateTime">Time stamp for latest update</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ObjectState" type="attr.ObjectState" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.ObjectState">
+          </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VersionNo" type="attr.VersionNo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.VersionNo">Version Number of Value Object. Part of optimistic locking pattern for client-server communication.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<!-- /xs:all Replaced by AGSL -->
+		</xs:sequence>
+		<!-- xs:all Replaced by AGSL -->
+	</xs:complexType>
+	<xs:complexType name="VoCrmInterestAreaList">
+		<xs:sequence>
+			<xs:element name="VoCrmInterestArea" type="VoCrmInterestArea" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>genric structure that manages information on a particular customer interest area</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VoCrmCustomerIntegrity">
+		<xs:annotation>
+			<xs:documentation>The overall structure managing the integrity needs of the customer .</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="NotAllowDirectMailCode" type="attr.MarketingIntegrityCode" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Does not allow IKEA to send direct mail</xs:documentation>
+					<xs:documentation source="attr.MarketingIntegrityCode">Generic attribute code list used by marketing integrity codes</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NotAllowCollectBuyInfoCode" type="attr.MarketingIntegrityCode" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Does not allow IKEA to collect buying info</xs:documentation>
+					<xs:documentation source="attr.MarketingIntegrityCode">Generic attribute code list used by marketing integrity codes</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NotAllowPersonalEmailCode" type="attr.MarketingIntegrityCode" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Does not allow IKEA to send personal email</xs:documentation>
+					<xs:documentation source="attr.MarketingIntegrityCode">Generic attribute code list used by marketing integrity codes</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NotAllowStoreMessageCode" type="attr.MarketingIntegrityCode" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Does not allow IKEA store to send direct messages, like SMS</xs:documentation>
+					<xs:documentation source="attr.MarketingIntegrityCode">Generic attribute code list used by marketing integrity codes</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NotAllowPhoneContactCode" type="attr.MarketingIntegrityCode" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Does not allow IKEA to use direct phone marketing</xs:documentation>
+					<xs:documentation source="attr.MarketingIntegrityCode">Generic attribute code list used by marketing integrity codes</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NotAllowSms" type="attr.MarketingIntegrityCode" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Does not allow IKEA to use mobile SMS based marketing</xs:documentation>
+					<xs:documentation source="attr.MarketingIntegrityCode">Generic attribute code list used by marketing integrity codes</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NoPromotion" type="attr.MarketingIntegrityCode" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Does not allow IKEA to use promotions.</xs:documentation>
+					<xs:documentation source="attr.MarketingIntegrityCode">Generic attribute code list used by marketing integrity codes</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NoContact" type="attr.MarketingIntegrityCode" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Does not allow IKEA to contact at all</xs:documentation>
+					<xs:documentation source="attr.MarketingIntegrityCode">Generic attribute code list used by marketing integrity codes</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<!-- AGSL added type information here -->
+			<xs:element name="UpdateDateTime" type="attr.UpdateDateTime">
+				<xs:annotation>
+					<xs:documentation source="attr.UpdateDateTime">Time stamp for latest update</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<!-- /xs:all Replaced by AGSL -->
+		</xs:sequence>
+		<!-- xs:all Replaced by AGSL -->
+	</xs:complexType>
+	<xs:complexType name="VoCrmCustomerIntegrityList">
+		<xs:sequence>
+			<xs:element name="VoCrmCustomerIntegrity" type="VoCrmCustomerIntegrity" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VoCrmIdRef">
+		<xs:annotation>
+			<xs:documentation>Reference to external CRM customer identity </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CrmIdRefSourceId" type="attr.CrmIdRefSourceId">
+				<xs:annotation>
+					<xs:documentation>Source id connected to a CRM customer id. SourceId expected to be same as SystemSourceId when using this service.</xs:documentation>
+					<xs:documentation source="attr.CrmIdRefSourceId">Source id connected to a CRM customer id.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CrmId" type="attr.CrmId">
+				<xs:annotation>
+					<xs:documentation source="attr.CrmId">Id that indicates that this is a Family customer.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ObjectState" type="attr.ObjectState" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.ObjectState">
+          </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CrmIdRefNo" type="attr.CrmIdRefNo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.CrmIdRefNo">Internal programming id</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VersionNo" type="attr.VersionNo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Version Number</xs:documentation>
+					<xs:documentation source="attr.VersionNo">Version Number of Value Object. Part of optimistic locking pattern for client-server communication.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UpdateDateTime" type="attr.UpdateDateTime" nillable="true" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.UpdateDateTime">Time stamp for latest update</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<!-- /xs:all Replaced by AGSL -->
+		</xs:sequence>
+		<!-- xs:all Replaced by AGSL -->
+	</xs:complexType>
+	<xs:complexType name="VoCrmIdRefList">
+		<xs:sequence>
+			<xs:element name="VoCrmIdRef" type="VoCrmIdRef" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>A reference to another system that holds whole or part of the CRM customer information.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VoResidenceInfo">
+		<xs:annotation>
+			<xs:documentation>Information on how the customer is living</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ResidenceType" type="attr.ResidenceType">
+				<xs:annotation>
+					<xs:documentation source="attr.ResidenceType">Way of living, e.g. Rented flat, Own flat, Private house, Lodger</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CoExistenceInfo" type="attr.CoExistenceInfo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.CoExistenceInfo">Family situation</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NoOfRooms" type="attr.NoOfRooms" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.NoOfRooms">No of rooms</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LivingSpaceUnit" type="attr.LivingSpaceUnit" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.LivingSpaceUnit">The measurement unit used for living space, e.g. M2</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LivingSpace" type="attr.LivingSpace" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.LivingSpace">Living space, e.g. number of square meters for an apartment.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="HomeOwnershipIndicator" type="attr.HomeOwnershipIndicator" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.HomeOwnershipIndicator">Determines if customer owns place of residence.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="HolidayHomeOwnership" type="attr.HolidayHomeOwnership" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.HolidayHomeOwnership">Tells whether customer owns a holiday home.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<!-- /xs:all Replaced by AGSL -->
+		</xs:sequence>
+		<!-- xs:all Replaced by AGSL -->
+	</xs:complexType>
+	<xs:complexType name="VoResidenceInfoList">
+		<xs:sequence>
+			<xs:element name="VoResidenceInfo" type="VoResidenceInfo" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VoCrmCustomerChild">
+		<xs:annotation>
+			<xs:documentation>Information on customer child</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="BirthDate" type="attr.BirthDate" nillable="true" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Birth date</xs:documentation>
+					<xs:documentation source="attr.BirthDate">Birth date</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BirthYear" type="attr.BirthYear" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Birth year. Only used if no BirthDate.</xs:documentation>
+					<xs:documentation source="attr.BirthYear">Birth year</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GenderCode" type="attr.GenderCode" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.GenderCode">Gender code: Male, Female</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ChildFirstName" type="attr.FirstName" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.FirstName">First Name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ChildLastName" type="attr.LastName" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.LastName">Last Name (surname).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ValidNameIndicator" type="attr.ValidNameIndicator" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.ValidNameIndicator">Indicates how correct the name information is.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CreateDateTime" type="attr.CreateDateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.CreateDateTime">Original creation date time.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UpdateDateTime" type="attr.UpdateDateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.UpdateDateTime">Time stamp for latest update</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CrmCustomerChildNo" type="attr.LocalIdNo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.LocalIdNo">Used for server side data storage optimization. Unique key number of Value Object that is independent of other data .</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ObjectState" type="attr.ObjectState" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.ObjectState">
+          </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VersionNo" type="attr.VersionNo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.VersionNo">Version Number of Value Object. Part of optimistic locking pattern for client-server communication.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<!-- /xs:all Replaced by AGSL -->
+		</xs:sequence>
+		<!-- xs:all Replaced by AGSL -->
+	</xs:complexType>
+	<xs:complexType name="VoCrmCustomerChildList">
+		<xs:sequence>
+			<xs:element name="VoCrmCustomerChild" type="VoCrmCustomerChild" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VoPrivateMaintCustomer">
+		<xs:annotation>
+			<xs:documentation>General customer information, e.g. name, address, phone etc</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CountryCode" type="attr.CountryCode">
+				<xs:annotation>
+					<xs:documentation>The ISO country code of a country.</xs:documentation>
+					<xs:documentation source="attr.CountryCode">The ISO country code of a country.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<!-- <xs:element name="PreferredLanguageCodeIso" minOccurs="0"> Replaced by AGSL 2002-02-03 with next line -->
+			<xs:element name="PreferredLanguageCodeIso" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The ISO language code of the customer preferred language</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LanguageCode" type="attr.LanguageCode" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The code of a language according to IKEA standard.</xs:documentation>
+					<xs:documentation source="attr.LanguageCode">The code of a language according to IKEA standard.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BirthDate" type="attr.BirthDate" nillable="true" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.BirthDate">Birth date</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BirthYear" type="attr.BirthYear" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Used only if BirthDate is not used.</xs:documentation>
+					<xs:documentation source="attr.BirthYear">Birth year</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GenderCode" type="attr.GenderCode" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.GenderCode">Gender code: Male, Female</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="InformalName" type="attr.InformalName" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.InformalName">Informal name, e.g. Joe for Joseph. Normally corresponds to FirstName.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FirstName" type="attr.FirstName">
+				<xs:annotation>
+					<xs:documentation source="attr.FirstName">First Name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FirstNameTranscribed" type="attr.FirstNameTranscribed" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.FirstNameTranscribed">First Name Transcribed</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LastName" type="attr.LastName">
+				<xs:annotation>
+					<xs:documentation source="attr.LastName">Last Name (surname).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LastNameTranscribed" type="attr.LastNameTranscribed" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.LastNameTranscribed">Last Name Transcribed.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MiddleName" type="attr.MiddleName" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.MiddleName">Middle name or initial</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NamePrefix" type="attr.NamePrefix" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.NamePrefix">Prefix of name, e.g. Mr/Mrs</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NamePrefixFreeText" type="attr.NamePrefixFreeText" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.NamePrefixFreeText">Prefix of name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NameSuffix" type="attr.NameSuffix" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.NameSuffix">Suffix of name, e.g. Jr</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PictureUrl" type="attr.Url" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Picture of customer.</xs:documentation>
+					<xs:documentation source="attr.Url">Generic link to external data</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CustomerIdRef" type="attr.CustomerIdRef">
+				<xs:annotation>
+					<xs:documentation source="attr.CustomerIdRef">A customer id from another customer info system</xs:documentation>
+					<xs:documentation source="attr.CustomerIdRef">A customer id from another customer info system.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UpdateDateTime" type="attr.UpdateDateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.UpdateDateTime">Time stamp for latest update</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ObjectState" type="attr.ObjectState" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.ObjectState">
+          </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VersionNo" type="attr.VersionNo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.VersionNo">Version Number of Value Object. Part of optimistic locking pattern for client-server communication.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VoCustomerPaymentList" type="VoCustomerPaymentList" minOccurs="0"/>
+			<xs:element name="VoRoleList" type="VoPrivateCustomerRoleList" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Customer roles</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VoContactMethodList" type="VoContactMethodList" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Different methods of containg the customer: address, phone etc.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VoAddInfoGroupList" type="VoAddInfoGroupList" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Generic structure for additional information</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<!-- /xs:all Replaced by AGSL -->
+		</xs:sequence>
+		<!-- xs:all Replaced by AGSL -->
+	</xs:complexType>
+	<xs:complexType name="VoPrivateMaintCustomerList">
+		<xs:sequence>
+			<xs:element name="VoPrivateMaintCustomer" type="VoPrivateMaintCustomer" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Customer</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VoCustomerPayment">
+		<xs:annotation>
+			<xs:documentation>Information on customers payment methods</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="PaymentId" type="attr.PaymentId">
+				<xs:annotation>
+					<xs:documentation source="attr.PaymentId">Card number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PaymentNo" type="attr.LocalIdNo">
+				<xs:annotation>
+					<xs:documentation source="attr.PaymentNo">Used for server side data storage optimization. Unique key number of Value Object that is independent of other data .</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PaymentSourceId" type="attr.PaymentSourceId">
+				<xs:annotation>
+					<xs:documentation source="attr.PaymentSourceId">Payment system source id</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PaymentType" type="attr.PaymentType">
+				<xs:annotation>
+					<xs:documentation source="attr.PaymentType">Payment types: account, cod, business customer, loan, credit card, debit card</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VoCustomerPaymentDetailList" type="VoCustomerPaymentDetailList" minOccurs="0"/>
+			<xs:element name="UpdateDateTime" type="attr.UpdateDateTime" nillable="true" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.UpdateDateTime">Time stamp for latest update</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VersionNo" type="attr.VersionNo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.VersionNo">Version Number of Value Object. Part of optimistic locking pattern for client-server communication.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ObjectState" type="attr.ObjectState" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.ObjectState">
+          </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<!-- /xs:all Replaced by AGSL -->
+		</xs:sequence>
+		<!-- xs:all Replaced by AGSL -->
+	</xs:complexType>
+	<xs:complexType name="VoCustomerPaymentList">
+		<xs:sequence>
+			<xs:element name="VoCustomerPayment" type="VoCustomerPayment" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VoCustomerPaymentDetail">
+		<xs:annotation>
+			<xs:documentation>Generic structure that can hold details for an individual payment type</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="PaymentDetailType" type="attr.PaymentDetailType">
+				<xs:annotation>
+					<xs:documentation source="attr.PaymentDetailType">Type of payment detail (CHECKDIGIT, CONTROLNO, PREFIX, EXPIREYEAR, …)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PaymentDetailData" type="attr.PaymentDetailData">
+				<xs:annotation>
+					<xs:documentation source="attr.PaymentDetailData">Data connected to Payment detail type</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UpdateDateTime" type="attr.UpdateDateTime" nillable="true">
+				<xs:annotation>
+					<xs:documentation source="attr.UpdateDateTime">Time stamp for latest update</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VersionNo" type="attr.VersionNo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.VersionNo">Version Number of Value Object. Part of optimistic locking pattern for client-server communication.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ObjectState" type="attr.ObjectState" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.ObjectState">
+          </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<!-- /xs:all Replaced by AGSL -->
+		</xs:sequence>
+		<!-- xs:all Replaced by AGSL -->
+	</xs:complexType>
+	<xs:complexType name="VoCustomerPaymentDetailList">
+		<xs:sequence>
+			<xs:element name="VoCustomerPaymentDetail" type="VoCustomerPaymentDetail" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VoAddInfo">
+		<xs:annotation>
+			<xs:documentation>Generic structure that holds non structured information</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="AttributeName" type="attr.AttributeName">
+				<xs:annotation>
+					<xs:documentation source="attr.AttributeName">Attribute name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AttributeType" type="attr.AttributeType">
+				<xs:annotation>
+					<xs:documentation source="attr.AttributeType">Indicates the type of attribute value</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AttributeValueString" type="attr.AttributeValueString" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.AttributeValue">Attribute value in string format, connected to AttributeType</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ObjectState" type="attr.ObjectState" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.ObjectState">
+          </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ExternalRefType" type="attr.ExternalRefType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.ExternalRefType">Type of external reference</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ExternalRef" type="attr.ExternalRef" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.ExternalRef">External reference</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UserIdUpdate" type="attr.UserId" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.UserId">Identity of the sales person</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UpdateDateTime" type="attr.UpdateDateTime" nillable="true" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.UpdateDateTime">Time stamp for latest update</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SeqNo" type="attr.SeqNo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.SeqNo">General sequence number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VersionNo" type="attr.VersionNo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.VersionNo">Version Number of Value Object. Part of optimistic locking pattern for client-server communication.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="InfoNo" type="attr.LocalIdNo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.LocalIdNo">Used for server side data storage optimization. Unique key number of Value Object that is independent of other data .</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<!-- /xs:all Replaced by AGSL -->
+		</xs:sequence>
+		<!-- xs:all Replaced by AGSL -->
+	</xs:complexType>
+	<xs:complexType name="VoAddInfoList">
+		<xs:sequence>
+			<xs:element name="VoAddInfo" type="VoAddInfo" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VoPrivateCustomerRole">
+		<xs:sequence>
+			<xs:element name="RoleId" type="attr.PrivateCustomerRoleId">
+				<xs:annotation>
+					<xs:documentation>Defines a relationship between a customer and IKEA: Family member, Employee</xs:documentation>
+					<xs:documentation source="attr.PrivateCustomerRoleId">Private customer role types.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UpdateDateTime" type="attr.UpdateDateTime" nillable="true" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.UpdateDateTime">Time stamp for latest update</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VersionNo" type="attr.VersionNo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.VersionNo">Version Number of Value Object. Part of optimistic locking pattern for client-server communication.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ObjectState" type="attr.ObjectState" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.ObjectState">
+          </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<!-- /xs:all Replaced by AGSL -->
+		</xs:sequence>
+		<!-- xs:all Replaced by AGSL -->
+	</xs:complexType>
+	<xs:complexType name="VoPrivateCustomerRoleList">
+		<xs:sequence>
+			<xs:element name="VoPrivateCustomerRole" type="VoPrivateCustomerRole" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VoContactMethodRole">
+		<xs:sequence>
+			<xs:element name="RoleId" type="attr.ContactMethodRoleId">
+				<xs:annotation>
+					<xs:documentation source="attr.ContactMethodRoleId">Indicates what role the contact method is playing.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UpdateDateTime" type="attr.UpdateDateTime" nillable="true" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.UpdateDateTime">Time stamp for latest update</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VersionNo" type="attr.VersionNo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.VersionNo">Version Number of Value Object. Part of optimistic locking pattern for client-server communication.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ObjectState" type="attr.ObjectState" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.ObjectState">
+          </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<!-- /xs:all Replaced by AGSL -->
+		</xs:sequence>
+		<!-- xs:all Replaced by AGSL -->
+	</xs:complexType>
+	<xs:complexType name="VoContactMethodRoleList">
+		<xs:sequence>
+			<xs:element name="VoContactMethodRole" type="VoContactMethodRole" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>A contact method can play different roles: delivery, marketing etc.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VoContactMethod">
+		<xs:annotation>
+			<xs:documentation>Different means of getting in touch with the customer: mail address, phone, email etc.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ContactMethodType" type="attr.ContactMethodType">
+				<xs:annotation>
+					<xs:documentation source="attr.ContactMethodType">Different ways to get in contact with the customer: PHONE, EMAIL, ADDRESS, FAX, SMS</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ContactMethodData" type="attr.ContactMethodData" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.ContactMethodData">Data for ContactMethodType</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SeqNo" type="attr.SeqNo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.SeqNo">General sequence number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UpdateDateTime" type="attr.UpdateDateTime" nillable="true" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.UpdateDateTime">Time stamp for latest update</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ContactMethodNo" type="attr.LocalIdNo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.ContactMethodNo">Used for server side data storage optimization. Unique key number of Value Object that is independent of other data .</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ObjectState" type="attr.ObjectState" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.ObjectState">
+          </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VersionNo" type="attr.VersionNo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.VersionNo">Version Number of Value Object. Part of optimistic locking pattern for client-server communication.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VoAddress" type="VoAddress" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Address information</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VoContactMethodRoleList" type="VoContactMethodRoleList" minOccurs="0"/>
+			<xs:element name="VoPhoneNumber" type="VoPhoneNumber" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Structured info on phone number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ContactMethodQualityIndicator" type="attr.ContactMethodQualityIndicator" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.ContactMethodQualityIndicator">Indicates how correct the contact method information is.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<!-- /xs:all Replaced by AGSL -->
+		</xs:sequence>
+		<!-- xs:all Replaced by AGSL -->
+	</xs:complexType>
+	<xs:complexType name="VoContactMethodList">
+		<xs:sequence>
+			<xs:element name="VoContactMethod" type="VoContactMethod" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Information on a specific method of contacting the customer: address, phone etc.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VoAddress">
+		<xs:annotation>
+			<xs:documentation>Detailed and structured address information</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CountryCode" type="attr.CountryCode">
+				<xs:annotation>
+					<xs:documentation source="attr.CountryCode">The ISO country code of a country.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ProvinceCode" type="attr.ProvinceCode" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.ProvinceCode">State or province code for address</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AttentionName" type="attr.AttentionName" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.AttentionName">Attention address information</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CareOfName" type="attr.CareOfName" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.CareOfName">Care Of address information</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="StreetName" type="attr.StreetName" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.StreetName">Street name. Can include street number, if StreetNo is not used.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ZipCode" type="attr.ZipCode" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.ZipCode">A zip code. Compare EDIFACT element 3251.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ZipCodePrefix" type="attr.ZipCodePrefix" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.ZipCodePrefix">The prefix for a zip code in a country, e.g. S (Sweden) or D (Germany).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ZipCodeSuffix" type="attr.ZipCodeSuffix" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.ZipCodeSuffix">Zip code suffix used in some countries, e.g. US.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CityName" type="attr.CityName" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.CityName">The name of a city.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="StreetNo" type="attr.StreetNo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.StreetNo">Street number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FloorNo" type="attr.FloorNo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.FloorNo">Floor number (part of address information)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ZipCodeType" type="attr.ZipCodeType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.ZipCodeType">Type of a ZIP code, e.g. COM=company, PB=post box, RES=residential, UNK=unknown.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Prefecture" type="attr.Prefecture" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.Prefecture">Large geographical subdivision on country level. Part of Japanese address standard</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Ward" type="attr.Ward" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.Ward">Geographical subdivision of city. Part of Japanese address standard</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ApartmentBuilding" type="attr.ApartmentBuilding" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.ApartmentBuilding">Apartment building reference. Part of Japanese address standard.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UpdateDateTime" type="attr.UpdateDateTime" nillable="true" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.UpdateDateTime">Time stamp for latest update</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ObjectState" type="attr.ObjectState" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.ObjectState">
+          </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VersionNo" type="attr.VersionNo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.VersionNo">Version Number of Value Object. Part of optimistic locking pattern for client-server communication.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VoFormattedAddress" type="VoFormattedAddress" minOccurs="0"/>
+			<!-- /xs:all Replaced by AGSL -->
+		</xs:sequence>
+		<!-- xs:all Replaced by AGSL -->
+	</xs:complexType>
+	<xs:complexType name="VoAddressList">
+		<xs:sequence>
+			<xs:element name="VoAddress" type="VoAddress" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VoFormattedAddress">
+		<xs:annotation>
+			<xs:documentation>Formatted VoAddress according to country specific layout.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Address1" type="attr.FormattedAddressLine" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.FormattedAddressLine">Used for display purposes, normally generated by busines logic applied to structured address data.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Address2" type="attr.FormattedAddressLine" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.FormattedAddressLine">Used for display purposes, normally generated by busines logic applied to structured address data.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Address3" type="attr.FormattedAddressLine" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.FormattedAddressLine">Used for display purposes, normally generated by busines logic applied to structured address data.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Address4" type="attr.FormattedAddressLine" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.FormattedAddressLine">Used for display purposes, normally generated by busines logic applied to structured address data.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Address5" type="attr.FormattedAddressLine" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.FormattedAddressLine">Used for display purposes, normally generated by busines logic applied to structured address data.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<!-- /xs:all Replaced by AGSL -->
+		</xs:sequence>
+		<!-- xs:all Replaced by AGSL -->
+	</xs:complexType>
+	<xs:complexType name="VoFormattedAddressList">
+		<xs:sequence>
+			<xs:element name="VoFormattedAddress" type="VoFormattedAddress" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VoPhoneNumber">
+		<xs:annotation>
+			<xs:documentation>Structured phone number.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="PhoneAreaCode" type="attr.PhoneAreaCode" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.PhoneAreaCode">Phone area code.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PhoneCountryCode" type="attr.PhoneCountryCode" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.PhoneCountryCode">Phone country code, e.g. 46 for Sweden.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PhoneLocalNo" type="attr.PhoneLocalNo">
+				<xs:annotation>
+					<xs:documentation source="attr.PhoneLocalNo">Phone local number.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PhoneNoFreeText" type="attr.PhoneNoFreeText">
+				<xs:annotation>
+					<xs:documentation source="attr.PhoneNoFreeText">Used if structured phone no info is not available.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<!-- /xs:all Replaced by AGSL -->
+		</xs:sequence>
+		<!-- xs:all Replaced by AGSL -->
+	</xs:complexType>
+	<xs:complexType name="VoPhoneNumberList">
+		<xs:sequence>
+			<xs:element name="VoPhoneNumber" type="VoPhoneNumber" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VoAddInfoGroup">
+		<xs:annotation>
+			<xs:documentation>Named grouping of additional information</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="GroupText" type="attr.AddInfoGroupText">
+				<xs:annotation>
+					<xs:documentation source="attr.AddInfoGroupText">The text that is used as group text for the generic additional information structure.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SeqNo" type="attr.SeqNo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.SeqNo">General sequence number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UpdateDateTime" type="attr.UpdateDateTime" nillable="true" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.UpdateDateTime">Time stamp for latest update</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ObjectState" type="attr.ObjectState" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.ObjectState">
+          </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GroupNo" type="attr.LocalIdNo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.LocalIdNo">Used for server side data storage optimization. Unique key number of Value Object that is independent of other data .</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VersionNo" type="attr.VersionNo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.VersionNo">Version Number of Value Object. Part of optimistic locking pattern for client-server communication.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VoAddInfoList" type="VoAddInfoList"/>
+			<!-- /xs:all Replaced by AGSL -->
+		</xs:sequence>
+		<!-- xs:all Replaced by AGSL -->
+	</xs:complexType>
+	<xs:complexType name="VoAddInfoGroupList">
+		<xs:sequence>
+			<xs:element name="VoAddInfoGroup" type="VoAddInfoGroup" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VoLoyaltyProgram">
+		<xs:annotation>
+			<xs:documentation>Information specific to the Family loyalty program.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="LoyaltyProgramState" type="attr.LoyaltyProgramState">
+				<xs:annotation>
+					<xs:documentation source="attr.LoyaltyProgramState">Indicates how active the customer is in the loyalty program.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VoLoyaltyCardList" type="VoLoyaltyCardList" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Cards used to identify the customer as a Loyalty Program customer. Not intended for payment purposes.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<!-- /xs:all Replaced by AGSL -->
+		</xs:sequence>
+		<!-- xs:all Replaced by AGSL -->
+	</xs:complexType>
+	<xs:complexType name="VoLoyaltyCard">
+		<xs:annotation>
+			<xs:documentation>A card used to identify the customer as a Loyalty Program customer. Not intended for payment purposes.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CardType" type="attr.LoyaltyCardType">
+				<xs:annotation>
+					<xs:documentation source="attr.LoyaltyCardType">Loyalty program card type.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CardNo" type="attr.LoyaltyCardNo">
+				<xs:annotation>
+					<xs:documentation source="attr.LoyaltyCardNo">Any card number that is used to identify the customer as a family member.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CardIssuer" type="attr.CardIssuer">
+				<xs:annotation>
+					<xs:documentation source="attr.CardIssuer">Reference to the organisation that has issued the card.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CardCreatorCode" type="attr.CardCreatorCode">
+				<xs:annotation>
+					<xs:documentation source="attr.CardCreatorCode">Indicates how the customer's Family card was created, in store or by external company.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LoyaltyCardNo" type="attr.LocalIdNo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.LocalIdNo">Used for server side data storage optimization. Unique key number of Value Object that is independent of other data .</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UpdateDateTime" type="attr.UpdateDateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.UpdateDateTime">Time stamp for latest update</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CreateDateTime" type="attr.CreateDateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.CreateDateTime">Original creation date time.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ObjectState" type="attr.ObjectState">
+				<xs:annotation>
+					<xs:documentation source="attr.ObjectState">
+          </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VersionNo" type="attr.VersionNo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.VersionNo">Version Number of Value Object. Part of optimistic locking pattern for client-server communication.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<!-- /xs:all Replaced by AGSL -->
+		</xs:sequence>
+		<!-- xs:all Replaced by AGSL -->
+	</xs:complexType>
+	<xs:complexType name="VoLoyaltyCardList">
+		<xs:sequence>
+			<xs:element name="VoLoyaltyCard" type="VoLoyaltyCard" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Card used to identify the customer as a Loyalty Program customer.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VoEmployeeInfo">
+		<xs:sequence>
+			<xs:element name="EmployeeNo" type="attr.EmployeeNo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.EmployeeNo">IKEA Employee number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<!-- <xs:element name="EmployeeNextValidationDate" minOccurs="0"> AGSL replaced with line below 2006-02-03 -->
+			<xs:element name="EmployeeNextValidationDate" type="attr.EmployeeNextValidationDate" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.EmployeeNextValidationDate">Next date when employee info need to be validated</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EmployeeInfoExpireDate" type="attr.EmployeeInfoExpireDate" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.EmployeeInfoExpireDate">Last date when employee info is considered valid.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EmployeeIndicator">
+				<xs:annotation>
+					<xs:documentation source="attr.EmployeeIndicator"/>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="attr.EmployeeIndicator"/>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ObjectState" type="attr.ObjectState" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.ObjectState">
+          </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UpdateDateTime" type="attr.UpdateDateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="attr.UpdateDateTime">Time stamp for latest update</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<!-- /xs:all Replaced by AGSL -->
+		</xs:sequence>
+		<!-- xs:all Replaced by AGSL -->
+	</xs:complexType>
+	<xs:simpleType name="attr.NoOfChildren">
+		<xs:annotation>
+			<xs:documentation>Number of children</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.NoOfChildren</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:integer">
+			<xs:totalDigits value="10"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.ObjectState">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="attr.VersionNo">
+		<xs:annotation>
+			<xs:documentation>Version Number of Value Object. Part of optimistic locking pattern for client-server communication.</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.VersionNo</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:integer">
+			<xs:totalDigits value="10"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.CustomerId">
+		<xs:annotation>
+			<xs:documentation>Unique id of customer.</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.CustomerId</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="30"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.InterestAreaGroupType">
+		<xs:annotation>
+			<xs:documentation>Group for interest area, e.g. IKEA Range, Recreation, …</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.InterestAreaGroupType</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="15"/>
+			<xs:minLength value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.UpdateDateTime">
+		<xs:annotation>
+			<xs:documentation>Time stamp for latest update</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.UpdateDateTime</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:dateTime"/>
+	</xs:simpleType>
+	<xs:simpleType name="attr.InterestAreaNo">
+		<xs:annotation>
+			<xs:documentation>Internal programming id</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.InterestAreaNo</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:integer">
+			<xs:totalDigits value="10"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.InterestAreaCode" id="ikea.syscode.FamilyInterestAreaCode">
+		<xs:annotation>
+			<xs:documentation>A code representing a certain customer interest area.</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.InterestAreaCode</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="10"/>
+		</xs:restriction>
+		<!-- AGSL Removed restriction with enumerations
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="10"/>
+			<xs:enumeration value="60" id="ikea.syscode.FamilyInterestAreaCode.IkeaFamilyMemberPanel"/>
+			<xs:enumeration value="61" id="ikea.syscode.FamilyInterestAreaCode.BathroomFurnitureOrganizers"/>
+			<xs:enumeration value="62" id="ikea.syscode.FamilyInterestAreaCode.BedsAndMattresses"/>
+			<xs:enumeration value="63" id="ikea.syscode.FamilyInterestAreaCode.BookcasesStorageSystems"/>
+			<xs:enumeration value="64" id="ikea.syscode.FamilyInterestAreaCode.Chairs"/>
+			<xs:enumeration value="65" id="ikea.syscode.FamilyInterestAreaCode.ChildrensIKEA"/>
+			<xs:enumeration value="66" id="ikea.syscode.FamilyInterestAreaCode.Cookware"/>
+			<xs:enumeration value="67" id="ikea.syscode.FamilyInterestAreaCode.Decoration"/>
+			<xs:enumeration value="68" id="ikea.syscode.FamilyInterestAreaCode.FloorsRugsMats"/>
+			<xs:enumeration value="69" id="ikea.syscode.FamilyInterestAreaCode.ForThePets"/>
+			<xs:enumeration value="70" id="ikea.syscode.FamilyInterestAreaCode.FurnitureCareAccessories"/>
+			<xs:enumeration value="71" id="ikea.syscode.FamilyInterestAreaCode.Kitchen"/>
+			<xs:enumeration value="72" id="ikea.syscode.FamilyInterestAreaCode.Lighting"/>
+			<xs:enumeration value="73" id="ikea.syscode.FamilyInterestAreaCode.MirrorsClocks"/>
+			<xs:enumeration value="74" id="ikea.syscode.FamilyInterestAreaCode.NewProducts"/>
+			<xs:enumeration value="75" id="ikea.syscode.FamilyInterestAreaCode.SmallStorage"/>
+			<xs:enumeration value="76" id="ikea.syscode.FamilyInterestAreaCode.SofasSofabedsArmchairs"/>
+			<xs:enumeration value="77" id="ikea.syscode.FamilyInterestAreaCode.SwedishFood"/>
+			<xs:enumeration value="78" id="ikea.syscode.FamilyInterestAreaCode.Tables"/>
+			<xs:enumeration value="79" id="ikea.syscode.FamilyInterestAreaCode.Tableware"/>
+			<xs:enumeration value="80" id="ikea.syscode.FamilyInterestAreaCode.Textiles"/>
+			<xs:enumeration value="81" id="ikea.syscode.FamilyInterestAreaCode.WaredrobesClothesStorage"/>
+			<xs:enumeration value="82" id="ikea.syscode.FamilyInterestAreaCode.WorkspaceFurnitureAccessories"/>
+			<xs:enumeration value="83" id="ikea.syscode.FamilyInterestAreaCode.Seasons"/>
+            <xs:enumeration value="89" id="ikea.syscode.FamilyInterestAreaCode.WantLIVE"/>
+			<xs:enumeration value="90" id="ikea.syscode.FamilyInterestAreaCode.WantAddressedCatalogue"/>
+			<xs:enumeration value="91" id="ikea.syscode.FamilyInterestAreaCode.WantEmail"/>
+			<xs:enumeration value="92" id="ikea.syscode.FamilyInterestAreaCode.IkeaFamilyOffers"/>
+			<xs:enumeration value="93" id="ikea.syscode.FamilyInterestAreaCode.OfferSale"/>
+			<xs:enumeration value="94" id="ikea.syscode.FamilyInterestAreaCode.SmsIfEmailBounces"/>
+			<xs:enumeration value="95" id="ikea.syscode.FamilyInterestAreaCode.SmsOffer"/>
+			<xs:enumeration value="96" id="ikea.syscode.FamilyInterestAreaCode.CollectPurchaseData"/>
+		</xs:restriction>
+        -->
+	</xs:simpleType>
+	<xs:simpleType name="attr.CrmIdRefNo">
+		<xs:annotation>
+			<xs:documentation>Internal programming id</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.CrmIdRefNo</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:integer">
+			<xs:totalDigits value="10"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.CrmIdRefSourceId">
+		<xs:annotation>
+			<xs:documentation>Source id connected to a CRM customer id.</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.CrmIdRefSourceId</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="30"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.CrmId">
+		<xs:annotation>
+			<xs:documentation>Id that indicates that this is a Family customer.</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.CrmId</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="30"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.ResidenceType" id="ikea.syscode.ResidenceType">
+		<xs:annotation>
+			<xs:documentation>Way of living, e.g. Rented flat, Own flat, Private house, Lodger</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.ResidenceType</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="15"/>
+			<xs:enumeration value="NOTSET" id="ikea.syscode.ResidenceType.NotSet"/>
+			<xs:enumeration value="APPARTMENT" id="ikea.syscode.ResidenceType.Appartment"/>
+			<xs:enumeration value="HOUSE" id="ikea.syscode.ResidenceType.House"/>
+			<xs:enumeration value="PARENTS" id="ikea.syscode.ResidenceType.Parents"/>
+			<xs:enumeration value="OTHER" id="ikea.syscode.ResidenceType.Other"/>
+			<!-- Added by AGSL 2006-02-03 -->
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.HolidayHomeOwnership" id="ikea.syscode.HolidayHomeOwnerhip">
+		<xs:annotation>
+			<xs:documentation>Indicates if the customer owns a summer/holiday house</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="10"/>
+			<xs:enumeration value="NOTSET"/>
+			<xs:enumeration value="YES"/>
+			<xs:enumeration value="NO"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- Added by AGSL 2006-02-03 -->
+	<xs:simpleType name="attr.CoExistenceInfo" id="ikea.syscode.CoExistenceInfo">
+		<xs:annotation>
+			<xs:documentation>Family situation description</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.CoExistenceInfo</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="15"/>
+			<xs:enumeration value="WITHPARENTS" id="ikea.syscode.CoExistenceInfo.WithParents"/>
+			<xs:enumeration value="SPOUSE" id="ikea.syscode.CoExistenceInfo.Spouse"/>
+			<xs:enumeration value="FAMILYWITHKIDS" id="ikea.syscode.CoExistenceInfo.FamilyWithKids"/>
+			<xs:enumeration value="PARTNER" id="ikea.syscode.CoExistenceInfo.Partner"/>
+			<xs:enumeration value="OTHER" id="ikea.syscode.CoExistenceInfo.Other"/>
+			<xs:enumeration value="NOTSET" id="ikea.syscode.CoExistenceInfo.NotSet"/>
+			<!-- AGSL added this 2006-03-03 -->
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.NoOfRooms">
+		<xs:annotation>
+			<xs:documentation>No of rooms</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.NoOfRooms</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:integer">
+			<xs:totalDigits value="10"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.LivingSpaceUnit">
+		<xs:annotation>
+			<xs:documentation>The measurement unit used for living space, e.g. M2</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.LivingSpaceUnit</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="attr.LivingSpace">
+		<xs:annotation>
+			<xs:documentation>Living space, e.g. number of square meters for an apartment.</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.LivingSpace</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="attr.BirthDate">
+		<xs:annotation>
+			<xs:documentation>Birth date</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.BirthDate</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<xs:simpleType name="attr.BirthYear">
+		<xs:annotation>
+			<xs:documentation>Birth year</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.BirthYear</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:integer">
+			<xs:totalDigits value="10"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.BuCode">
+		<xs:annotation>
+			<xs:documentation>Business Unit Code. Number that is part of unique identifier for an IKEA organisation.</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.BusinessUnitCode</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="3"/>
+			<xs:maxLength value="5"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.BuType">
+		<xs:annotation>
+			<xs:documentation>Business Unit Type. Code indicating type of organizational unit, e.g. STO for store.</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.BusinessUnitType</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="3"/>
+			<xs:maxLength value="3"/>
+			<xs:enumeration value="STO"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.EducationLevelCode" id="ikea.syscode.EducationLevelCode">
+		<xs:annotation>
+			<xs:documentation>Customer education level code.</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.EducationLevelCode</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="25"/>
+			<xs:minLength value="2"/>
+			<xs:enumeration value="NOTSET" id="ikea.syscode.EducationLevelCode.NotSet"/>
+			<xs:enumeration value="LOW EDUCATION" id="ikea.syscode.EducationLevelCode.Low"/>
+			<xs:enumeration value="MEDIUM LOW EDUCATION" id="ikea.syscode.EducationLevelCode.MediumLow"/>
+			<xs:enumeration value="MEDIUM EDUCATION" id="ikea.syscode.EducationLevelCode.Medium"/>
+			<xs:enumeration value="MEDIUM HIGH EDUCATION" id="ikea.syscode.EducationLevelCode.MediumHigh"/>
+			<xs:enumeration value="HIGH EDUCATION" id="ikea.syscode.EducationLevelCode.High"/>
+			<!-- Changed by AGSL <xs:maxLength value="15"/> -->
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.MaritalStatusCode" id="ikea.syscode.MaritalStatusCode">
+		<xs:annotation>
+			<xs:documentation>Marital status code: married, divorced etc.</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.MaritalStatusCode</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="15"/>
+			<xs:minLength value="2"/>
+			<xs:enumeration value="NOTSET" id="ikea.syscode.MaritalStatusCode.NotSet"/>
+			<xs:enumeration value="SINGLE" id="ikea.syscode.MaritalStatusCode.Single"/>
+			<xs:enumeration value="MARRIED" id="ikea.syscode.MaritalStatusCode.Married"/>
+			<xs:enumeration value="COHABITOR" id="ikea.syscode.MaritalStatusCode.Cohabitor"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.IncomeLevelCode" id="ikea.syscode.IncomeLevelCode">
+		<xs:annotation>
+			<xs:documentation>Code indicating customer income level.</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.IncomeLevelCode</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="15"/>
+			<xs:minLength value="2"/>
+			<xs:enumeration value="NOTSET" id="ikea.syscode.IncomeLevelCode.NotSet"/>
+			<xs:enumeration value="LOW INCOME" id="ikea.syscode.IncomeLevelCode.Low"/>
+			<xs:enumeration value="MEDIUM INCOME" id="ikea.syscode.IncomeLevelCode.Medium"/>
+			<xs:enumeration value="HIGH INCOME" id="ikea.syscode.IncomeLevelCode.High"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.GeographicalMarketingCode">
+		<xs:annotation>
+			<xs:documentation>Geographical marketing code.</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.GeographicalMarketingCode</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="10"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.HomeOwnershipIndicator" id="ikea.syscode.OptionalBoolean">
+		<xs:annotation>
+			<xs:documentation>Determines if customer owns place of residence.</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.HomeOwnershipIndicator</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="10"/>
+			<xs:enumeration value="NOTSET" id="ikea.syscode.OptionalBoolean.NotSet"/>
+			<xs:enumeration value="YES" id="ikea.syscode.OptionalBoolean.Yes"/>
+			<xs:enumeration value="NO" id="ikea.syscode.OptionalBoolean.No"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.IkeaCustomerSourceId">
+		<xs:annotation>
+			<xs:documentation>IKEA id of system that generated the related customer id</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.IkeaCustomerSourceId</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="30"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.LocalIdNo">
+		<xs:annotation>
+			<xs:documentation>Used for server side data storage optimization. Unique key number of Value Object that is independent of other data .</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.LocalIdNo</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:integer">
+			<xs:totalDigits value="10"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.FirstName">
+		<xs:annotation>
+			<xs:documentation>First Name</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.FirstName</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="30"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.FirstNameTranscribed">
+		<xs:annotation>
+			<xs:documentation>First Name Transcribed</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.FirstNameTranscribed</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="30"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.GenderCode" id="ikea.syscode.GenderCode">
+		<xs:annotation>
+			<xs:documentation>Gender code: Male, Female</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.GenderCode</xs:appinfo>
+			<xs:documentation>System Code: ikea.mtc.mfs.cust.syscode.GENDER_CODE</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="10"/>
+			<xs:enumeration value="NOTSET" id="ikea.syscode.GenderCode.NotSet"/>
+			<xs:enumeration value="FEMALE" id="ikea.syscode.GenderCode.Female"/>
+			<xs:enumeration value="MALE" id="ikea.syscode.GenderCode.Male"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.LastName">
+		<xs:annotation>
+			<xs:documentation>Last Name (surname).</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.LastName</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="50"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.LastNameTranscribed">
+		<xs:annotation>
+			<xs:documentation>Last Name Transcribed</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.LastNameTranscribed</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="50"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.CreateDateTime">
+		<xs:annotation>
+			<xs:documentation>Original creation date time.</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.CreateDateTime</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:dateTime"/>
+	</xs:simpleType>
+	<xs:simpleType name="attr.CrmIdType">
+		<xs:annotation>
+			<xs:documentation>Type of CRM customer id source.</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.BusinessUnitType</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="10"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.MarketingIntegrityCode">
+		<xs:annotation>
+			<xs:documentation>Generic attribute code list used by marketing integrity codes</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.MarketingIntegrityCode</xs:appinfo>
+			<xs:appinfo source="BaseAttribute">Yes</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="10"/>
+			<xs:enumeration value="NOTSET"/>
+			<xs:enumeration value="YES"/>
+			<xs:enumeration value="NO"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.CountryCode">
+		<xs:annotation>
+			<xs:documentation>The ISO country code of a country.</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.mfs.CountryCode</xs:appinfo>
+			<xs:documentation>System Code: ikea.mtc.mdif.system.syscode.IKEACOUNTRY</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="2"/>
+			<xs:maxLength value="10"/>
+			<xs:enumeration value="AD"/>
+			<xs:enumeration value="AE"/>
+			<xs:enumeration value="AF"/>
+			<xs:enumeration value="AG"/>
+			<xs:enumeration value="AI"/>
+			<xs:enumeration value="AL"/>
+			<xs:enumeration value="AM"/>
+			<xs:enumeration value="AN"/>
+			<xs:enumeration value="AO"/>
+			<xs:enumeration value="AQ"/>
+			<xs:enumeration value="AR"/>
+			<xs:enumeration value="AS"/>
+			<xs:enumeration value="AT"/>
+			<xs:enumeration value="AU"/>
+			<xs:enumeration value="AW"/>
+			<xs:enumeration value="AZ"/>
+			<xs:enumeration value="BA"/>
+			<xs:enumeration value="BB"/>
+			<xs:enumeration value="BD"/>
+			<xs:enumeration value="BE"/>
+			<xs:enumeration value="BF"/>
+			<xs:enumeration value="BG"/>
+			<xs:enumeration value="BH"/>
+			<xs:enumeration value="BI"/>
+			<xs:enumeration value="BJ"/>
+			<xs:enumeration value="BM"/>
+			<xs:enumeration value="BN"/>
+			<xs:enumeration value="BO"/>
+			<xs:enumeration value="BR"/>
+			<xs:enumeration value="BS"/>
+			<xs:enumeration value="BT"/>
+			<xs:enumeration value="BV"/>
+			<xs:enumeration value="BW"/>
+			<xs:enumeration value="BY"/>
+			<xs:enumeration value="BZ"/>
+			<xs:enumeration value="CA"/>
+			<xs:enumeration value="CC"/>
+			<xs:enumeration value="CD"/>
+			<xs:enumeration value="CF"/>
+			<xs:enumeration value="CG"/>
+			<xs:enumeration value="CH"/>
+			<xs:enumeration value="CI"/>
+			<xs:enumeration value="CK"/>
+			<xs:enumeration value="CL"/>
+			<xs:enumeration value="CM"/>
+			<xs:enumeration value="CN"/>
+			<xs:enumeration value="CO"/>
+			<xs:enumeration value="CR"/>
+			<xs:enumeration value="CS"/>
+			<xs:enumeration value="CU"/>
+			<xs:enumeration value="CV"/>
+			<xs:enumeration value="CX"/>
+			<xs:enumeration value="CY"/>
+			<xs:enumeration value="CZ"/>
+			<xs:enumeration value="DE"/>
+			<xs:enumeration value="DJ"/>
+			<xs:enumeration value="DK"/>
+			<xs:enumeration value="DM"/>
+			<xs:enumeration value="DO"/>
+			<xs:enumeration value="DZ"/>
+			<xs:enumeration value="EC"/>
+			<xs:enumeration value="EE"/>
+			<xs:enumeration value="EG"/>
+			<xs:enumeration value="EH"/>
+			<xs:enumeration value="ER"/>
+			<xs:enumeration value="ES"/>
+			<xs:enumeration value="ET"/>
+			<xs:enumeration value="FI"/>
+			<xs:enumeration value="FJ"/>
+			<xs:enumeration value="FK"/>
+			<xs:enumeration value="FM"/>
+			<xs:enumeration value="FO"/>
+			<xs:enumeration value="FR"/>
+			<xs:enumeration value="FX"/>
+			<xs:enumeration value="GA"/>
+			<xs:enumeration value="GB"/>
+			<xs:enumeration value="GD"/>
+			<xs:enumeration value="GE"/>
+			<xs:enumeration value="GF"/>
+			<xs:enumeration value="GH"/>
+			<xs:enumeration value="GI"/>
+			<xs:enumeration value="GL"/>
+			<xs:enumeration value="GM"/>
+			<xs:enumeration value="GN"/>
+			<xs:enumeration value="GP"/>
+			<xs:enumeration value="GQ"/>
+			<xs:enumeration value="GR"/>
+			<xs:enumeration value="GS"/>
+			<xs:enumeration value="GT"/>
+			<xs:enumeration value="GU"/>
+			<xs:enumeration value="GW"/>
+			<xs:enumeration value="GY"/>
+			<xs:enumeration value="HK"/>
+			<xs:enumeration value="HM"/>
+			<xs:enumeration value="HN"/>
+			<xs:enumeration value="HR"/>
+			<xs:enumeration value="HT"/>
+			<xs:enumeration value="HU"/>
+			<xs:enumeration value="ID"/>
+			<xs:enumeration value="IE"/>
+			<xs:enumeration value="IL"/>
+			<xs:enumeration value="IN"/>
+			<xs:enumeration value="IO"/>
+			<xs:enumeration value="IQ"/>
+			<xs:enumeration value="IR"/>
+			<xs:enumeration value="IS"/>
+			<xs:enumeration value="IT"/>
+			<xs:enumeration value="JM"/>
+			<xs:enumeration value="JO"/>
+			<xs:enumeration value="JP"/>
+			<xs:enumeration value="KE"/>
+			<xs:enumeration value="KG"/>
+			<xs:enumeration value="KH"/>
+			<xs:enumeration value="KI"/>
+			<xs:enumeration value="KM"/>
+			<xs:enumeration value="KN"/>
+			<xs:enumeration value="KP"/>
+			<xs:enumeration value="KR"/>
+			<xs:enumeration value="KW"/>
+			<xs:enumeration value="KY"/>
+			<xs:enumeration value="KZ"/>
+			<xs:enumeration value="LA"/>
+			<xs:enumeration value="LB"/>
+			<xs:enumeration value="LC"/>
+			<xs:enumeration value="LI"/>
+			<xs:enumeration value="LK"/>
+			<xs:enumeration value="LR"/>
+			<xs:enumeration value="LS"/>
+			<xs:enumeration value="LT"/>
+			<xs:enumeration value="LU"/>
+			<xs:enumeration value="LV"/>
+			<xs:enumeration value="LY"/>
+			<xs:enumeration value="MA"/>
+			<xs:enumeration value="MC"/>
+			<xs:enumeration value="MD"/>
+			<xs:enumeration value="MG"/>
+			<xs:enumeration value="MH"/>
+			<xs:enumeration value="MK"/>
+			<xs:enumeration value="ML"/>
+			<xs:enumeration value="MM"/>
+			<xs:enumeration value="MN"/>
+			<xs:enumeration value="MO"/>
+			<xs:enumeration value="MP"/>
+			<xs:enumeration value="MQ"/>
+			<xs:enumeration value="MR"/>
+			<xs:enumeration value="MS"/>
+			<xs:enumeration value="MT"/>
+			<xs:enumeration value="MU"/>
+			<xs:enumeration value="MV"/>
+			<xs:enumeration value="MW"/>
+			<xs:enumeration value="MX"/>
+			<xs:enumeration value="MY"/>
+			<xs:enumeration value="MZ"/>
+			<xs:enumeration value="NA"/>
+			<xs:enumeration value="NC"/>
+			<xs:enumeration value="NE"/>
+			<xs:enumeration value="NF"/>
+			<xs:enumeration value="NG"/>
+			<xs:enumeration value="NI"/>
+			<xs:enumeration value="NL"/>
+			<xs:enumeration value="NO"/>
+			<xs:enumeration value="NP"/>
+			<xs:enumeration value="NR"/>
+			<xs:enumeration value="NT"/>
+			<xs:enumeration value="NU"/>
+			<xs:enumeration value="NZ"/>
+			<xs:enumeration value="OM"/>
+			<xs:enumeration value="PA"/>
+			<xs:enumeration value="PE"/>
+			<xs:enumeration value="PF"/>
+			<xs:enumeration value="PG"/>
+			<xs:enumeration value="PH"/>
+			<xs:enumeration value="PK"/>
+			<xs:enumeration value="PL"/>
+			<xs:enumeration value="PM"/>
+			<xs:enumeration value="PN"/>
+			<xs:enumeration value="PR"/>
+			<xs:enumeration value="PT"/>
+			<xs:enumeration value="PW"/>
+			<xs:enumeration value="PY"/>
+			<xs:enumeration value="QA"/>
+			<xs:enumeration value="RE"/>
+			<xs:enumeration value="RO"/>
+			<xs:enumeration value="RS"/>
+			<xs:enumeration value="RU"/>
+			<xs:enumeration value="RW"/>
+			<xs:enumeration value="SA"/>
+			<xs:enumeration value="SB"/>
+			<xs:enumeration value="SC"/>
+			<xs:enumeration value="SD"/>
+			<xs:enumeration value="SE"/>
+			<xs:enumeration value="SG"/>
+			<xs:enumeration value="SH"/>
+			<xs:enumeration value="SI"/>
+			<xs:enumeration value="SJ"/>
+			<xs:enumeration value="SK"/>
+			<xs:enumeration value="SL"/>
+			<xs:enumeration value="SM"/>
+			<xs:enumeration value="SN"/>
+			<xs:enumeration value="SO"/>
+			<xs:enumeration value="SR"/>
+			<xs:enumeration value="ST"/>
+			<xs:enumeration value="SU"/>
+			<xs:enumeration value="SV"/>
+			<xs:enumeration value="SY"/>
+			<xs:enumeration value="SZ"/>
+			<xs:enumeration value="TC"/>
+			<xs:enumeration value="TD"/>
+			<xs:enumeration value="TF"/>
+			<xs:enumeration value="TG"/>
+			<xs:enumeration value="TH"/>
+			<xs:enumeration value="TJ"/>
+			<xs:enumeration value="TK"/>
+			<xs:enumeration value="TM"/>
+			<xs:enumeration value="TN"/>
+			<xs:enumeration value="TO"/>
+			<xs:enumeration value="TP"/>
+			<xs:enumeration value="TR"/>
+			<xs:enumeration value="TT"/>
+			<xs:enumeration value="TV"/>
+			<xs:enumeration value="TW"/>
+			<xs:enumeration value="TZ"/>
+			<xs:enumeration value="UA"/>
+			<xs:enumeration value="UG"/>
+			<xs:enumeration value="UK"/>
+			<xs:enumeration value="UM"/>
+			<xs:enumeration value="US"/>
+			<xs:enumeration value="UY"/>
+			<xs:enumeration value="UZ"/>
+			<xs:enumeration value="VA"/>
+			<xs:enumeration value="VC"/>
+			<xs:enumeration value="VE"/>
+			<xs:enumeration value="VG"/>
+			<xs:enumeration value="VI"/>
+			<xs:enumeration value="VN"/>
+			<xs:enumeration value="VU"/>
+			<xs:enumeration value="WF"/>
+			<xs:enumeration value="WS"/>
+			<xs:enumeration value="YE"/>
+			<xs:enumeration value="YT"/>
+			<xs:enumeration value="YU"/>
+			<xs:enumeration value="ZA"/>
+			<xs:enumeration value="ZM"/>
+			<xs:enumeration value="ZR"/>
+			<!-- Andorra -->
+			<!-- United Arab Emirates -->
+			<!-- Afghanistan -->
+			<!-- Antigua and Barbuda -->
+			<!-- Anguilla -->
+			<!-- Albania -->
+			<!-- Armenia -->
+			<!-- Netherlands Antilles -->
+			<!-- Angola -->
+			<!-- Antarctica -->
+			<!-- Argentina -->
+			<!-- American Samoa -->
+			<!-- Austria -->
+			<!-- Australia -->
+			<!-- Aruba -->
+			<!-- Azerbaidjan -->
+			<!-- Bosnia-Herzegovina -->
+			<!-- Barbados -->
+			<!-- Bangladesh -->
+			<!-- Belgium -->
+			<!-- Burkina Faso -->
+			<!-- Bulgaria -->
+			<!-- Bahrain -->
+			<!-- Burundi -->
+			<!-- Benin -->
+			<!-- Bermuda -->
+			<!-- Brunei Darussalam -->
+			<!-- Bolivia -->
+			<!-- Brazil -->
+			<!-- Bahamas -->
+			<!-- Bhutan -->
+			<!-- Bouvet Island -->
+			<!-- Botswana -->
+			<!-- Belarus -->
+			<!-- Belize -->
+			<!-- Canada -->
+			<!-- Cocos Islands -->
+			<!-- Congo, The Democratic Republic of the -->
+			<!-- Central African Republic -->
+			<!-- Congo -->
+			<!-- Switzerland -->
+			<!-- Ivory Coast -->
+			<!-- Cook Islands -->
+			<!-- Chile -->
+			<!-- Cameroon -->
+			<!-- China -->
+			<!-- Colombia -->
+			<!-- Costa Rica -->
+			<!-- Former Czechoslovakia -->
+			<!-- Cuba -->
+			<!-- Cape Verde -->
+			<!-- Christmas Island -->
+			<!-- Cyprus -->
+			<!-- Czech Republic -->
+			<!-- Germany -->
+			<!-- Djibouti -->
+			<!-- Denmark -->
+			<!-- Dominica -->
+			<!-- Dominican Republic -->
+			<!-- Algeria -->
+			<!-- Ecuador -->
+			<!-- Estonia -->
+			<!-- Egypt -->
+			<!-- Western Sahara -->
+			<!-- Eritrea -->
+			<!-- Spain -->
+			<!-- Ethiopia -->
+			<!-- Finland -->
+			<!-- Fiji -->
+			<!-- Falkland Islands -->
+			<!-- Micronesia -->
+			<!-- Faroe Islands -->
+			<!-- France -->
+			<!-- France (European Territory) -->
+			<!-- Gabon -->
+			<!-- Great Britain -->
+			<!-- Grenada -->
+			<!-- Georgia -->
+			<!-- French Guyana -->
+			<!-- Ghana -->
+			<!-- Gibraltar -->
+			<!-- Greenland -->
+			<!-- Gambia -->
+			<!-- Guinea -->
+			<!-- Guadeloupe -->
+			<!-- Equatorial Guinea -->
+			<!-- Greece -->
+			<!-- South Georgia and South Sandwich Islands  -->
+			<!-- Guatemala -->
+			<!-- Guam -->
+			<!-- Guinea Bissau -->
+			<!-- Guyana -->
+			<!-- Hong Kong -->
+			<!-- Heard and McDonald Islands -->
+			<!-- Honduras -->
+			<!-- Croatia -->
+			<!-- Haiti -->
+			<!-- Hungary -->
+			<!-- Indonesia -->
+			<!-- Ireland -->
+			<!-- Israel -->
+			<!-- India -->
+			<!-- British Indian Ocean Territory -->
+			<!-- Iraq -->
+			<!-- Iran -->
+			<!-- Iceland -->
+			<!-- Italy -->
+			<!-- Jamaica -->
+			<!-- Jordan -->
+			<!-- Japan -->
+			<!-- Kenya -->
+			<!-- Kyrgyz Republic -->
+			<!-- Cambodia  -->
+			<!-- Kiribati -->
+			<!-- Comoros -->
+			<!-- Saint Kitts & Nevis Anguilla -->
+			<!-- North Korea -->
+			<!-- South Korea -->
+			<!-- Kuwait -->
+			<!-- Cayman Islands -->
+			<!-- Kazakhstan -->
+			<!-- Laos -->
+			<!-- Lebanon -->
+			<!-- Saint Lucia -->
+			<!-- Liechtenstein -->
+			<!-- Sri Lanka -->
+			<!-- Liberia -->
+			<!-- Lesotho -->
+			<!-- Lithuania -->
+			<!-- Luxembourg -->
+			<!-- Latvia -->
+			<!-- Libya -->
+			<!-- Morocco -->
+			<!-- Monaco -->
+			<!-- Moldavia -->
+			<!-- Madagascar -->
+			<!-- Marshall Islands -->
+			<!-- Macedonia -->
+			<!-- Mali -->
+			<!-- Myanmar -->
+			<!-- Mongolia -->
+			<!-- Macau -->
+			<!-- Northern Mariana Islans -->
+			<!-- Martinique -->
+			<!-- Mauritania -->
+			<!-- Montserrat -->
+			<!-- Malta -->
+			<!-- Mauritius -->
+			<!-- Maldives -->
+			<!-- Malawi -->
+			<!-- Mexico -->
+			<!-- Malaysia -->
+			<!-- Mozambique -->
+			<!-- Namibia -->
+			<!-- New Caledonia -->
+			<!-- Niger -->
+			<!-- Norfolk Island  -->
+			<!-- Nigeria -->
+			<!-- Nicaragua -->
+			<!-- Netherlands -->
+			<!-- Norway -->
+			<!-- Nepal -->
+			<!-- Nauru -->
+			<!-- Neutral Zone -->
+			<!-- Niue -->
+			<!-- New Zealand -->
+			<!-- Oman -->
+			<!-- Panama -->
+			<!-- Peru -->
+			<!-- French Polynesia -->
+			<!-- Papua New Guinea -->
+			<!-- Phillippines -->
+			<!-- Pakistan -->
+			<!-- Poland -->
+			<!-- Saint Pierre and Miquelon -->
+			<!-- Pitcairn Island -->
+			<!-- Puerto Rico -->
+			<!-- Portugal -->
+			<!-- Palau -->
+			<!-- Paraguay -->
+			<!-- Qatar -->
+			<!-- Reunion -->
+			<!-- Romania -->
+			<!-- Serbia -->
+			<!-- Russia -->
+			<!-- Rwanda -->
+			<!-- Saudi Arabia -->
+			<!-- Solomon Islands -->
+			<!-- Seychelles -->
+			<!-- Sudan -->
+			<!-- Sweden -->
+			<!-- Singapore -->
+			<!-- Saint Helena -->
+			<!-- Slovenia -->
+			<!-- Svalbard and Jan Mayen Island -->
+			<!-- Slovak Republic -->
+			<!-- Sierra Leone -->
+			<!-- San Marino -->
+			<!-- Senegal -->
+			<!-- Somalia -->
+			<!-- Suriname -->
+			<!-- Saint Tome -->
+			<!-- Former USSR -->
+			<!-- El Salvador -->
+			<!-- Syria -->
+			<!-- Swaziland -->
+			<!-- Turks and Caicos Island -->
+			<!-- Chad -->
+			<!-- French Southern Territories -->
+			<!-- Togo -->
+			<!-- Thailand -->
+			<!-- Tadjikistan -->
+			<!-- Tokelau -->
+			<!-- Turkmenistan -->
+			<!-- Tunisia -->
+			<!-- Tonga -->
+			<!-- East Timor -->
+			<!-- Turkey -->
+			<!-- Trinidad and Tobago -->
+			<!-- Tuvalu -->
+			<!-- Taiwan -->
+			<!-- Tanzania -->
+			<!-- Ukraine -->
+			<!-- Uganda -->
+			<!-- United Kingdom -->
+			<!-- USA Minor Outlying Islands -->
+			<!-- United States -->
+			<!-- Uruguay -->
+			<!-- Uzbekistan -->
+			<!-- Vatican -->
+			<!-- Saint Vincent and Grenadines -->
+			<!-- Venezuela -->
+			<!-- British Virgin Islands -->
+			<!-- USA Virgin Islands -->
+			<!-- Vietnam -->
+			<!-- Vanuatu -->
+			<!-- Wallis and Futuna Islands -->
+			<!-- Samoa -->
+			<!-- Yemen -->
+			<!-- Mayotte -->
+			<!-- Yugoslavia -->
+			<!-- South Africa -->
+			<!-- Zambia -->
+			<!-- Zaire -->
+			<!-- Added by AGSL 2006-03-16 -->
+			<!-- Added by AGSL 2006-03-16 -->
+			<!-- Removed by AGSL <xs:enumeration value=""/> Will not fit in minLength -->
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.LanguageCode">
+		<xs:annotation>
+			<xs:documentation>The code of a language according to IKEA standard.</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.mfs.LanguageCode</xs:appinfo>
+			<xs:documentation>System Code: ikea.mtc.mdif.system.syscode.ISOLANGUAGE</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="2"/>
+			<xs:enumeration value="sv"/>
+			<xs:enumeration value="en"/>
+			<xs:enumeration value="fr"/>
+			<xs:enumeration value="de"/>
+			<xs:enumeration value="zh"/>
+			<xs:enumeration value="ru"/>
+			<xs:enumeration value="cs"/>
+			<xs:enumeration value="sk"/>
+			<xs:enumeration value="ar"/>
+			<xs:enumeration value="nl"/>
+			<xs:enumeration value="no"/>
+			<xs:enumeration value="pl"/>
+			<xs:enumeration value="pt"/>
+			<xs:enumeration value="is"/>
+			<xs:enumeration value="it"/>
+			<xs:enumeration value="he"/>
+			<xs:enumeration value="el"/>
+			<xs:enumeration value="hu"/>
+			<xs:enumeration value="da"/>
+			<xs:enumeration value="es"/>
+			<xs:enumeration value="fi"/>
+			<xs:enumeration value=""/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.Url">
+		<xs:annotation>
+			<xs:documentation>Generic link to external data</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.mfs.Url</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="255"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.CustomerIdRef">
+		<xs:annotation>
+			<xs:documentation>A customer id from another customer info system</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.mfs.CustomerIdRef</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="30"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.InformalName">
+		<xs:annotation>
+			<xs:documentation>Informal name, e.g. Joe for Joseph. Normally corresponds to FirstName.</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.mfs.InformalName</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="50"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.MiddleName">
+		<xs:annotation>
+			<xs:documentation>Middle name or initial</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.mfs.MiddleName</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="30"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.NamePrefix">
+		<xs:annotation>
+			<xs:documentation>Prefix of name, e.g. Mr/Mrs</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.mfs.NamePrefix</xs:appinfo>
+			<xs:documentation>System Code: ikea.mtc.mfs.cust.syscode.NAME_PREFIX</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="20"/>
+			<xs:enumeration value="MS"/>
+			<xs:enumeration value="MRS"/>
+			<xs:enumeration value="MR"/>
+			<xs:enumeration value="DR"/>
+			<xs:enumeration value=""/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.NamePrefixFreeText">
+		<xs:annotation>
+			<xs:documentation>Prefix of name</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="20"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.NameSuffix">
+		<xs:annotation>
+			<xs:documentation>Suffix of name, e.g. Jr</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.mfs.NameSuffix</xs:appinfo>
+			<xs:documentation>System Code: ikea.mtc.mfs.cust.syscode.NAME_SUFFIX</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="20"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.PaymentId">
+		<xs:annotation>
+			<xs:documentation>Card number</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.mfs.PaymentId</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="30"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.PaymentSourceId">
+		<xs:annotation>
+			<xs:documentation>Payment system source id</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.mfs.PaymentSourceId</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="40"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.PaymentType">
+		<xs:annotation>
+			<xs:documentation>Payment types: account, cod, business customer, loan, credit card, debit card</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.mfs.PaymentType</xs:appinfo>
+			<xs:documentation>System Code: ikea.mtc.mfs.paym.syscode.PAYMENT_TYPE</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="10"/>
+			<xs:enumeration value="CREDITCARD"/>
+			<xs:enumeration value="LOAN"/>
+			<xs:enumeration value="INVOICE"/>
+			<xs:enumeration value="CASH"/>
+			<xs:enumeration value="ACCOUNT"/>
+			<xs:enumeration value=""/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.PaymentDetailType">
+		<xs:annotation>
+			<xs:documentation>Type of payment detail (CHECKDIGIT, CONTROLNO, PREFIX, EXPIREYEAR, …)</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.mfs.PaymentDetailType</xs:appinfo>
+			<xs:documentation>System Code: ikea.mtc.mfs.paym.syscode.PAYMENT_DETAIL_TYPE</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="20"/>
+			<xs:enumeration value="CID"/>
+			<xs:enumeration value="EXPIRATION_DATE"/>
+			<xs:enumeration value="CARD_HOLDER_NAME"/>
+			<xs:enumeration value=""/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.PaymentDetailData">
+		<xs:annotation>
+			<xs:documentation>Data connected to Payment detail type</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.mfs.PaymentDetailData</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="250"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.SeqNo">
+		<xs:annotation>
+			<xs:documentation>General sequence number</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.mfs.SeqNo</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:integer">
+			<xs:totalDigits value="10"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.ExternalRef">
+		<xs:annotation>
+			<xs:documentation>External reference</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.mfs.ExternalRef</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="250"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.ExternalRefType">
+		<xs:annotation>
+			<xs:documentation>Type of external reference</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.mfs.ExternalRefType</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="30"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.UserId">
+		<xs:annotation>
+			<xs:documentation>Identity of the sales person</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.mfs.UserId</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="12"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.AttributeName">
+		<xs:annotation>
+			<xs:documentation>Attribute name</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.mfs.AttributeName</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="250"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.AttributeType">
+		<xs:annotation>
+			<xs:documentation>Indicates the type of attribute value</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.mfs.AttributeType</xs:appinfo>
+			<xs:documentation>System Code: ikea.mtc.mdif.system.syscode.ATTR_TYPE</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="50"/>
+			<xs:enumeration value="BOOLEAN"/>
+			<xs:enumeration value="CURRENCY"/>
+			<xs:enumeration value="DATE"/>
+			<xs:enumeration value="DTIME"/>
+			<xs:enumeration value="INT"/>
+			<xs:enumeration value="STRING"/>
+			<xs:enumeration value="LONG_TEXT"/>
+			<xs:enumeration value="DOUBLE"/>
+			<xs:enumeration value="DECIMAL"/>
+			<xs:enumeration value=""/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.AttributeValueString">
+		<xs:annotation>
+			<xs:documentation>Attribute value in string format, connected to AttributeType</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.mfs.AttributeValueString</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="250"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.ContactMethodRoleId">
+		<xs:annotation>
+			<xs:documentation>Indicates what role the contact method is playing.</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.mfs.RoleId</xs:appinfo>
+			<xs:documentation>System Code: ikea.mtc.mfs.cust.syscode.CONTACT_METHOD_ROLE</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="50"/>
+			<xs:enumeration value="WORK"/>
+			<xs:enumeration value="TELECOM"/>
+			<xs:enumeration value="MARKETING_DEST"/>
+			<xs:enumeration value="DELIVERY_CONTACT"/>
+			<xs:enumeration value="CONTACT_INFO"/>
+			<xs:enumeration value="DELIVERY_DEST"/>
+			<xs:enumeration value="INVOICE_DEST"/>
+			<xs:enumeration value="SECONDARY"/>
+			<xs:enumeration value="SUMMER"/>
+			<xs:enumeration value="HOME"/>
+			<xs:enumeration value=""/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.ContactMethodType">
+		<xs:annotation>
+			<xs:documentation>Different ways to get in contact with the customer: PHONE, EMAIL, ADDRESS, FAX, SMS</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.mfs.ContactMethodType</xs:appinfo>
+			<xs:documentation>System Code: ikea.mtc.mfs.cust.syscode.CONTACT_METHOD_TYPE</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="10"/>
+			<xs:enumeration value="FAX"/>
+			<xs:enumeration value="EMAIL"/>
+			<xs:enumeration value="MOBILE"/>
+			<xs:enumeration value="PHONE"/>
+			<xs:enumeration value="ADDRESS"/>
+			<xs:enumeration value=""/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.ContactMethodData">
+		<xs:annotation>
+			<xs:documentation>Data for ContactMethodType</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.mfs.ContactMethodData</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="100"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.CityName">
+		<xs:annotation>
+			<xs:documentation>The name of a city.</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.mfs.CityName</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="attr.ProvinceCode">
+		<xs:annotation>
+			<xs:documentation>State or province code for address</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.mfs.ProvinceCode</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="40"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.Prefecture">
+		<xs:annotation>
+			<xs:documentation>Large geographical subdivision on country level. Part of Japanese address standard</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.mfs.Prefecture</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="35"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.Ward">
+		<xs:annotation>
+			<xs:documentation>Geographical subdivision of city. Part of Japanese address standard.</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.mfs.ProvinceCode</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="35"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.ApartmentBuilding">
+		<xs:annotation>
+			<xs:documentation>Apartment building reference. Part of Japanese address standard.</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.mfs.ProvinceCode</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="35"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.StreetName">
+		<xs:annotation>
+			<xs:documentation>Street name. Can include street number, if StreetNo is not used.</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.mfs.StreetName</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="50"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.StreetNo">
+		<xs:annotation>
+			<xs:documentation>Street number</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.mfs.StreetNo</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="10"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.ZipCode">
+		<xs:annotation>
+			<xs:documentation>A zip code. Compare EDIFACT element 3251.</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.mfs.ZipCode</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="20"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.ZipCodePrefix">
+		<xs:annotation>
+			<xs:documentation>The prefix for a zip code in a country, e.g. S (Sweden) or D (Germany).</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.mfs.ZipCodePrefix</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="5"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.ZipCodeType">
+		<xs:annotation>
+			<xs:documentation>Type of a ZIP code, e.g. COM=company, PB=post box, RES=residential, UNK=unknown.</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.mfs.ZipCodeType</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="10"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.FloorNo">
+		<xs:annotation>
+			<xs:documentation>Floor number (part of address information)</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.mfs.FloorNo</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="10"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.CareOfName">
+		<xs:annotation>
+			<xs:documentation>Care Of address information</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.mfs.CareOfName</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="40"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.AttentionName">
+		<xs:annotation>
+			<xs:documentation>Attention address information</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.mfs.AttentionName</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="40"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.PhoneAreaCode">
+		<xs:annotation>
+			<xs:documentation>Phone area code.</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.mfs.PhoneAreaCode</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="10"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.PhoneCountryCode">
+		<xs:annotation>
+			<xs:documentation>Phone country code, e.g. 46 for Sweden.</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.mfs.PhoneCountryCode</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="4"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.PhoneLocalNo">
+		<xs:annotation>
+			<xs:documentation>Phone local number.</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.mfs.PhoneLocalNo</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="20"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.ZipCodeSuffix">
+		<xs:annotation>
+			<xs:documentation>Zip code suffix used in some countries, e.g. US.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="10"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.PhoneNoFreeText">
+		<xs:annotation>
+			<xs:documentation>Used if structured phone no info is not available.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="30"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.SystemSourceId">
+		<xs:annotation>
+			<xs:documentation>Reference to a software system instance.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="3"/>
+			<xs:maxLength value="20"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.PrivateCustomerRoleId">
+		<xs:annotation>
+			<xs:documentation>Private customer role types.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="50"/>
+			<xs:enumeration value="FAMILY"/>
+			<xs:enumeration value="EMPLOYEE"/>
+			<xs:enumeration value=""/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.AddInfoGroupText">
+		<xs:annotation>
+			<xs:documentation>The text that is used as group text for the generic additional information structure.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="50"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.FormattedAddressLine">
+		<xs:annotation>
+			<xs:documentation>Used for display purposes, normally generated by busines logic applied to structured address data.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="100"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.TransactionId">
+		<xs:annotation>
+			<xs:documentation>Transaction id. Usage example: matching asynch communication response</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="255"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.SystemTargetId">
+		<xs:annotation>
+			<xs:documentation>system id</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="3"/>
+			<xs:maxLength value="20"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.LoyaltyCardType">
+		<xs:annotation>
+			<xs:documentation>Loyalty program card type.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="10"/>
+			<xs:enumeration value="NOTSET"/>
+			<xs:enumeration value="CASH"/>
+			<xs:enumeration value="ACCOUNT"/>
+			<xs:enumeration value="CREDITCARD"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.LoyaltyCardNo">
+		<xs:annotation>
+			<xs:documentation>Any card number that is used to identify the customer as a family member.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="10"/>
+			<xs:maxLength value="50"/>
+			<!-- <xs:minLength value="11"/> Changed by AGSL 20050615 -->
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.LoyaltyProgramCreditCardState">
+		<xs:annotation>
+			<xs:documentation>Indicates if customer has credit linked to a loyalty program card .</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="10"/>
+			<xs:enumeration value="NOTSET"/>
+			<xs:enumeration value="CREDIT"/>
+			<xs:enumeration value="NOCREDIT"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.LoyaltyProgramState">
+		<xs:annotation>
+			<xs:documentation>Indicates how active the customer is in the loyalty program.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="10"/>
+			<xs:enumeration value="NOTSET"/>
+			<xs:enumeration value="ACTIVE"/>
+			<xs:enumeration value="INACTIVE"/>
+			<xs:enumeration value="CANCELLED"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.CardCreatorCode">
+		<xs:annotation>
+			<xs:documentation>Indicates how the customer's Family card was created, in store or by external company.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="10"/>
+			<xs:enumeration value="NOTSET"/>
+			<xs:enumeration value="KIOSK"/>
+			<xs:enumeration value="ODB"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.ContactMethodQualityIndicator">
+		<xs:annotation>
+			<xs:documentation>Indicates how correct the contact method information is.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="10"/>
+			<xs:enumeration value="UNKNOWN"/>
+			<xs:enumeration value="VALID"/>
+			<xs:enumeration value="TROUBLE"/>
+			<xs:enumeration value="INVALID"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.ValidNameIndicator">
+		<xs:annotation>
+			<xs:documentation>Indicates how correct the name information is.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="10"/>
+			<xs:enumeration value="UNKNOWN"/>
+			<xs:enumeration value="VALID"/>
+			<xs:enumeration value="INVALID"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.CardIssuer">
+		<xs:annotation>
+			<xs:documentation>Reference to the organisation that has issued the card.</xs:documentation>
+			<xs:appinfo source="AttributeBaseRef">ikea.CustomerId</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="50"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.EmployeeNo">
+		<xs:annotation>
+			<xs:documentation>IKEA Employee number</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="10"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.EmployeeNextValidationDate">
+		<xs:annotation>
+			<xs:documentation>Nextdate when employee info need to be considered valid.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<xs:simpleType name="attr.EmployeeInfoExpireDate">
+		<xs:annotation>
+			<xs:documentation>Last date when employee info is considered valid.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<xs:simpleType name="attr.EmployeeIndicator">
+		<xs:annotation>
+			<xs:documentation>IKEA Employee indicator</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="10"/>
+			<xs:enumeration value="NOTSET"/>
+			<xs:enumeration value="YES"/>
+			<xs:enumeration value="NO"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="attr.SocialSecurityNo">
+		<xs:annotation>
+			<xs:documentation>Social security number</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="50"/>
+		</xs:restriction>
+	</xs:simpleType><xs:simpleType name="BusinessNameSimpleType">
+		<xs:annotation>
+			<xs:documentation>Business name</xs:documentation>
+			<xs:appinfo source="CemAppinfoContentDataType">
+				<CemAppinfoContentDataType>
+					<DescriptionData>
+						<BusinessShort>Business name</BusinessShort>
+						<BusinessLong/>
+						<Development/>
+					</DescriptionData>
+					<CemRefData>
+						<CemRefName>BusinessName</CemRefName>
+						<CemRefType>DataType</CemRefType>
+						<CemRefVersion>1.0.0</CemRefVersion>
+					</CemRefData>
+					<AliasNameData>
+						<AliasNameTech>
+							<Type>SQL</Type>
+							<Name/>
+						</AliasNameTech>
+					</AliasNameData>
+					<TestData>
+						<TestDataValue/>
+					</TestData>
+				</CemAppinfoContentDataType>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="50"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="BusinessNamePhoneticSimpleType">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="50"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="BusinessTypeSimpleType">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="50"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="VatCodeSimpleType">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="20"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="BusinessRegIdSimpleType">
+		<xs:annotation>
+			<xs:documentation>Business administrative, official registration id</xs:documentation>
+			<xs:appinfo source="CemAppinfoContentDataType">
+				<CemAppinfoContentDataType>
+					<DescriptionData>
+						<BusinessShort>Business administrative, official registration id</BusinessShort>
+						<BusinessLong/>
+						<Development/>
+					</DescriptionData>
+					<CemRefData>
+						<CemRefName>BusinessRegId</CemRefName>
+						<CemRefType>DataType</CemRefType>
+						<CemRefVersion>1.0.0</CemRefVersion>
+					</CemRefData>
+					<AliasNameData>
+						<AliasNameTech>
+							<Type>SQL</Type>
+							<Name/>
+						</AliasNameTech>
+					</AliasNameData>
+					<TestData>
+						<TestDataValue/>
+					</TestData>
+				</CemAppinfoContentDataType>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="20"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="BusinessTradeCodeSimpleType">
+		<xs:annotation>
+			<xs:documentation>Business trade code, from marketing Db</xs:documentation>
+			<xs:appinfo source="CemAppinfoContentDataType">
+				<CemAppinfoContentDataType>
+					<DescriptionData>
+						<BusinessShort>Business trade code, from marketing Db</BusinessShort>
+						<BusinessLong/>
+						<Development/>
+					</DescriptionData>
+					<CemRefData>
+						<CemRefName>BusinessTradeCode</CemRefName>
+						<CemRefType>DataType</CemRefType>
+						<CemRefVersion>1.0.0</CemRefVersion>
+					</CemRefData>
+					<AliasNameData>
+						<AliasNameTech>
+							<Type>SQL</Type>
+							<Name/>
+						</AliasNameTech>
+					</AliasNameData>
+					<TestData>
+						<TestDataValue/>
+					</TestData>
+				</CemAppinfoContentDataType>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="BusinessCategoryCodeSimpleType">
+		<xs:annotation>
+			<xs:documentation>Business category code, from marketing DB</xs:documentation>
+			<xs:appinfo source="CemAppinfoContentDataType">
+				<CemAppinfoContentDataType>
+					<DescriptionData>
+						<BusinessShort>Business category code, from marketing DB</BusinessShort>
+						<BusinessLong/>
+						<Development/>
+					</DescriptionData>
+					<CemRefData>
+						<CemRefName>BusinessCategoryCode</CemRefName>
+						<CemRefType>DataType</CemRefType>
+						<CemRefVersion>1.0.0</CemRefVersion>
+					</CemRefData>
+					<AliasNameData>
+						<AliasNameTech>
+							<Type>SQL</Type>
+							<Name/>
+						</AliasNameTech>
+					</AliasNameData>
+					<TestData>
+						<TestDataValue/>
+					</TestData>
+				</CemAppinfoContentDataType>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

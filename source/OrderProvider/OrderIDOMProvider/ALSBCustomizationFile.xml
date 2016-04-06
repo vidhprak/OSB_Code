@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cus:Customizations xmlns:cus="http://www.bea.com/wli/config/customizations" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xt="http://www.bea.com/wli/config/xmltypes">
+  <cus:customization xsi:type="cus:EnvValueCustomizationType">
+    <cus:description/>
+    <cus:envValueAssignments>
+      <xt:envValueType>Service URI Weight</xt:envValueType>
+      <xt:location>0</xt:location>
+      <xt:owner>
+        <xt:type>BusinessService</xt:type>
+        <xt:path>OrderProvider/OrderIDOMProvider/BusinessService/OrderIDOMBusinessService</xt:path>
+      </xt:owner>
+      <xt:value xsi:type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema">0</xt:value>
+    </cus:envValueAssignments>
+    <cus:envValueAssignments>
+      <xt:envValueType>Service URI</xt:envValueType>
+      <xt:location>0</xt:location>
+      <xt:owner>
+        <xt:type>BusinessService</xt:type>
+        <xt:path>OrderProvider/OrderIDOMProvider/BusinessService/OrderIDOMBusinessService</xt:path>
+      </xt:owner>
+      <xt:value xsi:type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema">jms://${SOM_JMS_SERVER_HOST}:{SOM_JMS_SERVER_PORT}/AGENT_QCF/SOM_IN_ORDER_CREATION_QUEUE</xt:value>
+    </cus:envValueAssignments>
+    <cus:envValueAssignments>
+      <xt:envValueType>Service URI Table</xt:envValueType>
+      <xt:location xsi:nil="true"/>
+      <xt:owner>
+        <xt:type>BusinessService</xt:type>
+        <xt:path>OrderProvider/OrderIDOMProvider/BusinessService/OrderIDOMBusinessService</xt:path>
+      </xt:owner>
+      <xt:value>
+        <tableElement xmlns="http://www.bea.com/wli/sb/transports">
+          <URI>jms://${SOM_JMS_SERVER_HOST}:{SOM_JMS_SERVER_PORT}/AGENT_QCF/SOM_IN_ORDER_CREATION_QUEUE</URI>
+          <weight>0</weight>
+        </tableElement>
+      </xt:value>
+    </cus:envValueAssignments>
+    <cus:envValueAssignments>
+      <xt:envValueType>Service Retry Count</xt:envValueType>
+      <xt:location xsi:nil="true"/>
+      <xt:owner>
+        <xt:type>BusinessService</xt:type>
+        <xt:path>OrderProvider/OrderIDOMProvider/BusinessService/OrderIDOMBusinessService</xt:path>
+      </xt:owner>
+      <xt:value xsi:type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema">0</xt:value>
+    </cus:envValueAssignments>
+    <cus:envValueAssignments>
+      <xt:envValueType>Service Retry Iteration Interval</xt:envValueType>
+      <xt:location xsi:nil="true"/>
+      <xt:owner>
+        <xt:type>BusinessService</xt:type>
+        <xt:path>OrderProvider/OrderIDOMProvider/BusinessService/OrderIDOMBusinessService</xt:path>
+      </xt:owner>
+      <xt:value xsi:type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema">30</xt:value>
+    </cus:envValueAssignments>
+    <cus:envValueAssignments>
+      <xt:envValueType>Secure Connections to JMS Server</xt:envValueType>
+      <xt:location xsi:nil="true"/>
+      <xt:owner>
+        <xt:type>BusinessService</xt:type>
+        <xt:path>OrderProvider/OrderIDOMProvider/BusinessService/OrderIDOMBusinessService</xt:path>
+      </xt:owner>
+      <xt:value xsi:type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema">false</xt:value>
+    </cus:envValueAssignments>
+    <cus:envValueAssignments>
+      <xt:envValueType>UDDI Auto Publish</xt:envValueType>
+      <xt:location xsi:nil="true"/>
+      <xt:owner>
+        <xt:type>ProxyService</xt:type>
+        <xt:path>OrderProvider/OrderIDOMProvider/OrderIDOMProviderService</xt:path>
+      </xt:owner>
+      <xt:value xsi:type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema">false</xt:value>
+    </cus:envValueAssignments>
+  </cus:customization>
+  <cus:customization xsi:type="cus:FindAndReplaceCustomizationType">
+    <cus:description/>
+    <cus:query>
+      <xt:resourceTypes>ProxyService</xt:resourceTypes>
+      <xt:resourceTypes>BusinessService</xt:resourceTypes>
+      <xt:envValueTypes>Service Retry Iteration Interval</xt:envValueTypes>
+      <xt:envValueTypes>UDDI Auto Publish</xt:envValueTypes>
+      <xt:envValueTypes>Service URI Weight</xt:envValueTypes>
+      <xt:envValueTypes>Secure Connections to JMS Server</xt:envValueTypes>
+      <xt:envValueTypes>Service Retry Count</xt:envValueTypes>
+      <xt:envValueTypes>Service URI</xt:envValueTypes>
+      <xt:refsToSearch xsi:type="xt:ResourceRefType">
+        <xt:type>BusinessService</xt:type>
+        <xt:path>OrderProvider/OrderIDOMProvider/BusinessService/OrderIDOMBusinessService</xt:path>
+      </xt:refsToSearch>
+      <xt:refsToSearch xsi:type="xt:ResourceRefType">
+        <xt:type>ProxyService</xt:type>
+        <xt:path>OrderProvider/OrderIDOMProvider/OrderIDOMProviderService</xt:path>
+      </xt:refsToSearch>
+      <xt:includeOnlyModifiedResources>false</xt:includeOnlyModifiedResources>
+      <xt:searchString>Search String</xt:searchString>
+      <xt:isCompleteMatch>false</xt:isCompleteMatch>
+    </cus:query>
+    <cus:replacement>Replacement String</cus:replacement>
+  </cus:customization>
+  <cus:customization xsi:type="cus:ReferenceCustomizationType">
+    <cus:description/>
+    <cus:refsToBeConsidered xsi:type="xt:ResourceRefType">
+      <xt:type>BusinessService</xt:type>
+      <xt:path>OrderProvider/OrderIDOMProvider/BusinessService/OrderIDOMBusinessService</xt:path>
+    </cus:refsToBeConsidered>
+    <cus:refsToBeConsidered xsi:type="xt:ResourceRefType">
+      <xt:type>ProxyService</xt:type>
+      <xt:path>OrderProvider/OrderIDOMProvider/OrderIDOMProviderService</xt:path>
+    </cus:refsToBeConsidered>
+    <cus:externalReferenceMap>
+      <xt:oldRef>
+        <xt:type>WSDL</xt:type>
+        <xt:path>CommonResources/Interfaces/Providers/IDOM/OrderIDOMProviderService</xt:path>
+      </xt:oldRef>
+      <xt:newRef>
+        <xt:type>WSDL</xt:type>
+        <xt:path>CommonResources/Interfaces/Providers/IDOM/OrderIDOMProviderService</xt:path>
+      </xt:newRef>
+    </cus:externalReferenceMap>
+    <cus:externalReferenceMap>
+      <xt:oldRef>
+        <xt:type>BusinessService</xt:type>
+        <xt:path>OrderProvider/OrderIDOMProvider/BusinessService/OrderIDOMBusinessService</xt:path>
+      </xt:oldRef>
+      <xt:newRef>
+        <xt:type>BusinessService</xt:type>
+        <xt:path>OrderProvider/OrderIDOMProvider/BusinessService/OrderIDOMBusinessService</xt:path>
+      </xt:newRef>
+    </cus:externalReferenceMap>
+    <cus:externalReferenceMap>
+      <xt:oldRef>
+        <xt:type>Xquery</xt:type>
+        <xt:path>CommonResources/Transformations/Xqueries/Utility/generateSOAPFaultMessage</xt:path>
+      </xt:oldRef>
+      <xt:newRef>
+        <xt:type>Xquery</xt:type>
+        <xt:path>CommonResources/Transformations/Xqueries/Utility/generateSOAPFaultMessage</xt:path>
+      </xt:newRef>
+    </cus:externalReferenceMap>
+    <cus:externalReferenceMap>
+      <xt:oldRef>
+        <xt:type>Xquery</xt:type>
+        <xt:path>OrderProvider/OrderIDOMProvider/Transformations/XQueries/XfCreateOrderRespIIPMsgToiSellRespMsg</xt:path>
+      </xt:oldRef>
+      <xt:newRef>
+        <xt:type>Xquery</xt:type>
+        <xt:path>OrderProvider/OrderIDOMProvider/Transformations/XQueries/XfCreateOrderRespIIPMsgToiSellRespMsg</xt:path>
+      </xt:newRef>
+    </cus:externalReferenceMap>
+    <cus:externalReferenceMap>
+      <xt:oldRef>
+        <xt:type>XMLSchema</xt:type>
+        <xt:path>CommonResources/DataModels/ApplicationObjects/IDOM/YFS_createOrder_input</xt:path>
+      </xt:oldRef>
+      <xt:newRef>
+        <xt:type>XMLSchema</xt:type>
+        <xt:path>CommonResources/DataModels/ApplicationObjects/IDOM/YFS_createOrder_input</xt:path>
+      </xt:newRef>
+    </cus:externalReferenceMap>
+  </cus:customization>
+</cus:Customizations>

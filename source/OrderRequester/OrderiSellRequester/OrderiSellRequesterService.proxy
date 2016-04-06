@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml-fragment xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:con1="http://www.bea.com/wli/sb/stages/config" xmlns:con2="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con3="http://www.bea.com/wli/sb/stages/routing/config">
+  <ser:coreEntry isProxy="true" isEnabled="true" isAutoPublish="false" isTracingEnabled="false">
+    <ser:binding type="SOAP" isSoap12="false" xsi:type="con:SoapBindingType" xmlns:con="http://www.bea.com/wli/sb/services/bindings/config">
+      <con:wsdl ref="OrderRequester/OrderiSellRequester/Interfaces/WSDL/OrderiSellRequesterService"/>
+      <con:port>
+        <con:name>OrderiSellRequesterServicePort</con:name>
+        <con:namespace>ikea.com/system/iip/OrderiSellRequesterService/1.0/</con:namespace>
+      </con:port>
+      <con:selector type="SOAP body"/>
+    </ser:binding>
+    <ser:monitoring isEnabled="false">
+      <ser:aggregationInterval>10</ser:aggregationInterval>
+      <ser:pipelineMonitoringLevel>Pipeline</ser:pipelineMonitoringLevel>
+    </ser:monitoring>
+    <ser:reporting>true</ser:reporting>
+    <ser:logging isEnabled="true">
+      <ser:logLevel>debug</ser:logLevel>
+    </ser:logging>
+    <ser:sla-alerting isEnabled="true">
+      <ser:alertLevel>normal</ser:alertLevel>
+    </ser:sla-alerting>
+    <ser:pipeline-alerting isEnabled="true">
+      <ser:alertLevel>normal</ser:alertLevel>
+    </ser:pipeline-alerting>
+    <ser:ws-policy>
+      <ser:binding-mode>wsdl-policy-attachments</ser:binding-mode>
+    </ser:ws-policy>
+    <ser:transactions isRequired="true" sameTxForResponse="false"/>
+  </ser:coreEntry>
+  <ser:endpointConfig>
+    <tran:provider-id>http</tran:provider-id>
+    <tran:inbound>true</tran:inbound>
+    <tran:URI>
+      <env:value>/Order/V1/OrderiSellRequesterService</env:value>
+    </tran:URI>
+    <tran:inbound-properties/>
+    <tran:all-headers>false</tran:all-headers>
+    <tran:provider-specific>
+      <http:inbound-properties/>
+    </tran:provider-specific>
+  </ser:endpointConfig>
+  <ser:router errorHandler="_onErrorHandler-3237697631472021508--4f3c4e7a.144d3b326b4.-7fe4">
+    <con:pipeline type="error" name="_onErrorHandler-3237697631472021508--4f3c4e7a.144d3b326b4.-7fe4">
+      <con:stage name="ReplyWithFailure">
+        <con:context>
+          <con1:userNsDecl namespace="ikea.com/system/iip/IIPFaultMessage/1.0/" prefix="iipfaultmsg"/>
+          <con1:varNsDecl namespace="http://www.sterlingcommerce.com/documentation/YFS/createOrder/input" prefix="inp"/>
+          <con1:varNsDecl namespace="ikea.com/system/iip/IIPServiceResponse/1.0/" prefix="ns"/>
+        </con:context>
+        <con:actions>
+          <con1:reply isError="true">
+            <con1:id>_ActionId-3237697631472021508--4f3c4e7a.144d3b326b4.-7f92</con1:id>
+          </con1:reply>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="error" name="_onErrorHandler-3237697631472021508--4f3c4e7a.144d3b326b4.-7f91">
+      <con:stage name="GenerateErrorMessage">
+        <con:context>
+          <con1:userNsDecl namespace="ikea.com/system/iip/IIPFaultMessage/1.0/" prefix="iipfaultmsg"/>
+          <con1:varNsDecl namespace="http://www.sterlingcommerce.com/documentation/YFS/createOrder/input" prefix="inp"/>
+          <con1:varNsDecl namespace="ikea.com/system/iip/IIPServiceResponse/1.0/" prefix="ns"/>
+        </con:context>
+        <con:actions>
+          <con2:delete varName="header">
+            <con1:id>_ActionId-3237697631472021508--4f3c4e7a.144d3b326b4.-7e6a</con1:id>
+            <con2:location>
+              <con1:xpathText>.</con1:xpathText>
+            </con2:location>
+          </con2:delete>
+          <con2:ifThenElse>
+            <con1:id>_ActionId-3237697631472021508--4f3c4e7a.144d3b326b4.-7f76</con1:id>
+            <con2:case>
+              <con2:condition>
+                <con1:xqueryText>fn:exists($body//iipfaultmsg:IIPFaultMessage)</con1:xqueryText>
+              </con2:condition>
+              <con2:actions/>
+            </con2:case>
+            <con2:default>
+              <con2:replace varName="body">
+                <con1:id>_ActionId-3237697631472021508--4f3c4e7a.144d3b326b4.-7f5a</con1:id>
+                <con2:location>
+                  <con1:xpathText>./*</con1:xpathText>
+                </con2:location>
+                <con2:expr>
+                  <con1:xqueryTransform>
+                    <con1:resource ref="CommonResources/Transformations/Xqueries/Utility/generateSOAPFaultMessage"/>
+                    <con1:param name="osbfault">
+                      <con1:path>$fault</con1:path>
+                    </con1:param>
+                    <con1:param name="soapbody">
+                      <con1:path>$body</con1:path>
+                    </con1:param>
+                    <con1:param name="osbinbound">
+                      <con1:path>$inbound</con1:path>
+                    </con1:param>
+                  </con1:xqueryTransform>
+                </con2:expr>
+              </con2:replace>
+            </con2:default>
+          </con2:ifThenElse>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:flow>
+      <con:route-node name="RouteToOrderIDOMProvider" error-handler="_onErrorHandler-3237697631472021508--4f3c4e7a.144d3b326b4.-7f91">
+        <con:context/>
+        <con:actions>
+          <con3:route>
+            <con1:id>_ActionId-3237697631472021508--4f3c4e7a.144d3b326b4.-7fe5</con1:id>
+            <con3:service ref="OrderProvider/OrderIDOMProvider/OrderIDOMProviderService" xsi:type="ref:ProxyRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+            <con3:operation>CreateOrder</con3:operation>
+            <con3:outboundTransform/>
+            <con3:responseTransform/>
+          </con3:route>
+        </con:actions>
+      </con:route-node>
+    </con:flow>
+  </ser:router>
+</xml-fragment>

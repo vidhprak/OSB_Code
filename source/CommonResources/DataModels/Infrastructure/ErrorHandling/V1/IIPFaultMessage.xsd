@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns="ikea.com/system/iip/IIPFaultMessage/1.0/"
+            targetNamespace="ikea.com/system/iip/IIPFaultMessage/1.0/"
+            elementFormDefault="qualified">
+  <xsd:complexType name="IIPFaultMessageType">
+    <xsd:sequence>
+      <xsd:element name="MessageID" type="xsd:string" minOccurs="0"></xsd:element>
+      <xsd:element name="EBMName" minOccurs="0" type="xsd:string"/>
+      <xsd:element name="CEMName" minOccurs="0" type="xsd:string"/>
+      <xsd:element name="OperationName" minOccurs="0" type="xsd:string"/>
+      <xsd:element name="EnterpriseServiceName" minOccurs="0"
+                   type="xsd:string"/>
+      <xsd:element name="ECID" minOccurs="0" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>Execution Context ID</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="EnvironmentID" minOccurs="0" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>Code for the environment: e.g. PTE, CTE, PPD, PROD</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ReportDateTime" minOccurs="0" type="xsd:dateTime"/>
+      <xsd:element name="ErrorContext" type="ErrorContextType" minOccurs="0"/>
+      <xsd:element name="FaultingService" minOccurs="0"
+                   type="FaultingServiceType">
+        <xsd:annotation>
+          <xsd:documentation>Name of failing service, adapter, component etc.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MessageReference" type="MessageReferenceType"
+                   minOccurs="0"/>
+      <xsd:element name="SenderMessageReference" minOccurs="0"
+                   type="MessageReferenceType"/>
+      <xsd:element name="TargetMessageReference" type="MessageReferenceType"
+                   minOccurs="0"/>
+       <xsd:element name="CustomExtension" minOccurs="0" maxOccurs="unbounded" type="CustomExtensionType"/>
+    </xsd:sequence>
+    <xsd:attribute name="Version" type="xsd:string"/>
+  </xsd:complexType>
+  <xsd:element name="IIPFaultMessage" type="IIPFaultMessageType"/>
+  <xsd:complexType name="MessageReferenceType">
+    <xsd:sequence>
+      <xsd:element name="MessageID" minOccurs="0" type="xsd:string"/>
+      <xsd:element name="ObjectReferenceID" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Identifier for the object of the faulting message,
+                             example OrderID, InvoiceID, CustomerID etc.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="CustomExtension" minOccurs="0" maxOccurs="unbounded" type="CustomExtensionType"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="FaultingServiceType">
+    <xsd:sequence>
+      <xsd:element name="FaultingServiceName" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="FaultingServiceImplementationType" minOccurs="0"
+                   type="xsd:string"/>
+      <xsd:element name="FaultingServiceInstanceID" minOccurs="0"
+                   type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ErrorContextType">
+    <xsd:sequence>
+      <xsd:element name="ErrorCode" minOccurs="0" type="xsd:string"/>
+      <xsd:element name="ErrorText" minOccurs="0" type="xsd:string"/>
+      <xsd:element name="StackTrace" minOccurs="0" type="xsd:string"/>
+      <xsd:element name="SeverityLevel" minOccurs="0" type="xsd:string"/>
+      <xsd:element name="CustomExtension" minOccurs="0" maxOccurs="unbounded" type="CustomExtensionType"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+    <xsd:complexType name="CustomExtensionType">
+    	<xsd:sequence>
+    		<xsd:element name="Name" type="xsd:string"/>
+    		<xsd:element name="Value" type="xsd:string"/>
+    	</xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>

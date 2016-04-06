@@ -1,0 +1,813 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:yfc="http://www.sterlingcommerce.com/documentation/YFS/getTimeWindows/output" targetNamespace="http://www.sterlingcommerce.com/documentation/YFS/getTimeWindows/output" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xsd:annotation yfc:fileName="YFS_getTimeWindows_output.xsd" yfc:rootElement="Promise"/>
+	<xsd:element name="Promise">
+		<xsd:complexType>
+			<xsd:all>
+				<xsd:element ref="yfc:SuggestedOption" minOccurs="1" maxOccurs="1"/>
+				<xsd:element ref="yfc:ServiceAssociations" minOccurs="0" maxOccurs="1"/>
+			</xsd:all>
+			<xsd:attribute name="OrganizationCode" use="required">
+				<xsd:annotation>
+					<xsd:documentation>
+						The Store channel making the request.
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="24"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="SuggestedOption">
+		<xsd:complexType>
+			<xsd:all>
+				<xsd:element ref="yfc:Option" minOccurs="1" maxOccurs="1"/>
+				<xsd:element ref="yfc:UnavailableLines" minOccurs="1" maxOccurs="1"/>
+			</xsd:all>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Option">
+		<xsd:complexType>
+			<xsd:all>
+				<xsd:element ref="yfc:PromiseServiceLines" minOccurs="0" maxOccurs="1"/>
+				<xsd:element ref="yfc:PromiseLines" minOccurs="0" maxOccurs="1"/>
+			</xsd:all>
+			<xsd:attribute name="HasAnyUnavailableQty" use="required">
+				<xsd:annotation>
+					<xsd:documentation>
+						Flag to indicate if there is any unavailalbe product or service quantity.
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="N"/>
+						<xsd:enumeration value="Y"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="PromiseServiceLines">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="yfc:PromiseServiceLine" minOccurs="1" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="PromiseServiceLine">
+		<xsd:complexType>
+			<xsd:all>
+				<xsd:element ref="yfc:Extn" minOccurs="1" maxOccurs="1"/>
+				<xsd:element ref="yfc:Options" minOccurs="1" maxOccurs="1"/>
+			</xsd:all>
+			<xsd:attribute name="ReqEndDate" use="optional">
+				<xsd:annotation>
+					<xsd:documentation>
+						Look for available time windows between ReqStartDate and ReqEndDate.
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:union>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:enumeration value=""/>
+							</xsd:restriction>
+						</xsd:simpleType>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:dateTime"/>
+						</xsd:simpleType>
+					</xsd:union>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="ReqStartDate" use="optional">
+				<xsd:annotation>
+					<xsd:documentation>
+						Look for available time windows between ReqStartDate and ReqEndDate.
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:union>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:enumeration value=""/>
+							</xsd:restriction>
+						</xsd:simpleType>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:dateTime"/>
+						</xsd:simpleType>
+					</xsd:union>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="ServiceLineId" use="required">
+				<xsd:annotation>
+					<xsd:documentation>
+						Identifier of service line associating a product line to a service line 
+						containing one or more delivery options.
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="128"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="ServiceSearchWindow" use="optional">
+				<xsd:annotation>
+					<xsd:documentation>
+						The number of days to look for capacity from the earliest search date across all delivery options.
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:union>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:enumeration value=""/>
+							</xsd:restriction>
+						</xsd:simpleType>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:nonNegativeInteger">
+								<xsd:totalDigits value="5"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:union>
+				</xsd:simpleType>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Extn">
+		<xsd:complexType>
+			<xsd:attribute name="Volume" use="optional">
+				<xsd:annotation>
+					<xsd:documentation>
+						Calculated volume of one unit of item quantity. 
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:union>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:enumeration value=""/>
+							</xsd:restriction>
+						</xsd:simpleType>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:decimal">
+								<xsd:minInclusive value="0"/>
+								<xsd:totalDigits value="14"/>
+								<xsd:fractionDigits value="4"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:union>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="Weight" use="optional">
+				<xsd:annotation>
+					<xsd:documentation>
+						Total Weight of items with this alternate UOM.
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:union>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:enumeration value=""/>
+							</xsd:restriction>
+						</xsd:simpleType>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:decimal">
+								<xsd:minInclusive value="0"/>
+								<xsd:totalDigits value="14"/>
+								<xsd:fractionDigits value="4"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:union>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="VolumeUOM" use="optional">
+				<xsd:annotation>
+					<xsd:documentation>
+						Unit of measure in which the item volume is measured.
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:union>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:enumeration value=""/>
+							</xsd:restriction>
+						</xsd:simpleType>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="40"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:union>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="WeightUOM" use="optional">
+				<xsd:annotation>
+					<xsd:documentation>
+						Unit of measure in which a package's weight is measured. 
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:union>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:enumeration value=""/>
+							</xsd:restriction>
+						</xsd:simpleType>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="40"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:union>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="HasExceptionVolume" use="optional">
+				<xsd:annotation>
+					<xsd:documentation>
+						"Y" if Volume is above exception threshold, if not "N"
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="1"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="HasExceptionQty" use="optional">
+				<xsd:annotation>
+					<xsd:documentation>
+						"Y" if Qty of article is above exception threshold, if not "N"
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="1"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Options">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Option" minOccurs="0" maxOccurs="unbounded">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element ref="yfc:Slots" minOccurs="1" maxOccurs="1"/>
+						</xsd:sequence>
+						<xsd:attribute name="ItemID" use="required">
+							<xsd:annotation>
+								<xsd:documentation>
+									The identifier for the delivery. The ITEM_ID, UOM, and PRODUCT_CLASS form the unique
+									 inventory identifier for an order line. The ITEM_ID, UOM and ORGANIZATION_CODE 
+									 form the unique item identifier for the Product Management module. 
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:maxLength value="40"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:attribute>
+						<xsd:attribute name="ShipNode" use="required">
+							<xsd:annotation>
+								<xsd:documentation>
+						Final dispatch location from where delivery will be executed.
+					</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:maxLength value="24"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:attribute>
+						<xsd:attribute name="UnitOfMeasure" use="required">
+							<xsd:annotation>
+								<xsd:documentation>
+						The capacity unit of measure for the service.
+					</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:maxLength value="40"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:attribute>
+						<xsd:attribute name="LevelOfService" use="required">
+							<xsd:annotation>
+								<xsd:documentation>
+						Indicates the level of service required for this order line.
+					</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:maxLength value="40"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:attribute>
+						<xsd:attribute name="FulfillmentType" use="optional">
+							<xsd:annotation>
+								<xsd:documentation>
+						The method of fulfilling the order line during scheduling. 
+						This field can be matched with the corresponding field in the YFS_SOURCING_RULE_HDR
+						 table and the appropriate sourcing rule can be selected.
+					</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:union>
+									<xsd:simpleType>
+										<xsd:restriction base="xsd:string">
+											<xsd:enumeration value=""/>
+										</xsd:restriction>
+									</xsd:simpleType>
+									<xsd:simpleType>
+										<xsd:restriction base="xsd:string">
+											<xsd:maxLength value="40"/>
+										</xsd:restriction>
+									</xsd:simpleType>
+								</xsd:union>
+							</xsd:simpleType>
+						</xsd:attribute>
+						<xsd:attribute name="TransportMethod" use="required">
+							<xsd:annotation>
+								<xsd:documentation>
+									Classification of basic transport methods offered by IKEA
+									 (E.g. “Truck – Curb side”, “Truck – Indoor”, “Parcel”). 
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:maxLength value="40"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:attribute>
+						<xsd:attribute name="EarliestShipDate" use="required">
+							<xsd:annotation>
+								<xsd:documentation>
+									Earliest dispatch date from final mile dispatch location.
+								</xsd:documentation>
+							</xsd:annotation>
+									<xsd:simpleType>
+										<xsd:restriction base="xsd:dateTime"/>
+									</xsd:simpleType>
+						</xsd:attribute>
+						<xsd:attribute name="TransportMethodType" use="required">
+							<xsd:annotation>
+								<xsd:documentation>
+									Classification of the basic means of transport (e.g. “Parcel” and “Truck”).
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+										<xsd:restriction base="xsd:string">
+											<xsd:maxLength value="40"/>
+										</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:attribute>
+						<xsd:attribute name="TransportMethodOption" use="required">
+							<xsd:annotation>
+								<xsd:documentation>
+									Options connected to a transport method. Drives additional delivery 
+									cost. (E.g. “Standard”, “Express”, “Low Fare”). 
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+										<xsd:restriction base="xsd:string">
+											<xsd:maxLength value="40"/>
+										</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:attribute>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Slots">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="yfc:Slot" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+			<xsd:attribute name="TimeZone" use="optional">
+				<xsd:annotation>
+					<xsd:documentation>
+						Time zone of the service time windows.
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:union>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:enumeration value=""/>
+							</xsd:restriction>
+						</xsd:simpleType>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="40"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:union>
+				</xsd:simpleType>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Slot">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="yfc:AvailableDates" minOccurs="1" maxOccurs="1"/>
+			</xsd:sequence>
+			<xsd:attribute name="EndTime" use="optional">
+				<xsd:annotation>
+					<xsd:documentation>
+						Time when the service time window ends.
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:union>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:enumeration value=""/>
+							</xsd:restriction>
+						</xsd:simpleType>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string"/>
+						</xsd:simpleType>
+					</xsd:union>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="StartTime" use="optional">
+				<xsd:annotation>
+					<xsd:documentation>
+						Time when the service time window starts
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:union>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:enumeration value=""/>
+							</xsd:restriction>
+						</xsd:simpleType>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string"/>
+						</xsd:simpleType>
+					</xsd:union>
+				</xsd:simpleType>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="AvailableDates">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="yfc:AvailableDate" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="AvailableDate">
+		<xsd:complexType>
+			<xsd:attribute name="Date" use="optional">
+				<xsd:annotation>
+					<xsd:documentation>
+						Date of the time window.
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:union>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:enumeration value=""/>
+							</xsd:restriction>
+						</xsd:simpleType>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:date"/>
+						</xsd:simpleType>
+					</xsd:union>
+				</xsd:simpleType>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="PromiseLines">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="yfc:PromiseLine" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="PromiseLine">
+		<xsd:complexType>
+			<xsd:attribute name="ItemID" use="required">
+				<xsd:annotation>
+					<xsd:documentation>
+						The identifier for the item. The ITEM_ID, UOM, and PRODUCT_CLASS form the unique 
+						inventory identifier for an order line. The ITEM_ID, UOM and ORGANIZATION_CODE 
+						form the unique item identifier for the Product Management module.
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="40"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="LineId" use="required">
+				<xsd:annotation>
+					<xsd:documentation>
+						Unique identifier for the line.
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="128"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="RequiredQty" use="required">
+				<xsd:annotation>
+					<xsd:documentation>
+						Required Quantity.
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+						<xsd:minInclusive value="0"/>
+						<xsd:totalDigits value="14"/>
+						<xsd:fractionDigits value="4"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="UnitOfMeasure" use="required">
+				<xsd:annotation>
+					<xsd:documentation>
+						The unit of measure for the product line.
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="40"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="DeliveryMethod" use="required">
+				<xsd:annotation>
+					<xsd:documentation>
+						Method of delivery.
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="DEL"/>
+						<xsd:enumeration value="PICK"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="FulfillmentType" use="optional">
+				<xsd:annotation>
+					<xsd:documentation>
+						The method of fulfilling the order line during scheduling. 
+						This field can be matched with the corresponding field in the 
+						YFS_SOURCING_RULE_HDR table and the appropriate sourcing rule can be selected.
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:union>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:enumeration value=""/>
+							</xsd:restriction>
+						</xsd:simpleType>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="40"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:union>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="ProcureFromNode" use="required">
+				<xsd:annotation>
+					<xsd:documentation>
+						Node from which shipping node can procure inventory from.
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="40"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="BundleParentLineId" use="optional">
+				<xsd:annotation>
+					<xsd:documentation>
+						Unique identifier for the parent line.
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:union>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:enumeration value=""/>
+							</xsd:restriction>
+						</xsd:simpleType>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="128"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:union>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="KitQty" use="optional">
+				<xsd:annotation>
+					<xsd:documentation>
+						Indicates quantity of child component of an SPR when ordering a single quantity of the SPR.
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:union>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:enumeration value=""/>
+							</xsd:restriction>
+						</xsd:simpleType>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:decimal">
+								<xsd:minInclusive value="0"/>
+								<xsd:totalDigits value="14"/>
+								<xsd:fractionDigits value="4"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:union>
+				</xsd:simpleType>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="UnavailableLines">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="yfc:UnavailableLine" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="UnavailableLine">
+		<xsd:complexType>
+			<xsd:attribute name="ItemID" use="required">
+				<xsd:annotation>
+					<xsd:documentation>
+						The identifier for the delivery. The ITEM_ID, UOM, and PRODUCT_CLASS form the unique
+						 inventory identifier for an order line. The ITEM_ID, UOM and ORGANIZATION_CODE 
+						 form the unique item identifier for the Product Management module. 
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="40"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="LineId" use="required">
+				<xsd:annotation>
+					<xsd:documentation>
+						Unique identifier for the unavailable line.
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="128"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="AssignedQty" use="optional">
+				<xsd:annotation>
+					<xsd:documentation>
+						Quantity that was available.
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:union>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:enumeration value=""/>
+							</xsd:restriction>
+						</xsd:simpleType>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:decimal">
+								<xsd:minInclusive value="0"/>
+								<xsd:totalDigits value="14"/>
+								<xsd:fractionDigits value="4"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:union>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="RequiredQty" use="optional">
+				<xsd:annotation>
+					<xsd:documentation>
+						Required Quantity.
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:union>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:enumeration value=""/>
+							</xsd:restriction>
+						</xsd:simpleType>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:decimal">
+								<xsd:minInclusive value="0"/>
+								<xsd:totalDigits value="14"/>
+								<xsd:fractionDigits value="4"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:union>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="UnitOfMeasure" use="required">
+				<xsd:annotation>
+					<xsd:documentation>
+						Unit Of Measure.
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="40"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="UnavailableReason" use="required">
+				<xsd:annotation>
+					<xsd:documentation>
+						Reason for non-availability of the Item.
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="40"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="BundleParentLineId" use="optional">
+				<xsd:annotation>
+					<xsd:documentation>
+						Unique identifier for the parent line (SPR).
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:union>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:enumeration value=""/>
+							</xsd:restriction>
+						</xsd:simpleType>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="128"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:union>
+				</xsd:simpleType>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="ServiceAssociations">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="yfc:ServiceAssociation" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="ServiceAssociation">
+		<xsd:complexType>
+			<xsd:attribute name="ProductLineId" use="required">
+				<xsd:annotation>
+					<xsd:documentation>
+						Unique identifier for the product line. The same value must be passed
+						in the Promise Line to identify the Product Line attached to the Service Line.
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="40"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="ServiceLineId" use="required">
+				<xsd:annotation>
+					<xsd:documentation>
+						Unique identifier for the service line. The same value must be passed in 
+						the Promise Service Line to identify the Promise Service Line attached to the Product Line
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="40"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

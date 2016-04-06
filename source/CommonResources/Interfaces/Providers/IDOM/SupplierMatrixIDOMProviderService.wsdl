@@ -1,0 +1,29 @@
+<wsdl:definitions name="SupplierMatrixIDOMProviderService" targetNamespace="ikea.com/system/iip/SupplierMatrixIDOMProviderService/1.0/" xmlns:provimplidomsupmat="ikea.com/system/iip/SupplierMatrixIDOMProviderService/1.0/" xmlns:suplmatr="http://www.sterlingcommerce.com/documentation/YCP/manageNodeTransferSchedule/input" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<wsdl:types>
+		<xsd:schema>
+			<xsd:import namespace="http://www.sterlingcommerce.com/documentation/YCP/manageNodeTransferSchedule/input" schemaLocation="../../../DataModels/ApplicationObjects/IDOM/YCP_manageNodeTransferSchedule_input.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="ManageSupplierMatrixReqMsg">
+		<wsdl:part name="NodeTransferSchedule" element="suplmatr:NodeTransferSchedule"/>
+	</wsdl:message>
+	<wsdl:portType name="SupplierMatrixIDOMProviderService">
+		<wsdl:operation name="ManageSupplierMatrix">
+			<wsdl:input message="provimplidomsupmat:ManageSupplierMatrixReqMsg"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="SupplierMatrixIDOMProviderServiceBinding" type="provimplidomsupmat:SupplierMatrixIDOMProviderService">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="ManageSupplierMatrix">
+			<soap:operation soapAction="ManageSupplierMatrix" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="SupplierMatrixIDOMProviderService">
+		<wsdl:port name="SupplierMatrixIDOMProviderServicePort" binding="provimplidomsupmat:SupplierMatrixIDOMProviderServiceBinding">
+			<soap:address location="http://localhost"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

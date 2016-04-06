@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema attributeFormDefault="unqualified"
+	elementFormDefault="qualified"
+	targetNamespace="http://www.sterlingcommerce.com/documentation/YCP/loginProvider/output"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:yfc="http://www.sterlingcommerce.com/documentation/YCP/loginProvider/output">
+	<xsd:annotation yfc:fileName="YCP_loginProvider_output.xsd"
+		yfc:rootElement="Login" />
+	<xsd:element name="Login" type="yfc:LoginXSDType" />
+	<xsd:complexType name="LoginXSDType">
+		<xsd:attribute name="LoginID" type="yfc:LoginId" use="optional">
+			<xsd:annotation>
+				<xsd:documentation>The login ID for the user.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="UserToken" type="yfc:SessionId"
+			use="optional">
+			<xsd:annotation>
+				<xsd:documentation>The identifier for the session used by the user.
+					A session is a series of interactions between two communication end
+					points that occur during the span of a single connection.
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+	<xsd:simpleType name="LoginId">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="50" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="SessionId">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="1024" />
+		</xsd:restriction>
+	</xsd:simpleType>
+</xsd:schema>

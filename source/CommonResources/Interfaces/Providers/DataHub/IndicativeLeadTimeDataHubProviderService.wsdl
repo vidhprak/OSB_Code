@@ -1,0 +1,29 @@
+<wsdl:definitions name="IndicativeLeadTimeDataHubProviderService" targetNamespace="ikea.com/system/iip/IndicativeLeadTimeDataHubProviderService/1.0/" xmlns:provimplDataHubitem="ikea.com/system/iip/IndicativeLeadTimeDataHubProviderService/1.0/" xmlns:mngitem="http://www.sterlingcommerce.com/documentation/YFS/REALTIME_ATP_MONITOR/REALTIME_AVAILABILITY_CHANGE" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<wsdl:types>
+		<xsd:schema>
+			<xsd:import namespace="http://www.sterlingcommerce.com/documentation/YFS/REALTIME_ATP_MONITOR/REALTIME_AVAILABILITY_CHANGE" schemaLocation="../../../DataModels/ApplicationObjects/IDOM/YFS_processIndicativeLeadTime_Input.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IndicativeLeadTimeReqMsg">
+		<wsdl:part name="AvailabilityChange" element="mngitem:AvailabilityChange"/>
+	</wsdl:message>
+	<wsdl:portType name="IndicativeLeadTimeDataHubProviderService">
+		<wsdl:operation name="processIndicativeLeadTime">
+			<wsdl:input message="provimplDataHubitem:IndicativeLeadTimeReqMsg"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IndicativeLeadTimeDataHubProviderServiceBinding" type="provimplDataHubitem:IndicativeLeadTimeDataHubProviderService">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="processIndicativeLeadTime">
+			<soap:operation soapAction="SyncItem" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IndicativeLeadTimeDataHubProviderService">
+		<wsdl:port name="IndicativeLeadTimeDataHubProviderServicePort" binding="provimplDataHubitem:IndicativeLeadTimeDataHubProviderServiceBinding">
+			<soap:address location="http://localhost"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

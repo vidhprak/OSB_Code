@@ -1,0 +1,182 @@
+<definitions targetNamespace="http://xmlns.oracle.com/apps/mdm/customer" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsdLocal1="http://www.siebel.com/xml/IKEAPersonReadIO" xmlns:xsdLocal3="http://www.siebel.com/xml/SwiOrganizationIO" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsdLocal4="http://www.siebel.com/xml/UCMMergeRequestRs" xmlns:xsdLocal2="http://www.siebel.com/xml/SwiOrganizationExtIO" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://xmlns.oracle.com/apps/mdm/customer">
+	<types>
+		<xsd:schema>
+			<xsd:import namespace="http://xmlns.oracle.com/apps/mdm/customer" schemaLocation="../../../DataModels/ApplicationObjects/ICM/CustomerIO.xsd"/>
+		</xsd:schema>
+	</types>
+	<message name="OrganizationRead_Input">
+		<part name="OrganizationRead_Input" element="tns:OrganizationRead_Input"/>
+	</message>
+	<message name="OrganizationRead_Output">
+		<part name="OrganizationRead_Output" element="tns:OrganizationRead_Output"/>
+	</message>
+	<message name="getOrganization_Input">
+		<part name="getOrganization_Input" element="tns:getOrganization_Input"/>
+	</message>
+	<message name="getOrganization_Output">
+		<part name="getOrganization_Output" element="tns:getOrganization_Output"/>
+	</message>
+	<message name="createOrganization_Input">
+		<part name="createOrganization_Input" element="tns:createOrganization_Input"/>
+	</message>
+	<message name="createOrganization_Output">
+		<part name="createOrganization_Output" element="tns:createOrganization_Output"/>
+	</message>
+	<message name="updateOrganization_Input">
+		<part name="updateOrganization_Input" element="tns:updateOrganization_Input"/>
+	</message>
+	<message name="updateOrganization_Output">
+		<part name="updateOrganization_Output" element="tns:updateOrganization_Output"/>
+	</message>
+	<message name="deleteOrganization_Input">
+		<part name="deleteOrganization_Input" element="tns:deleteOrganization_Input"/>
+	</message>
+	<message name="deleteOrganization_Output">
+		<part name="deleteOrganization_Output" element="tns:deleteOrganization_Output"/>
+	</message>
+	<message name="OrganizationSubmitMergeRequest_Input">
+		<part name="OrganizationSubmitMergeRequest_Input" element="tns:OrganizationSubmitMergeRequest_Input"/>
+	</message>
+	<message name="OrganizationSubmitMergeRequest_Output">
+		<part name="OrganizationSubmitMergeRequest_Output" element="tns:OrganizationSubmitMergeRequest_Output"/>
+	</message>
+	<message name="ICOWSearch_Input">
+		<part name="ICOWSearch_Input" element="tns:ICOWSearch_Input"/>
+	</message>
+	<message name="ICOWSearch_Output">
+		<part name="ICOWSearch_Output" element="tns:ICOWSearch_Output"/>
+	</message>
+	<portType name="OrganizationRead">
+		<operation name="OrganizationRead">
+			<input message="tns:OrganizationRead_Input"/>
+			<output message="tns:OrganizationRead_Output"/>
+		</operation>
+	</portType>
+	<portType name="OrganizationQueryService">
+		<operation name="getOrganization">
+			<input message="tns:getOrganization_Input"/>
+			<output message="tns:getOrganization_Output"/>
+		</operation>
+	</portType>
+	<portType name="OrganizationService">
+		<operation name="createOrganization">
+			<input message="tns:createOrganization_Input"/>
+			<output message="tns:createOrganization_Output"/>
+		</operation>
+		<operation name="updateOrganization">
+			<input message="tns:updateOrganization_Input"/>
+			<output message="tns:updateOrganization_Output"/>
+		</operation>
+		<operation name="deleteOrganization">
+			<input message="tns:deleteOrganization_Input"/>
+			<output message="tns:deleteOrganization_Output"/>
+		</operation>
+	</portType>
+	<portType name="OrganizationMergeRequest">
+		<operation name="OrganizationSubmitMergeRequest">
+			<input message="tns:OrganizationSubmitMergeRequest_Input"/>
+			<output message="tns:OrganizationSubmitMergeRequest_Output"/>
+		</operation>
+	</portType>
+	<portType name="ICOWSearch">
+		<operation name="ICOWSearch">
+			<input message="tns:ICOWSearch_Input"/>
+			<output message="tns:ICOWSearch_Output"/>
+		</operation>
+	</portType>
+	<binding name="OrganizationRead" type="tns:OrganizationRead">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="OrganizationRead">
+			<soap:operation soapAction="document/http://xmlns.oracle.com/apps/mdm/customer:OrganizationRead"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+	</binding>
+	<binding name="OrganizationQueryService" type="tns:OrganizationQueryService">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="getOrganization">
+			<soap:operation soapAction="document/http://xmlns.oracle.com/apps/mdm/customer:getOrganization"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+	</binding>
+	<binding name="OrganizationService" type="tns:OrganizationService">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="createOrganization">
+			<soap:operation soapAction="document/http://xmlns.oracle.com/apps/mdm/customer:createOrganization"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="updateOrganization">
+			<soap:operation soapAction="document/http://xmlns.oracle.com/apps/mdm/customer:updateOrganization"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="deleteOrganization">
+			<soap:operation soapAction="document/http://xmlns.oracle.com/apps/mdm/customer:deleteOrganization"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+	</binding>
+	<binding name="OrganizationMergeRequest" type="tns:OrganizationMergeRequest">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="OrganizationSubmitMergeRequest">
+			<soap:operation soapAction="document/http://xmlns.oracle.com/apps/mdm/customer:OrganizationSubmitMergeRequest"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+	</binding>
+	<binding name="ICOWSearch" type="tns:ICOWSearch">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="ICOWSearch">
+			<soap:operation soapAction="document/http://xmlns.oracle.com/apps/mdm/customer:ICOWSearch"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="OrganizationService">
+		<port name="OrganizationRead" binding="tns:OrganizationRead">
+			<soap:address location="http://129.35.212.179:7777/eai_enu/start.swe?SWEExtSource=SecureWebService&amp;SWEExtCmd=Execute&amp;WSSOAP=1"/>
+		</port>
+		<port name="OrganizationQueryService" binding="tns:OrganizationQueryService">
+			<soap:address location="http://129.35.212.179:7777/eai_enu/start.swe?SWEExtSource=SecureWebService&amp;SWEExtCmd=Execute&amp;WSSOAP=1"/>
+		</port>
+		<port name="OrganizationService" binding="tns:OrganizationService">
+			<soap:address location="http://129.35.212.179:7777/eai_enu/start.swe?SWEExtSource=SecureWebService&amp;SWEExtCmd=Execute&amp;WSSOAP=1"/>
+		</port>
+		<port name="OrganizationMergeRequest" binding="tns:OrganizationMergeRequest">
+			<soap:address location="http://129.35.212.179:7777/eai_enu/start.swe?SWEExtSource=SecureWebService&amp;SWEExtCmd=Execute&amp;WSSOAP=1"/>
+		</port>
+		<port name="ICOWSearch" binding="tns:ICOWSearch">
+			<soap:address location="http://&lt;webserver>/eai_&lt;lang>/start.swe?SWEExtSource=WebService&amp;SWEExtCmd=Execute&amp;WSSOAP=1"/>
+		</port>
+	</service>
+</definitions>

@@ -1,0 +1,147 @@
+<xsd:schema elementFormDefault="qualified" attributeFormDefault="unqualified" targetNamespace="http://xmlns.oracle.com/apps/mdm/customer" xmlns:xsdLocal3="http://www.siebel.com/xml/SwiOrganizationIO" xmlns:xsdLocal4="http://www.siebel.com/xml/UCMMergeRequestRs" xmlns:xsdLocal1="http://www.siebel.com/xml/IKEAPersonReadIO" xmlns:xsdLocal2="http://www.siebel.com/xml/SwiOrganizationExtIO" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import schemaLocation="SwiOrganizationIO.xsd" namespace="http://www.siebel.com/xml/SwiOrganizationIO"/>
+			<xsd:import schemaLocation="SwiOrganizationExtIO.xsd" namespace="http://www.siebel.com/xml/SwiOrganizationExtIO"/>
+			<xsd:import schemaLocation="UCMMergeRequestRs.xsd" namespace="http://www.siebel.com/xml/UCMMergeRequestRs"/>
+			<xsd:import schemaLocation="IKEAPersonReadIO.xsd" namespace="http://www.siebel.com/xml/IKEAPersonReadIO"/>
+			
+			<xsd:element name="ICOWSearch_Input">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element ref="xsdLocal2:ListOfSwiOrganizationExtIO"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="ICOWSearch_Output">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="JMSMessageID" type="xsd:string"/>
+						<xsd:element ref="xsdLocal2:ListOfSwiOrganizationExtIO"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="OrganizationRead_Input">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element ref="xsdLocal1:ListOfIkeaAccountReadIO"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="OrganizationRead_Output">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Error_spcCode" type="xsd:string"/>
+						<xsd:element name="Error_spcMessage" type="xsd:string"/>
+						<xsd:element ref="xsdLocal2:ListOfSwiOrganizationExtIO"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="getOrganization_Input">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Process_spcInstance_spcId" type="xsd:string"/>
+						<xsd:element ref="xsdLocal3:ListOfSwiOrganizationIO"/>
+						<xsd:element name="Object_spcId" type="xsd:string"/>
+						<xsd:element name="RealtimePubSub" type="xsd:string"/>
+						<xsd:element name="Siebel_spcOperation_spcObject_spcId" type="xsd:string"/>
+						<xsd:element name="_sblesc_lstValue_grt" type="xsd:string"/>
+						<xsd:element name="Error_spcCode" type="xsd:string"/>
+						<xsd:element name="Error_spcMessage" type="xsd:string"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="getOrganization_Output">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="_sblesc_lstValue_grt" type="xsd:string"/>
+						<xsd:element name="Error_spcCode" type="xsd:string"/>
+						<xsd:element name="Error_spcMessage" type="xsd:string"/>
+						<xsd:element name="Object_spcId" type="xsd:string"/>
+						<xsd:element name="Process_spcInstance_spcId" type="xsd:string"/>
+						<xsd:element name="RealtimePubSub" type="xsd:string"/>
+						<xsd:element name="Siebel_spcOperation_spcObject_spcId" type="xsd:string"/>
+						<xsd:element ref="xsdLocal3:ListOfSwiOrganizationIO"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="createOrganization_Input">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element ref="xsdLocal2:ListOfSwiOrganizationExtIO"/>
+						<xsd:element name="RealtimePubSub" type="xsd:string"/>
+						<xsd:element name="_sblesc_lstValue_grt" type="xsd:string"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="createOrganization_Output">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="_sblesc_lstValue_grt" type="xsd:string"/>
+						<xsd:element name="Error_spcCode" type="xsd:string"/>
+						<xsd:element name="Error_spcMessage" type="xsd:string"/>
+						<xsd:element name="Process_spcInstance_spcId" type="xsd:string"/>
+						<xsd:element name="RealtimePubSub" type="xsd:string"/>
+						<xsd:element ref="xsdLocal2:ListOfSwiOrganizationExtIO"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="updateOrganization_Input">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element ref="xsdLocal2:ListOfSwiOrganizationExtIO"/>
+						<xsd:element name="RealtimePubSub" type="xsd:string"/>
+						<xsd:element name="_sblesc_lstValue_grt" type="xsd:string"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="updateOrganization_Output">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="_sblesc_lstValue_grt" type="xsd:string"/>
+						<xsd:element name="Error_spcCode" type="xsd:string"/>
+						<xsd:element name="Error_spcMessage" type="xsd:string"/>
+						<xsd:element name="Process_spcInstance_spcId" type="xsd:string"/>
+						<xsd:element name="RealtimePubSub" type="xsd:string"/>
+						<xsd:element ref="xsdLocal2:ListOfSwiOrganizationExtIO"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="deleteOrganization_Input">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element ref="xsdLocal2:ListOfSwiOrganizationExtIO"/>
+						<xsd:element name="RealtimePubSub" type="xsd:string"/>
+						<xsd:element name="_sblesc_lstValue_grt" type="xsd:string"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="deleteOrganization_Output">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="_sblesc_lstValue_grt" type="xsd:string"/>
+						<xsd:element name="Error_spcCode" type="xsd:string"/>
+						<xsd:element name="Error_spcMessage" type="xsd:string"/>
+						<xsd:element name="Process_spcInstance_spcId" type="xsd:string"/>
+						<xsd:element name="RealtimePubSub" type="xsd:string"/>
+						<xsd:element ref="xsdLocal2:ListOfSwiOrganizationExtIO"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="OrganizationSubmitMergeRequest_Input">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="RequestStatus" type="xsd:string"/>
+						<xsd:element name="SystemId" minOccurs="0" type="xsd:string"/>
+						<xsd:element name="MatchId" type="xsd:string"/>
+						<xsd:element name="MasterId" type="xsd:string"/>
+						<xsd:element name="ObjectType" type="xsd:string"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="OrganizationSubmitMergeRequest_Output">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element ref="xsdLocal4:ListOfUCMMergeRequestRs"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:schema>

@@ -1,0 +1,44 @@
+<wsdl:definitions name="InventorySyncIDOMProviderService" targetNamespace="ikea.com/system/iip/InventorySyncIDOMProviderService/1.0/" xmlns:provimplsominvsync="ikea.com/system/iip/InventorySyncIDOMProviderService/1.0/" xmlns:eofinv="ikea.com/system/iip/InventorySyncEOF/1.0/" xmlns:syncinv="http://www.sterlingcommerce.com/documentation/INV/loadInventoryMismatch/input" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<wsdl:types>
+		<xsd:schema>
+			<xsd:import namespace="http://www.sterlingcommerce.com/documentation/INV/loadInventoryMismatch/input" schemaLocation="../../../DataModels/ApplicationObjects/IDOM/INV_loadInventoryMismatch_input.xsd"/>
+		</xsd:schema>
+		<xsd:schema>
+			<xsd:import namespace="ikea.com/system/iip/InventorySyncEOF/1.0/" schemaLocation="../../../DataModels/ApplicationObjects/IDOM/INV_loadInventoryMismatch_eof.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="CreateInventorySyncReqMsg">
+		<wsdl:part name="Items" element="syncinv:Items"/>
+	</wsdl:message>
+	<wsdl:message name="CreateInventoryEOFReqMsg">
+		<wsdl:part name="EOF" element="eofinv:EOF"/>
+	</wsdl:message>
+	<wsdl:portType name="InventorySyncIDOMProviderService">
+		<wsdl:operation name="CreateInventorySync">
+			<wsdl:input message="provimplsominvsync:CreateInventorySyncReqMsg"/>
+		</wsdl:operation>
+		<wsdl:operation name="CreateInventoryEOF">
+			<wsdl:input message="provimplsominvsync:CreateInventoryEOFReqMsg"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="InventorySyncIDOMProviderServiceBinding" type="provimplsominvsync:InventorySyncIDOMProviderService">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="CreateInventorySync">
+			<soap:operation soapAction="CreateInventorySync" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="CreateInventoryEOF">
+			<soap:operation soapAction="CreateInventoryEOF" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="InventorySyncIDOMProviderService">
+		<wsdl:port name="InventorySyncIDOMProviderServicePort" binding="provimplsominvsync:InventorySyncIDOMProviderServiceBinding">
+			<soap:address location="http://localhost"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

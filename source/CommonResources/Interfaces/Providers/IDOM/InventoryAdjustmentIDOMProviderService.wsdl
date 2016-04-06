@@ -1,0 +1,29 @@
+<wsdl:definitions name="InventoryAdjustmentIDOMProviderService" targetNamespace="ikea.com/system/iip/InventoryAdjustmentIDOMProviderService/1.0/" xmlns:provimplsominvadj="ikea.com/system/iip/InventoryAdjustmentIDOMProviderService/1.0/" xmlns:adjustinv="http://www.sterlingcommerce.com/documentation/YFS/adjustInventory/input" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<wsdl:types>
+		<xsd:schema>
+			<xsd:import namespace="http://www.sterlingcommerce.com/documentation/YFS/adjustInventory/input" schemaLocation="../../../DataModels/ApplicationObjects/IDOM/YFS_adjustInventory_input.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="CreateInventoryAdjustmentReqMsg">
+		<wsdl:part name="Items" element="adjustinv:Items"/>
+	</wsdl:message>
+	<wsdl:portType name="InventoryAdjustmentIDOMProviderService">
+		<wsdl:operation name="CreateInventoryAdjustment">
+			<wsdl:input message="provimplsominvadj:CreateInventoryAdjustmentReqMsg"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="InventoryAdjustmentIDOMProviderServiceBinding" type="provimplsominvadj:InventoryAdjustmentIDOMProviderService">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="CreateInventoryAdjustment">
+			<soap:operation soapAction="CreateInventoryAdjustment" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="InventoryAdjustmentIDOMProviderService">
+		<wsdl:port name="InventoryAdjustmentIDOMProviderServicePort" binding="provimplsominvadj:InventoryAdjustmentIDOMProviderServiceBinding">
+			<soap:address location="http://localhost"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

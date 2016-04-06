@@ -1,0 +1,29 @@
+<wsdl:definitions name="OrganizationIDOMProviderService" targetNamespace="ikea.com/system/iip/OrganizationIDOMProviderService/1.0/" xmlns:provimplidomOrg="ikea.com/system/iip/OrganizationIDOMProviderService/1.0/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:mngorg="http://www.sterlingcommerce.com/documentation/YCP/manageOrganizationHierarchy/input">
+	<wsdl:types>
+		<xsd:schema>
+			<xsd:import schemaLocation="../../../DataModels/ApplicationObjects/IDOM/YCP_manageOrganizationHierarchy_input.xsd" namespace="http://www.sterlingcommerce.com/documentation/YCP/manageOrganizationHierarchy/input"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="SyncOrganizationReqMsg">
+		<wsdl:part element="mngorg:Organization" name="Organization"/>
+	</wsdl:message>
+	<wsdl:portType name="OrganizationIDOMProviderService">
+		<wsdl:operation name="SyncOrganization">
+			<wsdl:input message="provimplidomOrg:SyncOrganizationReqMsg"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="OrganizationIDOMProviderServiceSOAP" type="provimplidomOrg:OrganizationIDOMProviderService">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="SyncOrganization">
+			<soap:operation soapAction="ikea.com/system/iip/OrganizationIDOMProviderService/1.0/SyncOrganization"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="OrganizationIDOMProviderService">
+		<wsdl:port binding="provimplidomOrg:OrganizationIDOMProviderServiceSOAP" name="OrganizationIDOMProviderServiceSOAP">
+			<soap:address location="http://localhost/"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

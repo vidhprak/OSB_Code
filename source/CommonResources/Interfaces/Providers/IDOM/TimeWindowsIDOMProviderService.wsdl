@@ -1,0 +1,45 @@
+<wsdl:definitions name="TimeWindowsIDOMProviderService" targetNamespace="ikea.com/system/iip/TimeWindowsIDOMProviderService/1.0/" xmlns:provimpliselltimewin="ikea.com/system/iip/TimeWindowsIDOMProviderService/1.0/" xmlns:timewinout="http://www.sterlingcommerce.com/documentation/YFS/getTimeWindows/output" xmlns:timewininp="http://www.sterlingcommerce.com/documentation/YFS/getTimeWindows/input" xmlns:iipfaultmsg="ikea.com/system/iip/IIPFaultMessage/1.0/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:svcdoc="http://xmlns.oracle.com/Services/Documentation/V1">
+	<wsdl:types>
+		<xsd:schema>
+			<xsd:import namespace="http://www.sterlingcommerce.com/documentation/YFS/getTimeWindows/input" schemaLocation="../../../DataModels/ApplicationObjects/IDOM/YFS_getTimeWindows_input.xsd"/>
+			<xsd:import namespace="http://www.sterlingcommerce.com/documentation/YFS/getTimeWindows/output" schemaLocation="../../../DataModels/ApplicationObjects/IDOM/YFS_getTimeWindows_output.xsd"/>
+			<xsd:import namespace="ikea.com/system/iip/IIPFaultMessage/1.0/" schemaLocation="../../../DataModels/Infrastructure/ErrorHandling/V1/IIPFaultMessage.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="GetTimeWindowsReqMsg">
+		<wsdl:part name="Promise" element="timewininp:Promise"/>
+	</wsdl:message>
+	<wsdl:message name="GetTimeWindowsRespMsg">
+		<wsdl:part name="Promise" element="timewinout:Promise"/>
+	</wsdl:message>
+	<wsdl:message name="GetTimeWindowsFaultMsg">
+		<wsdl:part name="Fault" element="iipfaultmsg:IIPFaultMessage"/>
+	</wsdl:message>
+	<wsdl:portType name="TimeWindowsIDOMProviderService">
+		<wsdl:operation name="GetTimeWindows">
+			<wsdl:input message="provimpliselltimewin:GetTimeWindowsReqMsg"/>
+			<wsdl:output message="provimpliselltimewin:GetTimeWindowsRespMsg"/>
+			<wsdl:fault name="fault" message="provimpliselltimewin:GetTimeWindowsFaultMsg"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="TimeWindowsIDOMProviderServiceBinding" type="provimpliselltimewin:TimeWindowsIDOMProviderService">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="GetTimeWindows">
+			<soap:operation soapAction="GetTimeWindows" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="fault">
+				<soap:fault name="fault" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="TimeWindowsIDOMProviderService">
+		<wsdl:port name="TimeWindowsIDOMProviderServicePort" binding="provimpliselltimewin:TimeWindowsIDOMProviderServiceBinding">
+			<soap:address location="http://localhost"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

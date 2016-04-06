@@ -1,0 +1,37 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>sdg.core.osb</groupId>
+    <artifactId>OSBworkspace</artifactId>
+    <version>1.0</version>
+    <relativePath>../parent/workspace/pom.xml</relativePath>
+  </parent>
+  <groupId>sdg</groupId>
+  <artifactId>osb.test.sample1</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+<name>${project.groupId}:${project.artifactId}</name>
+	<description>
+        Acceptance Tests for the osb code
+    </description>
+	
+	<dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+	
+    <pluginRepositories>
+        <pluginRepository>
+            <id>eviwarePluginRepository</id>
+            <url>http://www.soapui.org/repository/maven2</url>
+        </pluginRepository>
+    </pluginRepositories>
+	
+	<properties>
+    <buildDirectory>${basedir}/osb-acceptance-test</buildDirectory>
+    </properties>
+	
+ </project>

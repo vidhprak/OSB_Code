@@ -1,0 +1,45 @@
+<wsdl:definitions name="DeliveryOptionsIDOMProviderService" targetNamespace="ikea.com/system/iip/DeliveryOptionsIDOMProviderService/1.0/" xmlns:provimplsomdelopt="ikea.com/system/iip/DeliveryOptionsIDOMProviderService/1.0/" xmlns:deliveryoptout="http://www.sterlingcommerce.com/documentation/YFS/getDeliveryOptions/output" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:deliveryoptinp="http://www.sterlingcommerce.com/documentation/YFS/getDeliveryOptions/input" xmlns:iipfaultmsg="ikea.com/system/iip/IIPFaultMessage/1.0/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:svcdoc="http://xmlns.oracle.com/Services/Documentation/V1">
+	<wsdl:types>
+		<xsd:schema>
+			<xsd:import namespace="http://www.sterlingcommerce.com/documentation/YFS/getDeliveryOptions/input" schemaLocation="../../../DataModels/ApplicationObjects/IDOM/YFS_getDeliveryOptions_input.xsd"/>
+			<xsd:import namespace="http://www.sterlingcommerce.com/documentation/YFS/getDeliveryOptions/output" schemaLocation="../../../DataModels/ApplicationObjects/IDOM/YFS_getDeliveryOptions_output.xsd"/>
+			<xsd:import namespace="ikea.com/system/iip/IIPFaultMessage/1.0/" schemaLocation="../../../DataModels/Infrastructure/ErrorHandling/V1/IIPFaultMessage.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="GetDeliveryOptionsReqMsg">
+		<wsdl:part name="Promise" element="deliveryoptinp:Promise"/>
+	</wsdl:message>
+	<wsdl:message name="GetDeliveryOptionsRespMsg">
+		<wsdl:part name="Promise" element="deliveryoptout:Promise"/>
+	</wsdl:message>
+	<wsdl:message name="GetDeliveryOptionsFaultMsg">
+		<wsdl:part name="Fault" element="iipfaultmsg:IIPFaultMessage"/>
+	</wsdl:message>
+	<wsdl:portType name="DeliveryOptionsIDOMProviderService">
+		<wsdl:operation name="GetDeliveryOptions">
+			<wsdl:input message="provimplsomdelopt:GetDeliveryOptionsReqMsg"/>
+			<wsdl:output message="provimplsomdelopt:GetDeliveryOptionsRespMsg"/>
+			<wsdl:fault message="provimplsomdelopt:GetDeliveryOptionsFaultMsg" name="fault"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="DeliveryOptionsIDOMProviderServiceBinding" type="provimplsomdelopt:DeliveryOptionsIDOMProviderService">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="GetDeliveryOptions">
+			<soap:operation style="document" soapAction="GetDeliveryOptions"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="fault">
+				<soap:fault name="fault" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="DeliveryOptionsIDOMProviderService">
+		<wsdl:port binding="provimplsomdelopt:DeliveryOptionsIDOMProviderServiceBinding" name="DeliveryOptionsIDOMProviderServicePort">
+			<soap:address location="http://xmlns.ikea.com/"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

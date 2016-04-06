@@ -1,0 +1,29 @@
+<wsdl:definitions name="ItemIDOMProviderService" targetNamespace="ikea.com/system/iip/ItemIDOMProviderService/1.0/" xmlns:provimplidomitem="ikea.com/system/iip/ItemIDOMProviderService/1.0/" xmlns:mngitem="http://www.sterlingcommerce.com/documentation/YCM/manageItem/input" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<wsdl:types>
+		<xsd:schema>
+			<xsd:import namespace="http://www.sterlingcommerce.com/documentation/YCM/manageItem/input" schemaLocation="../../../DataModels/ApplicationObjects/IDOM/YCM_manageItem_input.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="SyncItemReqMsg">
+		<wsdl:part name="ItemList" element="mngitem:ItemList"/>
+	</wsdl:message>
+	<wsdl:portType name="ItemIDOMProviderService">
+		<wsdl:operation name="SyncItem">
+			<wsdl:input message="provimplidomitem:SyncItemReqMsg"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="ItemIDOMProviderServiceBinding" type="provimplidomitem:ItemIDOMProviderService">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="SyncItem">
+			<soap:operation soapAction="SyncItem" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="ItemIDOMProviderService">
+		<wsdl:port name="ItemIDOMProviderServicePort" binding="provimplidomitem:ItemIDOMProviderServiceBinding">
+			<soap:address location="http://localhost"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

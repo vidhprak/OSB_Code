@@ -1,0 +1,137 @@
+<wsdl:definitions name="CustomerICMProviderService" targetNamespace="ikea.com/system/iip/CustomerICMProviderService/1.0/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:provimplicmcust="ikea.com/system/iip/CustomerICMProviderService/1.0/" xmlns:customer="http://xmlns.oracle.com/apps/mdm/customer" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:custread="http://www.siebel.com/xml/IKEAPersonReadIO" xmlns:iipfaultmsg="ikea.com/system/iip/IIPFaultMessage/1.0/">
+	<wsdl:types>
+		<xsd:schema>
+			<xsd:import schemaLocation="../../../DataModels/ApplicationObjects/ICM/IKEAPersonReadIO.xsd" namespace="http://www.siebel.com/xml/IKEAPersonReadIO"/>
+			<xsd:import schemaLocation="../../../DataModels/Infrastructure/ErrorHandling/V1/IIPFaultMessage.xsd" namespace="ikea.com/system/iip/IIPFaultMessage/1.0/"/>
+			<xsd:import schemaLocation="../../../DataModels/ApplicationObjects/ICM/CustomerIO.xsd" namespace="http://xmlns.oracle.com/apps/mdm/customer"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="CreateOrganizationReqMsg">
+		<wsdl:part name="createOrganization_Input" element="customer:createOrganization_Input"/>
+	</wsdl:message>
+	<wsdl:message name="CreateOrganizationRespMsg">
+		<wsdl:part name="createOrganization_Output" element="customer:createOrganization_Output"/>
+	</wsdl:message>
+	<wsdl:message name="UpdateOrganizationReqMsg">
+		<wsdl:part name="updateOrganization_Input" element="customer:updateOrganization_Input"/>
+	</wsdl:message>
+	<wsdl:message name="UpdateOrganizationRespMsg">
+		<wsdl:part name="updateOrganization_Output" element="customer:updateOrganization_Output"/>
+	</wsdl:message>
+	<wsdl:message name="DeleteOrganizationReqMsg">
+		<wsdl:part name="deleteOrganization_Input" element="customer:deleteOrganization_Input"/>
+	</wsdl:message>
+	<wsdl:message name="DeleteOrganizationRespMsg">
+		<wsdl:part name="deleteOrganization_Output" element="customer:deleteOrganization_Output"/>
+	</wsdl:message>
+	<wsdl:message name="ReadOrganizationReqMsg">
+		<wsdl:part name="OrganizationRead_Input" element="customer:OrganizationRead_Input"/>
+	</wsdl:message>
+	<wsdl:message name="ReadOrganizationRespMsg">
+		<wsdl:part name="OrganizationRead_Output" element="customer:OrganizationRead_Output"/>
+	</wsdl:message>
+	<wsdl:message name="FindCustomerReqMsg">
+        <wsdl:part name="ICOWSearch_Input" element="customer:ICOWSearch_Input"/>
+    </wsdl:message>
+    <wsdl:message name="FindCustomerRespMsg">
+        <wsdl:part name="ICOWSearch_Output" element="customer:ICOWSearch_Output"/>
+    </wsdl:message>
+    <wsdl:message name="CustomerFaultMsg">
+		<wsdl:part name="Fault" element="iipfaultmsg:IIPFaultMessage"/>
+	</wsdl:message>
+	<wsdl:portType name="CustomerICMProviderService">
+		<wsdl:operation name="CreateOrganization">
+			<wsdl:input message="provimplicmcust:CreateOrganizationReqMsg"/>
+			<wsdl:output message="provimplicmcust:CreateOrganizationRespMsg"/>
+			<wsdl:fault name="fault" message="provimplicmcust:CustomerFaultMsg"/>
+		</wsdl:operation>
+		<wsdl:operation name="UpdateOrganization">
+			<wsdl:input message="provimplicmcust:UpdateOrganizationReqMsg"/>
+			<wsdl:output message="provimplicmcust:UpdateOrganizationRespMsg"/>
+			<wsdl:fault name="fault" message="provimplicmcust:CustomerFaultMsg"/>
+		</wsdl:operation>
+		<wsdl:operation name="ReadOrganization">
+			<wsdl:input message="provimplicmcust:ReadOrganizationReqMsg"/>
+			<wsdl:output message="provimplicmcust:ReadOrganizationRespMsg"/>
+			<wsdl:fault name="fault" message="provimplicmcust:CustomerFaultMsg"/>
+		</wsdl:operation>
+		<wsdl:operation name="DeleteOrganization">
+			<wsdl:input message="provimplicmcust:DeleteOrganizationReqMsg"/>
+			<wsdl:output message="provimplicmcust:DeleteOrganizationRespMsg"/>
+			<wsdl:fault name="fault" message="provimplicmcust:CustomerFaultMsg"/>
+		</wsdl:operation>
+		<wsdl:operation name="FindCustomer">
+            <wsdl:input message="provimplicmcust:FindCustomerReqMsg"/>
+            <wsdl:output message="provimplicmcust:FindCustomerRespMsg"/>
+            <wsdl:fault name="fault" message="provimplicmcust:CustomerFaultMsg"/>
+        </wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="CustomerICMProviderServiceSOAP" type="provimplicmcust:CustomerICMProviderService">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="CreateOrganization">
+			<soap:operation style="document" soapAction="CreateOrganization"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="fault">
+				<soap:fault name="fault" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="UpdateOrganization">
+			<soap:operation style="document" soapAction="UpdateOrganization"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="fault">
+				<soap:fault name="fault" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="ReadOrganization">
+			<soap:operation style="document" soapAction="ReadOrganization"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="fault">
+				<soap:fault name="fault" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="DeleteOrganization">
+			<soap:operation style="document" soapAction="DeleteOrganization"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="fault">
+				<soap:fault name="fault" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="FindCustomer">
+			<soap:operation style="document" soapAction="FindCustomer"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="fault">
+				<soap:fault name="fault" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="CustomerICMProviderService">
+		<wsdl:port binding="provimplicmcust:CustomerICMProviderServiceSOAP" name="CustomerICMProviderServiceSOAP">
+			<soap:address location="http://localhost/"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

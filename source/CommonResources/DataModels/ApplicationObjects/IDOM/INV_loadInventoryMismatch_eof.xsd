@@ -1,0 +1,13 @@
+<!-- edited with XMLSpy v2010 rel. 3 (http://www.altova.com) by Unpacker (Unpacker) --><xsd:schema targetNamespace="ikea.com/system/iip/InventorySyncEOF/1.0/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:yfctype="http://www.sterlingcommerce.com/documentation/types">
+	<xsd:import namespace="http://www.sterlingcommerce.com/documentation/types" schemaLocation="datatypes.xsd"/>
+	<xsd:element name="EOF">
+		<xsd:complexType>
+			<xsd:attribute name="ShipNode" type="yfctype:Key"/>
+			<xsd:attribute name="SynchNonOnHandInventory" type="yfctype:Flag"/>
+			<xsd:attribute name="SupplyType1" type="yfctype:Text-40"/>
+			<xsd:attribute name="ReasonCode" type="yfctype:ReasonCode"/>
+			<xsd:attribute name="ReasonText" type="yfctype:ReasonText"/>
+			<xsd:attribute name="YantraMessageGroupID" type="yfctype:Text-128"/>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

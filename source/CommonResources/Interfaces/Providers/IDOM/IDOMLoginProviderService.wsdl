@@ -1,0 +1,37 @@
+<wsdl:definitions name="IDOMLoginProviderService" targetNamespace="ikea.com/system/iip/IDOMLoginProviderService/1.0/" xmlns:loginsom="ikea.com/system/iip/IDOMLoginProviderService/1.0/" xmlns:logininput="http://www.sterlingcommerce.com/documentation/YCP/loginProvider/input" xmlns:loginoutput="http://www.sterlingcommerce.com/documentation/YCP/loginProvider/output" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+	<wsdl:types>
+		<xsd:schema>
+			<xsd:import namespace="http://www.sterlingcommerce.com/documentation/YCP/loginProvider/input" schemaLocation="../../../DataModels/ApplicationObjects/IDOM/YCP_loginProvider_input.xsd"/>
+			<xsd:import namespace="http://www.sterlingcommerce.com/documentation/YCP/loginProvider/output" schemaLocation="../../../DataModels/ApplicationObjects/IDOM/YCP_loginProvider_output.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="LoginReqMsg">
+		<wsdl:part name="Login" element="logininput:Login"/>
+	</wsdl:message>
+	<wsdl:message name="LoginRespMsg">
+		<wsdl:part name="Login" element="loginoutput:Login"/>
+	</wsdl:message>
+	<wsdl:portType name="IDOMLoginProviderService">
+		<wsdl:operation name="Login">
+			<wsdl:input message="loginsom:LoginReqMsg"/>
+			<wsdl:output message="loginsom:LoginRespMsg"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="IDOMLoginProviderServiceBinding" type="loginsom:IDOMLoginProviderService">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="Login">
+			<soap:operation soapAction="Login"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="IDOMLoginProviderService">
+		<wsdl:port binding="loginsom:IDOMLoginProviderServiceBinding" name="IDOMLoginProviderServicePort">
+			<soap:address location="http://localhost/"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

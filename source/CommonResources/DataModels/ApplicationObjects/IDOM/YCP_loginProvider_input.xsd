@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema attributeFormDefault="unqualified"
+	elementFormDefault="qualified"
+	targetNamespace="http://www.sterlingcommerce.com/documentation/YCP/loginProvider/input"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:yfc="http://www.sterlingcommerce.com/documentation/YCP/loginProvider/input">
+	<xsd:annotation yfc:fileName="YCP_loginProvider_input.xsd"
+		yfc:rootElement="Login" />
+	<xsd:element name="Login">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="YFSEnvironment" type="yfc:YFSEnvironmentXSDType" maxOccurs="1" minOccurs="1" />
+				<xsd:element name="Login" type="yfc:LoginXSDType" maxOccurs="1" minOccurs="1" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="LoginXSDType">
+		<xsd:attribute name="LoginID" type="yfc:LoginId" use="required">
+			<xsd:annotation>
+				<xsd:documentation>The login ID for the user.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="Password" type="yfc:Password" use="required">
+			<xsd:annotation>
+				<xsd:documentation>The password for the user.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+	<xsd:complexType name="YFSEnvironmentXSDType">
+		<xsd:attribute name="userId" type="yfc:String" use="required" />
+	</xsd:complexType>
+	<xsd:simpleType name="LoginId">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="50" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="Password">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="100" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="String">
+		<xsd:restriction base="xsd:string" />
+	</xsd:simpleType>
+</xsd:schema>

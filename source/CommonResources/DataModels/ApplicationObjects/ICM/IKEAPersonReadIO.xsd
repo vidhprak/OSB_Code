@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema elementFormDefault="qualified"
+	attributeFormDefault="unqualified" xmlns:xsdLocal1="http://www.siebel.com/xml/IKEAPersonReadIO"
+	targetNamespace="http://www.siebel.com/xml/IKEAPersonReadIO" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:annotation>
+		<xsd:documentation>Copyright (C) 2001-2004 Siebel Systems, Inc. All
+			rights reserved. Siebel XSD Generation</xsd:documentation>
+	</xsd:annotation>
+	<xsd:element name="ListOfIkeaAccountReadIO" type="xsdLocal1:ListOfIkeaAccountReadIO" />
+	<xsd:complexType name="ListOfIkeaAccountReadIOTopElmt">
+		<xsd:sequence>
+			<xsd:element name="ListOfIkeaAccountReadIO" maxOccurs="1"
+				minOccurs="1" type="xsdLocal1:ListOfIkeaAccountReadIO" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ListOfIkeaAccountReadIO">
+		<xsd:sequence>
+			<xsd:element name="Inputs" maxOccurs="1" minOccurs="1"
+				type="xsdLocal1:Inputs" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Inputs">
+		<xsd:sequence>
+			<xsd:element name="Type" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+			<xsd:element name="Value" maxOccurs="1" minOccurs="0"
+				type="xsd:string" />
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>
