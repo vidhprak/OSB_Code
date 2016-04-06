@@ -1,4 +1,9 @@
 *.class
+alsbdebug.xml
+configfwkdebug.xml
+global-groovy.log
+soapui.log
+soapui-errors.log
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
