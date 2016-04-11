@@ -57,9 +57,9 @@
                 <artifactId>maven-soapui-plugin</artifactId>
                 <version>3.6.1</version>
                 <configuration>
-                            <projectFile>C:\OSB\osb-acceptance-test\src\test\XSDvalidation-soapui-project.xml</projectFile>
+                            <projectFile>${project.basedir}/..\osb-acceptance-test\src\test\XSDvalidation-soapui-project.xml</projectFile>
                             <junitReport>true</junitReport>
-                            <outputFolder>C:\OSB\target\surefire-reports\</outputFolder>
+                            <outputFolder>${project.basedir}/..\target\surefire-reports\</outputFolder>
 							<printReport>true</printReport>
                             <testSuite>ValidationWSSOAP_TestSuite</testSuite>
                         </configuration>
