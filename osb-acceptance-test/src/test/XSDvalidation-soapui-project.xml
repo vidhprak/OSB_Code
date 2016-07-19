@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="d7125d2f-b16c-4a7c-a2ec-f27d44a76a19" activeEnvironment="Default" name="XSDvalidation" resourceRoot="" soapui-version="5.2.1" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.actions.iface.tools.soapui.TestRunnerAction@values-local"><![CDATA[<xml-fragment xmlns:con="http://eviware.com/soapui/config">
+  <con:entry key="Environment" value="Default"/>
+  <con:entry key="Global Properties" value=""/>
+  <con:entry key="TestSuite" value="ValidationWSSOAP_TestSuite"/>
+  <con:entry key="Password" value=""/>
+  <con:entry key="TestRunner Path" value=""/>
+  <con:entry key="Tool Args" value=""/>
+  <con:entry key="Ignore Errors" value="false"/>
+  <con:entry key="Host:Port" value=""/>
+  <con:entry key="user-settings.xml Password" value=""/>
+  <con:entry key="WSS Password Type" value=""/>
+  <con:entry key="Save Project" value="false"/>
+  <con:entry key="Enable UI" value="false"/>
+  <con:entry key="System Properties" value=""/>
+  <con:entry key="Domain" value=""/>
+  <con:entry key="Coverage Report" value="false"/>
+  <con:entry key="Export JUnit Results" value="false"/>
+  <con:entry key="Export JUnit Results with test properties" value="false"/>
+  <con:entry key="Open Report" value="false"/>
+  <con:entry key="Project Properties" value=""/>
+  <con:entry key="Export All" value="false"/>
+  <con:entry key="Project Password" value=""/>
+  <con:entry key="Report Format(s)" value=""/>
+  <con:entry key="TestCase" value="&lt;all>"/>
+  <con:entry key="Print Report" value="false"/>
+  <con:entry key="Username" value=""/>
+  <con:entry key="Root Folder" value=""/>
+  <con:entry key="Select Report Type" value=""/>
+  <con:entry key="Save After" value="false"/>
+  <con:entry key="Add Settings" value="false"/>
+  <con:entry key="Endpoint" value=""/>
+</xml-fragment>]]></con:setting></con:settings><con:interface xsi:type="con:WsdlInterface" id="ecb25e53-154c-46cd-b504-46bfed868f82" wsaVersion="NONE" name="ValidationWSSOAP" type="wsdl" bindingName="{http://whitehorses.nl/validation/}ValidationWSSOAP" soapVersion="1_1" anonymous="optional" definition="http://localhost:7001/XSDvalidation/in?WSDL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:7001/XSDvalidation/in?WSDL"><con:part><con:url>http://localhost:7001/XSDvalidation/in?WSDL</con:url><con:content><![CDATA[<WL5G3N1:definitions name="ValidationWS" targetNamespace="http://whitehorses.nl/validation/" xmlns:WL5G3N0="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:WL5G3N1="http://schemas.xmlsoap.org/wsdl/" xmlns:WL5G3N2="http://whitehorses.nl/request" xmlns:WL5G3N3="http://whitehorses.nl/response" xmlns:WL5G3N4="http://whitehorses.nl/validation/" xmlns:WL5G3N5="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
+  <wsp:UsingPolicy WL5G3N1:Required="true"/>
+  <wsp:Policy WL5G3N0:Id="Mtom.xml">
+    <wsoma:OptimizedMimeSerialization xmlns:wsoma="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization"/>
+  </wsp:Policy>
+  <WL5G3N1:types>
+    <xsd:schema xmlns:WL5G3N0="http://schemas.xmlsoap.org/wsdl/" xmlns:WL5G3N1="http://whitehorses.nl/request" xmlns:WL5G3N2="http://whitehorses.nl/response" xmlns:WL5G3N3="http://whitehorses.nl/validation/" xmlns:WL5G3N4="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:req="http://whitehorses.nl/request" xmlns:resp="http://whitehorses.nl/response" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://whitehorses.nl/validation/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <xsd:import namespace="http://whitehorses.nl/request" schemaLocation="http://localhost:7001/XSDvalidation/in?SCHEMA%2FXSDvalidation%2Fxsd%2Frequest"></xsd:import>
+    </xsd:schema>
+    <xsd:schema xmlns:WL5G3N0="http://schemas.xmlsoap.org/wsdl/" xmlns:WL5G3N1="http://whitehorses.nl/request" xmlns:WL5G3N2="http://whitehorses.nl/response" xmlns:WL5G3N3="http://whitehorses.nl/validation/" xmlns:WL5G3N4="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:req="http://whitehorses.nl/request" xmlns:resp="http://whitehorses.nl/response" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://whitehorses.nl/validation/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <xsd:import namespace="http://whitehorses.nl/response" schemaLocation="http://localhost:7001/XSDvalidation/in?SCHEMA%2FXSDvalidation%2Fxsd%2Fresponse"></xsd:import>
+    </xsd:schema>
+  </WL5G3N1:types>
+  <WL5G3N1:message name="OperationRequest">
+    <WL5G3N1:part element="WL5G3N2:request" name="parameters"/>
+  </WL5G3N1:message>
+  <WL5G3N1:message name="OperationResponse">
+    <WL5G3N1:part element="WL5G3N3:response" name="parameters"/>
+  </WL5G3N1:message>
+  <WL5G3N1:portType name="ValidationWS">
+    <WL5G3N1:operation name="Operation">
+      <WL5G3N1:input message="WL5G3N4:OperationRequest"/>
+      <WL5G3N1:output message="WL5G3N4:OperationResponse"/>
+    </WL5G3N1:operation>
+  </WL5G3N1:portType>
+  <WL5G3N1:binding name="ValidationWSSOAP" type="WL5G3N4:ValidationWS">
+    <wsp:Policy>
+      <wsp:PolicyReference URI="#Mtom.xml"/>
+    </wsp:Policy>
+    <WL5G3N5:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <WL5G3N1:operation name="Operation">
+      <WL5G3N5:operation soapAction="http://whitehorses.nl/validation/Operation"/>
+      <WL5G3N1:input>
+        <WL5G3N5:body use="literal"/>
+      </WL5G3N1:input>
+      <WL5G3N1:output>
+        <WL5G3N5:body use="literal"/>
+      </WL5G3N1:output>
+    </WL5G3N1:operation>
+  </WL5G3N1:binding>
+  <WL5G3N1:service name="ValidationWSSOAPQSService">
+    <WL5G3N1:port binding="WL5G3N4:ValidationWSSOAP" name="ValidationWSSOAPQSPort">
+      <WL5G3N5:address location="http://ADMINIB-7I949P5.in.ibm.com:7001/XSDvalidation/in"/>
+    </WL5G3N1:port>
+  </WL5G3N1:service>
+</WL5G3N1:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>http://localhost:7001/XSDvalidation/in?SCHEMA%2FXSDvalidation%2Fxsd%2Frequest</con:url><con:content><![CDATA[<xs:schema targetNamespace="http://whitehorses.nl/request" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://whitehorses.nl/request" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="request">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="runid" type="xs:short"/>
+        <xs:element name="message" type="xs:string" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>http://localhost:7001/XSDvalidation/in?SCHEMA%2FXSDvalidation%2Fxsd%2Fresponse</con:url><con:content><![CDATA[<xs:schema targetNamespace="http://whitehorses.nl/response" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://whitehorses.nl/response" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="response">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="runid" type="xs:short"/>
+        <xs:element name="message" type="xs:string" minOccurs="0"/>
+        <xs:element name="errorid" type="xs:string" minOccurs="0"/>
+        <xs:element name="error" type="xs:anyType" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:7001/XSDvalidation/in</con:endpoint></con:endpoints><con:operation id="d7a28df0-6b6e-48b7-b3ab-ceb019bfd664" isOneWay="false" action="http://whitehorses.nl/validation/Operation" name="Operation" bindingOperationName="Operation" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="2f89d7b9-540d-4a6e-933c-ea91ebd6c41e" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:7001/XSDvalidation/in</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:req="http://whitehorses.nl/request">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <req:request>\r
+         <req:runid>?</req:runid>\r
+         <!--Optional:-->\r
+         <req:message>?</req:message>\r
+      </req:request>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://whitehorses.nl/validation/Operation"/></con:call></con:operation></con:interface><con:testSuite id="b730ef43-6d78-454b-8dbe-9114dfd5e022" name="ValidationWSSOAP_TestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="0610082c-3d57-47c3-8992-3c84d07a077a" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Operation TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="bd277b82-1a77-44ef-b157-633e76a4a7db" name="Operation"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ValidationWSSOAP</con:interface><con:operation>Operation</con:operation><con:request name="Operation" id="12031910-aebe-4fff-bda3-0689a3aad318"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:7001/XSDvalidation/in</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:req="http://whitehorses.nl/request">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <req:request>\r
+         <req:runid>1</req:runid>\r
+         <!--Optional:-->\r
+         <req:message>Hello</req:message>\r
+      </req:request>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://whitehorses.nl/validation/Operation" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/></con:soapui-project>
